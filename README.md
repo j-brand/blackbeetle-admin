@@ -33,4 +33,4 @@ ng config projects.blackbeetle-admin.architect.build.options.customWebpackConfig
 ng config projects.blackbeetle-admin.architect.serve.builder @angular-builders/custom-webpack:dev-server
 ng config projects.blackbeetle-admin.architect.serve.options.customWebpackConfig.path webpack.config.js
 
-npm i postcss
+npm i postcss 
