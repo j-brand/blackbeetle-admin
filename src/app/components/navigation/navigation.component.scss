@@ -1,0 +1,10 @@
+mat-sidenav {
+  width: 250px;
+}
+
+.nav-expand{
+    -moz-transition: max-height .5s ease-in-out;
+    -webkit-transition: max-height .5s ease-in-out;
+    -o-transition: max-height .5 ease-in-out;
+    transition: max-height .5s ease-in-out;
+}

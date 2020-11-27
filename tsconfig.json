@@ -3,6 +3,11 @@
   "compileOnSave": false,
   "compilerOptions": {
     "baseUrl": "./",
+    "paths": {
+      "@component/*":["src/app/components/*"],
+      "@page/*":["src/app/pages/*"],
+      "@layout/*":["src/app/layouts/*"],
+    },
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
     "declaration": false,
