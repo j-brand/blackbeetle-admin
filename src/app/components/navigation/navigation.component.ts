@@ -8,7 +8,9 @@ import { MediaMatcher } from '@angular/cdk/layout';
 })
 export class NavigationComponent implements OnDestroy {
   mobileQuery: MediaQueryList;
-  dashboard: Boolean = false;
+
+  stories: Boolean = false;
+  albums: Boolean = false;
 
   private _mobileQueryListener: () => void;
   
