@@ -10,6 +10,7 @@
       "@api/*":["src/app/_services/api/*"],
       "@model/*":["src/app/_models/*"],
       "@service/*":["src/app/_services/*"],
+      "@helper/*":["src/app/_helpers/*"],
     },
     "outDir": "./dist/out-tsc",
     "sourceMap": true,

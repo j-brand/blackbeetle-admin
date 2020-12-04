@@ -4,20 +4,20 @@
     <mat-card-header class="flex flex-col justify-center">
       <mat-icon class="text-6xl w-16">admin_panel_settings</mat-icon>
     </mat-card-header>
-    <form [formGroup]="loginForm" (ngSubmit)="onSubmit(loginForm.value)" class="example-form">
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit(loginForm.value)">
       <mat-card-content class="flex flex-col justify-center px-4">
 
         <mat-form-field class="w-full" appearance="outline">
-          <mat-label>Benutzername</mat-label>
-          <input formControlName="email" type="text" matInput>
-          <mat-hint>Hint</mat-hint>
+          <mat-label>E-Mail-Adresse</mat-label>
+          <input formControlName="email" type="text" matInput email>
+        </mat-form-field>
+        
+        <mat-form-field class="w-full" appearance="outline">
+            <mat-label>Passwort</mat-label>
+            <input formControlName="password" type="password" matInput>
         </mat-form-field>
 
-        <mat-form-field class="w-full" appearance="outline">
-          <mat-label>Passwort</mat-label>
-          <input formControlName="password" type="password" matInput>
-          <mat-hint>Hint</mat-hint>
-        </mat-form-field>
+        <mat-error *ngIf="error">{{error}}</mat-error>
 
       </mat-card-content>
       <mat-card-actions>

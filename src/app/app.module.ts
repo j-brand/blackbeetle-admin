@@ -14,7 +14,10 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-
+import { MatTableModule } from '@angular/material/table';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule} from '@angular/material/core';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 import { NavigationComponent } from '@component/navigation/navigation.component';
 import { DefaultLayoutComponent } from '@layout/default-layout/default-layout.component';
@@ -25,8 +28,9 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { JwtInterceptor } from './_helpers/jwt.interceptor';
 import { ErrorInterceptor } from './_helpers/error.interceptor';
-
-
+import { UserComponent } from './pages/user/user.component';
+import { CreateAlbumComponent } from './pages/album/create-album/create-album.component';
+import { IndexAlbumComponent } from './pages/album/index-album/index-album.component';
 
 const materialModules = [
   MatButtonModule,
@@ -36,7 +40,11 @@ const materialModules = [
   MatToolbarModule,
   MatCardModule,
   MatFormFieldModule,
-  MatInputModule
+  MatInputModule,
+  MatTableModule,
+  MatDatepickerModule,
+  MatNativeDateModule,
+  MatCheckboxModule,
 ];
 
 
@@ -48,6 +56,9 @@ const materialModules = [
     DefaultLayoutComponent,
     LoginComponent,
     RegisterComponent,
+    UserComponent,
+    CreateAlbumComponent,
+    IndexAlbumComponent,
   ],
   imports: [
     BrowserModule,

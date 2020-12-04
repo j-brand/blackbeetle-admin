@@ -41,24 +41,24 @@
       </div>
       <div [class.expanded]="albums" class="nav-item-inner-wrapper">
         <div class="nav-item-inner">
-          <a routerLink="#" class="uppercase">Übersicht</a>
+          <a routerLink="/album" class="uppercase">Übersicht</a>
         </div>
         <div class="nav-item-inner">
-          <a routerLink="#" class="uppercase">Neu</a>
+          <a routerLink="/album/create" class="uppercase">Neu</a>
         </div>
       </div>
     </button>
 
     <button routerLinkActive="bg-gray-200" type="button" class="nav-item-wrapper">
-        <a routerLink="#" class="uppercase w-full">
-          <div class="nav-item">
-            <mat-icon matListIcon>account_box</mat-icon>
-            <span class="pl-5">
-              Benutzer
-            </span>
-          </div>
-        </a>
-      </button>
+      <a routerLink="/user" class="uppercase w-full">
+        <div class="nav-item">
+          <mat-icon matListIcon>account_box</mat-icon>
+          <span class="pl-5">
+            Benutzer
+          </span>
+        </div>
+      </a>
+    </button>
   </mat-sidenav>
 
   <mat-sidenav-content>
@@ -67,7 +67,10 @@
         *ngIf="mobileQuery.matches">
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
-
+      <span class="flex-auto"></span>
+      <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon" (click)="logout()">
+        <mat-icon>exit_to_app</mat-icon>
+      </button>
     </mat-toolbar>
 
     <div class="ylb-app-content">
