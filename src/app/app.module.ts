@@ -1,7 +1,9 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-
 import { AppComponent } from './app.component';
+
+import { NgModule } from '@angular/core';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -18,19 +20,22 @@ import { MatTableModule } from '@angular/material/table';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule} from '@angular/material/core';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
+
+import { DefaultLayoutComponent } from '@layout/default-layout/default-layout.component';
+
+import { LoginComponent } from '@page/auth/login/login.component';
+import { RegisterComponent } from '@page/auth/register/register.component';
+import { DashboardComponent } from '@page/dashboard/dashboard.component';
+import { UserComponent } from '@page/user/user.component';
+import { CreateAlbumComponent } from '@page/album/create-album/create-album.component';
+import { IndexAlbumComponent } from '@page/album/index-album/index-album.component';
 
 import { NavigationComponent } from '@component/navigation/navigation.component';
-import { DefaultLayoutComponent } from '@layout/default-layout/default-layout.component';
-import { LoginComponent } from '@page/auth/login/login.component';
-import { DashboardComponent } from '@page/dashboard/dashboard.component';
-import { RegisterComponent } from '@page/auth/register/register.component';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { TokenInterceptor } from './_helpers/token.interceptor';
-import { ErrorInterceptor } from './_helpers/error.interceptor';
-import { UserComponent } from './pages/user/user.component';
-import { CreateAlbumComponent } from './pages/album/create-album/create-album.component';
-import { IndexAlbumComponent } from './pages/album/index-album/index-album.component';
+
+import { TokenInterceptor } from '@helper/token.interceptor';
+import { ErrorInterceptor } from '@helper/error.interceptor';
+import { HttpRequestInterceptor } from '@helper/http-request.interceptor';
 
 const materialModules = [
   MatButtonModule,
@@ -45,6 +50,7 @@ const materialModules = [
   MatDatepickerModule,
   MatNativeDateModule,
   MatCheckboxModule,
+  MatProgressBarModule,
 ];
 
 
@@ -70,6 +76,7 @@ const materialModules = [
     materialModules,
   ],
   providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: HttpRequestInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
   ],

@@ -1,55 +1,62 @@
-  <div class="w-full mx-auto max-w-screen-sm mt-20">
+<div class="w-full mx-auto max-w-screen-sm mt-20 px-5 md:px-0">
+  <form
+    [formGroup]="createAlbumForm"
+    (ngSubmit)="onSubmit()"
+    class="flex flex-col"
+    enctype="multipart/form-data"
+  >
+    <div class="flex">
+      <div class="w-1/2">
+        <mat-checkbox (change)="onActiveChange($event)" formControlName="active"
+          >Active</mat-checkbox
+        >
+      </div>
 
-    <form [formGroup]="createAlbumForm" (ngSubmit)="onSubmit()" class="flex flex-col" enctype="multipart/form-data">
-      <div class="flex">
+      <mat-form-field appearance="outline" class="w-1/2">
+        <mat-label>Enter a date range</mat-label>
+        <mat-date-range-input [rangePicker]="picker">
+          <input
+            matStartDate
+            formControlName="start_date"
+            placeholder="Start date"
+          />
+          <input matEndDate formControlName="end_date" placeholder="End date" />
+        </mat-date-range-input>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-date-range-picker #picker></mat-date-range-picker>
+      </mat-form-field>
+    </div>
 
-        <div class="w-1/2">
-          <mat-checkbox (change)="onActiveChange($event)" formControlName="active">Active</mat-checkbox>
-        </div>
+    <mat-form-field appearance="outline">
+      <mat-label>Titel</mat-label>
+      <input formControlName="title" matInput />
+    </mat-form-field>
 
-        <mat-form-field appearance="outline" class="w-1/2">
-          <mat-label>Enter a date range</mat-label>
-          <mat-date-range-input [rangePicker]="picker">
-            <input matStartDate formControlName="start_date" placeholder="Start date">
-            <input matEndDate formControlName="end_date" placeholder="End date">
-          </mat-date-range-input>
-          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-          <mat-date-range-picker #picker></mat-date-range-picker>
+    <mat-form-field appearance="outline">
+      <mat-label>Beschreibung</mat-label>
+      <textarea formControlName="description" matInput></textarea>
+    </mat-form-field>
+
+    <div class="flex">
+      <div class="w-1/2">
+        <mat-form-field appearance="outline">
+          <mat-label>Titelbild Text</mat-label>
+          <input formControlName="title_image_text" matInput />
         </mat-form-field>
       </div>
-
-      <mat-form-field appearance="outline">
-        <mat-label>Titel</mat-label>
-        <input formControlName="title" matInput>
-      </mat-form-field>
-
-      <mat-form-field appearance="outline">
-        <mat-label>Beschreibung</mat-label>
-        <textarea formControlName="description" matInput></textarea>
-      </mat-form-field>
-
-      <div class="flex">
-        <div class="w-1/2">
-          <mat-form-field appearance="outline">
-            <mat-label>Titelbild Text</mat-label>
-            <input formControlName="title_image_text" matInput>
-          </mat-form-field>
-        </div>
-        <div class="w-1/2">
-
-          <div class="form-group">
-            <label for="file">Choose File</label>
-            <input type="file"
-                   id="file"
-                   (change)="onFileChanged($event)"
-                  >
-        </div>
+      <img class="h-16 w-auto" [src]="imgPath" *ngIf="imgPath">
+      <div class="w-1/2">
+        <div class="form-group">
+          <label for="file">Choose File</label>
+          <input type="file" id="file" (change)="onFileChanged($event)" />
         </div>
       </div>
+    </div>
 
-      <div class="">
-        <button mat-stroked-button type="submit" class="uppercase">erstellen</button>
-      </div>
-    </form>
-
-  </div>
+    <div class="">
+      <button mat-stroked-button type="submit" class="uppercase">
+        erstellen
+      </button>
+    </div>
+  </form>
+</div>

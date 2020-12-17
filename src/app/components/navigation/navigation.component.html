@@ -3,7 +3,7 @@
     [mode]="mobileQuery.matches ? 'over' : 'side'" [opened]="!mobileQuery.matches">
     <mat-toolbar color="primary"> Business</mat-toolbar>
 
-    <button routerLinkActive="bg-gray-200" type="button" class="nav-item-wrapper">
+    <button routerLinkActive="bg-gray-200" type="button" class="nav-item-wrapper" (click)="snav.toggle()">
       <a routerLink="/dashboard" class="uppercase w-full">
         <div class="nav-item">
           <mat-icon matListIcon>dashboard</mat-icon>
@@ -24,10 +24,10 @@
       </div>
       <div [class.expanded]="stories" class="nav-item-inner-wrapper">
         <div class="nav-item-inner">
-          <a routerLink="#" class="uppercase">Übersicht</a>
+          <a routerLink="#" class="uppercase" (click)="snav.toggle()">Übersicht</a>
         </div>
         <div class="nav-item-inner">
-          <a routerLink="#" class="uppercase">Neu</a>
+          <a routerLink="#" class="uppercase" (click)="snav.toggle()">Neu</a>
         </div>
       </div>
     </button>
@@ -41,15 +41,15 @@
       </div>
       <div [class.expanded]="albums" class="nav-item-inner-wrapper">
         <div class="nav-item-inner">
-          <a routerLink="/album" class="uppercase">Übersicht</a>
+          <a routerLink="/album" class="uppercase" (click)="snav.toggle()">Übersicht</a>
         </div>
         <div class="nav-item-inner">
-          <a routerLink="/album/create" class="uppercase">Neu</a>
+          <a routerLink="/album/create" class="uppercase" (click)="snav.toggle()">Neu</a>
         </div>
       </div>
     </button>
 
-    <button routerLinkActive="bg-gray-200" type="button" class="nav-item-wrapper">
+    <button routerLinkActive="bg-gray-200" type="button" class="nav-item-wrapper" (click)="snav.toggle()">
       <a routerLink="/user" class="uppercase w-full">
         <div class="nav-item">
           <mat-icon matListIcon>account_box</mat-icon>
@@ -72,8 +72,9 @@
         <mat-icon>exit_to_app</mat-icon>
       </button>
     </mat-toolbar>
+    <mat-progress-bar mode="indeterminate" *ngIf="loading"></mat-progress-bar>
 
-    <div class="ylb-app-content">
+    <div class="ylb-app-content" (click)="snav.toggle()">
       <ng-content>
       </ng-content>
     </div>

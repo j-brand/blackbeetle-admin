@@ -1,43 +1,56 @@
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { Router } from '@angular/router';
-import { AuthService } from 'src/app/_services/auth.service';
+import { delay } from 'rxjs/operators';
+import { AuthService } from '@service/auth.service';
+import { LoadingService } from '@service/loading.service';
 
 @Component({
   selector: 'app-navigation',
   templateUrl: './navigation.component.html',
-  styleUrls: ['./navigation.component.scss']
+  styleUrls: ['./navigation.component.scss'],
 })
-export class NavigationComponent implements OnDestroy {
+export class NavigationComponent implements OnDestroy, OnInit {
   mobileQuery: MediaQueryList;
 
-  stories: Boolean = false;
-  albums: Boolean = false;
+  stories: boolean = false;
+  albums: boolean = false;
+  loading: boolean = false;
 
   private _mobileQueryListener: () => void;
-  
+
   constructor(
-    changeDetectorRef: ChangeDetectorRef, 
+    changeDetectorRef: ChangeDetectorRef,
     media: MediaMatcher,
     private router: Router,
-    private authService: AuthService
-    ) {
+    private authService: AuthService,
+    private _loading: LoadingService
+  ) {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);
   }
-  
+  ngOnInit(): void {
+    this.listenToLoading();
+  }
+
   ngOnDestroy(): void {
     this.mobileQuery.removeListener(this._mobileQueryListener);
   }
 
   expandNavElement(selector: string): void {
-    document.getElementById(selector)
+    document.getElementById(selector);
   }
 
-  logout(){
+  logout(): void {
     this.authService.logout();
     this.router.navigate(['/login']);
   }
 
+  listenToLoading(): void {
+    this._loading.loadingSub.pipe(delay(0)).subscribe((loading) => {
+      console.log(loading);
+      this.loading = loading;
+    });
+  }
 }
