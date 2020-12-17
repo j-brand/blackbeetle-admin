@@ -11,7 +11,7 @@ import { UserComponent } from '@page/user/user.component';
 import { IndexAlbumComponent } from '@page/album/index-album/index-album.component';
 import { CreateAlbumComponent } from '@page/album/create-album/create-album.component';
 
-import { AuthGuard } from '@helper/auth.guard.ts';
+import { AuthGuard } from '@helper/auth.guard';
 
 const routes: Routes = [
   {
@@ -23,19 +23,19 @@ const routes: Routes = [
       { path: 'dashboard', component: DashboardComponent },
       { path: 'user', component: UserComponent },
       {
-        path: 'album', children: [
+        path: 'album',
+        children: [
           { path: '', component: IndexAlbumComponent },
-          { path: 'create', component: CreateAlbumComponent }
-        ]
+          { path: 'create', component: CreateAlbumComponent },
+        ],
       },
-    ]
+    ],
   },
-  { path: 'login', component: LoginComponent }
+  { path: 'login', component: LoginComponent },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-
-export class AppRoutingModule { }
+export class AppRoutingModule {}

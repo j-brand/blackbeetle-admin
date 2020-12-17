@@ -26,7 +26,7 @@ import { DashboardComponent } from '@page/dashboard/dashboard.component';
 import { RegisterComponent } from '@page/auth/register/register.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { JwtInterceptor } from './_helpers/jwt.interceptor';
+import { TokenInterceptor } from './_helpers/token.interceptor';
 import { ErrorInterceptor } from './_helpers/error.interceptor';
 import { UserComponent } from './pages/user/user.component';
 import { CreateAlbumComponent } from './pages/album/create-album/create-album.component';
@@ -70,7 +70,7 @@ const materialModules = [
     materialModules,
   ],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
   ],
   bootstrap: [AppComponent]
