@@ -36,6 +36,7 @@ import { NavigationComponent } from '@component/navigation/navigation.component'
 import { TokenInterceptor } from '@helper/token.interceptor';
 import { ErrorInterceptor } from '@helper/error.interceptor';
 import { HttpRequestInterceptor } from '@helper/http-request.interceptor';
+import { EditAlbumComponent } from './pages/album/edit-album/edit-album.component';
 
 const materialModules = [
   MatButtonModule,
@@ -65,6 +66,7 @@ const materialModules = [
     UserComponent,
     CreateAlbumComponent,
     IndexAlbumComponent,
+    EditAlbumComponent,
   ],
   imports: [
     BrowserModule,

@@ -7,7 +7,7 @@
   >
     <div class="flex">
       <div class="w-1/2">
-        <mat-checkbox (change)="onActiveChange($event)" formControlName="active"
+        <mat-checkbox (change)="onActiveChange($event)" color="primary" formControlName="active"
           >Active</mat-checkbox
         >
       </div>
@@ -38,17 +38,17 @@
     </mat-form-field>
 
     <div class="flex">
-      <div class="w-1/2">
+      <div class="w-full md:w-1/2">
         <mat-form-field appearance="outline">
           <mat-label>Titelbild Text</mat-label>
           <input formControlName="title_image_text" matInput />
         </mat-form-field>
       </div>
-      <img class="h-16 w-auto" [src]="imgPath" *ngIf="imgPath">
-      <div class="w-1/2">
+      <img class="h-14 w-auto mr-5" [src]="imgPath" *ngIf="imgPath">
+      <div class="w-full md:w-1/2">
         <div class="form-group">
-          <label for="file">Choose File</label>
-          <input type="file" id="file" (change)="onFileChanged($event)" />
+          <button class="add-image-button" mat-raised-button color="primary" type="button" (click)="imageInput.click()">Bild auswählen</button>
+          <input hidden="true" type="file" #imageInput (change)="onFileChanged($event)" />
         </div>
       </div>
     </div>

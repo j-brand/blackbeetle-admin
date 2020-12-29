@@ -5,13 +5,20 @@ import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AlbumService {
+  constructor(private http: HttpClient) {}
 
-  constructor(private httpClient: HttpClient) { }
+  storeAlbum(album: FormData): Observable<Album> {
+    return this.http.post<Album>(`${environment.apiUrl}/album/create`, album);
+  }
 
-  storeAlbum(album: FormData): Observable<any> {
-    return this.httpClient.post(`${environment.apiUrl}/album/create`, album);
+  getAlbums(): Observable<Album[]> {
+    return this.http.get<Album[]>(`${environment.apiUrl}/album`);
+  }
+
+  getAlbum(id: Number): Observable<Album> {
+    return this.http.get<Album>(`${environment.apiUrl}/album/${id}`);
   }
 }

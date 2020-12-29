@@ -7,17 +7,13 @@ import {
 } from '@angular/forms';
 import { AlbumService } from '@api/album.service';
 
-import {
-  MomentDateAdapter,
-  MAT_MOMENT_DATE_ADAPTER_OPTIONS,
-} from '@angular/material-moment-adapter';
-import {
-  DateAdapter,
-  MAT_DATE_FORMATS,
-  MAT_DATE_LOCALE,
-} from '@angular/material/core';
+import { DateAdapter, MAT_DATE_FORMATS } from '@angular/material/core';
 
-import { MY_DATE_FORMATS } from '@helper/date-format';
+import { DatePipe } from '@angular/common';
+
+//import { MY_DATE_FORMATS } from '@helper/date-format';
+import { MyDateAdapter, MY_DATE_FORMATS } from '@helper/date-adapter';
+
 import * as _moment from 'moment';
 
 const moment = _moment;
@@ -27,12 +23,9 @@ const moment = _moment;
   templateUrl: './create-album.component.html',
   styleUrls: ['./create-album.component.scss'],
   providers: [
-    {
-      provide: DateAdapter,
-      useClass: MomentDateAdapter,
-      deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
-    },
+    { provide: DateAdapter, useClass: MyDateAdapter },
     { provide: MAT_DATE_FORMATS, useValue: MY_DATE_FORMATS },
+    DatePipe,
   ],
 })
 export class CreateAlbumComponent implements OnInit {
@@ -41,7 +34,8 @@ export class CreateAlbumComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private albumService: AlbumService
+    private albumService: AlbumService,
+    public datepipe: DatePipe
   ) {}
 
   ngOnInit(): void {
@@ -55,6 +49,8 @@ export class CreateAlbumComponent implements OnInit {
       end_date: new FormControl(moment()),
     });
   }
+
+  //Add preview Image on File Input Change
   public onFileChanged(event: any) {
     const reader = new FileReader();
 
@@ -80,7 +76,11 @@ export class CreateAlbumComponent implements OnInit {
       const formData = new FormData();
       Object.entries(this.createAlbumForm.value).forEach(
         ([key, value]: any[]) => {
-          formData.set(key, value);
+          if (value instanceof Date) {
+            formData.set(key, this.datepipe.transform(value, 'Y-MM-dd'));
+          } else {
+            formData.set(key, value);
+          }
         }
       );
 

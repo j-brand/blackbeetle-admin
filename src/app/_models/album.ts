@@ -1,3 +1,5 @@
+import { Image } from '@model/image';
+
 export class Album {
     id: number;
     title: String;
@@ -8,4 +10,5 @@ export class Album {
     end_date: Date;
     slug: String;
     active: number;
+    images?: Image[];
 }

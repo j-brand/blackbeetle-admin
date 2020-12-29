@@ -1,21 +1,33 @@
 <mat-sidenav-container class="sidenav-container">
-  <mat-sidenav #snav fixedInViewport="true" [attr.role]="mobileQuery.matches ? 'dialog' : 'navigation'"
-    [mode]="mobileQuery.matches ? 'over' : 'side'" [opened]="!mobileQuery.matches">
+  <mat-sidenav
+    #snav
+    fixedInViewport="true"
+    [attr.role]="mobileQuery.matches ? 'dialog' : 'navigation'"
+    [mode]="mobileQuery.matches ? 'over' : 'side'"
+    [opened]="!mobileQuery.matches"
+  >
     <mat-toolbar color="primary"> Business</mat-toolbar>
 
-    <button routerLinkActive="bg-gray-200" type="button" class="nav-item-wrapper" (click)="snav.toggle()">
+    <button
+      routerLinkActive="bg-gray-200"
+      type="button"
+      class="nav-item-wrapper"
+      (click)="snav.toggle()"
+    >
       <a routerLink="/dashboard" class="uppercase w-full">
         <div class="nav-item">
           <mat-icon matListIcon>dashboard</mat-icon>
-          <span class="pl-5">
-            Dashboard
-          </span>
-
+          <span class="pl-5"> Dashboard </span>
         </div>
       </a>
     </button>
 
-    <button routerLinkActive="bg-gray-200" type="button" class="nav-item-wrapper" (click)="stories = !stories">
+    <button
+      routerLinkActive="bg-gray-200"
+      type="button"
+      class="nav-item-wrapper"
+      (click)="stories = !stories"
+    >
       <div [class.bg-gray-200]="stories" class="nav-item">
         <mat-icon matListIcon>book</mat-icon>
         <div class="pl-5">
@@ -24,15 +36,20 @@
       </div>
       <div [class.expanded]="stories" class="nav-item-inner-wrapper">
         <div class="nav-item-inner">
-          <a routerLink="#" class="uppercase" (click)="snav.toggle()">Übersicht</a>
+          <a routerLink="#" class="uppercase">Übersicht</a>
         </div>
-        <div class="nav-item-inner">
-          <a routerLink="#" class="uppercase" (click)="snav.toggle()">Neu</a>
-        </div>
+        <a routerLink="#" class="uppercase">
+          <div class="nav-item-inner">Neu</div>
+        </a>
       </div>
     </button>
 
-    <button routerLinkActive="bg-gray-200" type="button" class="nav-item-wrapper" (click)="albums = !albums">
+    <button
+      routerLinkActive="bg-gray-200"
+      type="button"
+      class="nav-item-wrapper"
+      (click)="albums = !albums"
+    >
       <div [class.bg-gray-200]="albums" class="nav-item">
         <mat-icon matListIcon>photo_library</mat-icon>
         <div class="pl-5">
@@ -40,22 +57,24 @@
         </div>
       </div>
       <div [class.expanded]="albums" class="nav-item-inner-wrapper">
-        <div class="nav-item-inner">
-          <a routerLink="/album" class="uppercase" (click)="snav.toggle()">Übersicht</a>
-        </div>
-        <div class="nav-item-inner">
-          <a routerLink="/album/create" class="uppercase" (click)="snav.toggle()">Neu</a>
-        </div>
+        <a routerLink="/album" class="uppercase">
+          <div class="nav-item-inner">Übersicht</div>
+        </a>
+        <a routerLink="/album/create" class="uppercase">
+          <div class="nav-item-inner">Neu</div>
+        </a>
       </div>
     </button>
 
-    <button routerLinkActive="bg-gray-200" type="button" class="nav-item-wrapper" (click)="snav.toggle()">
+    <button
+      routerLinkActive="bg-gray-200"
+      type="button"
+      class="nav-item-wrapper"
+    >
       <a routerLink="/user" class="uppercase w-full">
         <div class="nav-item">
           <mat-icon matListIcon>account_box</mat-icon>
-          <span class="pl-5">
-            Benutzer
-          </span>
+          <span class="pl-5"> Benutzer </span>
         </div>
       </a>
     </button>
@@ -63,22 +82,30 @@
 
   <mat-sidenav-content>
     <mat-toolbar color="primary">
-      <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="snav.toggle()"
-        *ngIf="mobileQuery.matches">
+      <button
+        type="button"
+        aria-label="Toggle sidenav"
+        mat-icon-button
+        (click)="snav.toggle()"
+        *ngIf="mobileQuery.matches"
+      >
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
       <span class="flex-auto"></span>
-      <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon" (click)="logout()">
+      <button
+        mat-icon-button
+        class="example-icon"
+        aria-label="Example icon-button with share icon"
+        (click)="logout()"
+      >
         <mat-icon>exit_to_app</mat-icon>
       </button>
     </mat-toolbar>
     <mat-progress-bar mode="indeterminate" *ngIf="loading"></mat-progress-bar>
 
     <div class="ylb-app-content" (click)="snav.toggle()">
-      <ng-content>
-      </ng-content>
+      <ng-content> </ng-content>
     </div>
     <router-outlet></router-outlet>
   </mat-sidenav-content>
-
 </mat-sidenav-container>

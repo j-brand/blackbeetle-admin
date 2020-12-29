@@ -10,6 +10,7 @@ import { UserComponent } from '@page/user/user.component';
 
 import { IndexAlbumComponent } from '@page/album/index-album/index-album.component';
 import { CreateAlbumComponent } from '@page/album/create-album/create-album.component';
+import { EditAlbumComponent } from '@page/album/edit-album/edit-album.component';
 
 import { AuthGuard } from '@helper/auth.guard';
 
@@ -25,8 +26,9 @@ const routes: Routes = [
       {
         path: 'album',
         children: [
-          { path: '', component: IndexAlbumComponent },
-          { path: 'create', component: CreateAlbumComponent },
+          { path: '', component: IndexAlbumComponent, pathMatch: 'full'},
+          { path: 'create', component: CreateAlbumComponent, pathMatch: 'full' },
+          { path: ':id', component: EditAlbumComponent, pathMatch: 'full' },
         ],
       },
     ],
