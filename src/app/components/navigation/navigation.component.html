@@ -1,4 +1,4 @@
-<mat-sidenav-container class="sidenav-container">
+<mat-sidenav-container class="sidenav-container h-full">
   <mat-sidenav
     #snav
     fixedInViewport="true"
@@ -106,6 +106,8 @@
     <div class="ylb-app-content" (click)="snav.toggle()">
       <ng-content> </ng-content>
     </div>
-    <router-outlet></router-outlet>
+    <div class="container">
+        <router-outlet></router-outlet>
+    </div>
   </mat-sidenav-content>
 </mat-sidenav-container>

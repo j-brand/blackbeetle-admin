@@ -1,0 +1,63 @@
+<div
+  appDragAndDrop
+  class="w-full mt-6 min-h-72 bg-gray-100 border rounded-md flex flex-col justify-between"
+  (fileDropped)="onFilesDropped($event)"
+>
+  <div
+    *ngIf="files?.length == 0"
+    class="flex flex-col justify-center items-center h-full relative py-10"
+  >
+    <mat-icon
+      class="transform scale-300 mb-8"
+      aria-hidden="false"
+      aria-label="cloud upload icon"
+      >cloud_upload</mat-icon
+    >
+    <span class="text-center mb-5">Bilder hier fallen lassen <br />oder</span>
+  </div>
+
+  <div class="w-full">
+    <input
+      class="absolute hidden"
+      type="file"
+      #fileDropRef
+      multiple
+      (change)="fileBrowseHandler($event.target.files)"
+    />
+  </div>
+  <div>
+    <div
+      class="flex flex-row justify-between items-center mx-2 my-2 bg-gray-200 border border-gray-300 rounded-md relative overflow-hidden"
+      *ngFor="let file of files; let i = index"
+      [style.background]="
+        'linear-gradient(to right,black' +
+        file?.process +
+        ',white' +
+        100 -
+        file?.process +
+        ')'
+      "
+    >
+      <mat-icon
+        class="ml-2 mr-4"
+        aria-hidden="false"
+        aria-label="attachment icon"
+        >attachment</mat-icon
+      >
+      <div class="flex items-center flex-grow justify-between">
+        <span>{{ file?.name }}</span>
+        <span>{{ formatBytes(file?.size) }}</span>
+      </div>
+
+      <div
+        [style.width]="file?.progress + '%'"
+        class="absolute opacity-30 h-full bg-gray-600"
+      ></div>
+    </div>
+  </div>
+  <div class="flex justify-center w-full py-5">
+    <button (click)="fileDropRef.click()" mat-flat-button color="primary">
+      Bilder auswählen
+    </button>
+  </div>
+</div>

@@ -21,4 +21,8 @@ export class AlbumService {
   getAlbum(id: Number): Observable<Album> {
     return this.http.get<Album>(`${environment.apiUrl}/album/${id}`);
   }
+
+  updateAlbum(id: Number, album: FormData): Observable<Album> {
+    return this.http.post<Album>(`${environment.apiUrl}/album/update/${id}`, album);
+  }
 }

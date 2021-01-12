@@ -49,7 +49,6 @@ export class NavigationComponent implements OnDestroy, OnInit {
 
   listenToLoading(): void {
     this._loading.loadingSub.pipe(delay(0)).subscribe((loading) => {
-      console.log(loading);
       this.loading = loading;
     });
   }
