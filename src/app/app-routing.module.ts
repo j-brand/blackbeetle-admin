@@ -14,6 +14,8 @@ import { EditAlbumComponent } from '@page/album/edit-album/edit-album.component'
 
 import { AuthGuard } from '@helper/auth.guard';
 
+
+
 const routes: Routes = [
   {
     path: '',

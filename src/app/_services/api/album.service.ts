@@ -23,6 +23,20 @@ export class AlbumService {
   }
 
   updateAlbum(id: Number, album: FormData): Observable<Album> {
-    return this.http.post<Album>(`${environment.apiUrl}/album/update/${id}`, album);
+    return this.http.post<Album>(
+      `${environment.apiUrl}/album/update/${id}`,
+      album
+    );
+  }
+
+  updateImagePosition(
+    id: Number,
+    position: Number,
+    imageID: Number
+  ): Observable<any> {
+    return this.http.post(`${environment.apiUrl}/album/${id}`, {
+      position,
+      imageID,
+    });
   }
 }

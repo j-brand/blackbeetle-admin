@@ -14,7 +14,7 @@
   <app-file-dropzone [uploadURL]="uploadURL"></app-file-dropzone>
 </div>
 
-<!-- <div cdkDropList *ngIf="albumImages" (cdkDropListDropped)="drop2($event)">
+<div cdkDropList *ngIf="albumImages" (cdkDropListDropped)="imagePositionChanged($event)">
   <div
     *ngFor="let image of albumImages"
     class="flex flex-row justify-between items-center mb-2 border rounded-md border-gray-300"
@@ -38,6 +38,4 @@
       <mat-icon>delete</mat-icon>
     </button>
   </div>
-</div> -->
-
-<app-test></app-test>
+</div>

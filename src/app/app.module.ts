@@ -25,6 +25,8 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { DefaultLayoutComponent } from '@layout/default-layout/default-layout.component';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+
 
 import { LoginComponent } from '@page/auth/login/login.component';
 import { RegisterComponent } from '@page/auth/register/register.component';
@@ -43,7 +45,6 @@ import { DragAndDropDirective } from './_directives/drag-and-drop.directive';
 import { FileDropzoneComponent } from './components/file-dropzone/file-dropzone.component';
 import { CreateUpdateAlbumComponent } from './components/forms/create-update-album/create-update-album.component';
 import { ImagePathPipe } from './_helpers/image-path.pipe';
-import { TestComponent } from './test/test.component';
 
 const materialModules = [
   MatButtonModule,
@@ -61,6 +62,7 @@ const materialModules = [
   MatProgressBarModule,
   MatExpansionModule,
   MatSnackBarModule,
+  DragDropModule,
 ];
 
 @NgModule({
@@ -79,7 +81,6 @@ const materialModules = [
     FileDropzoneComponent,
     CreateUpdateAlbumComponent,
     ImagePathPipe,
-    TestComponent,
   ],
   imports: [
     BrowserModule,

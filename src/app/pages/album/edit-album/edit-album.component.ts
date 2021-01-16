@@ -4,8 +4,7 @@ import { MatSnackBar, SimpleSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { AlbumService } from '@api/album.service';
 
-import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
-
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
 import { Album } from '@model/album';
 import { Image } from '@model/image';
@@ -39,24 +38,22 @@ export class EditAlbumComponent implements OnInit {
     });
   }
 
-  drop2(event: CdkDragDrop<string[]>) {
-    console.log(event);
+  imagePositionChanged(event: CdkDragDrop<string[]>) {
+    moveItemInArray(this.albumImages, event.previousIndex, event.currentIndex);
+    let img_one = this.albumImages[event.previousIndex];
+    let img_two = this.albumImages[event.currentIndex];
+    //console.log(this.albumImages);
+    this.albumService.updateImagePosition(
+      this.album.id,
+      img_one.id,
+      event.previousIndex
+    );
+    this.albumService.updateImagePosition(
+      this.album.id,
+      img_two.id,
+      event.currentIndex
+    ).subscribe(result=>console.log(result));
+    // console.log(event);
     //moveItemInArray(this.albumImages, event.previousIndex, event.currentIndex);
-  }
-
-  movies = [
-    'Episode I - The Phantom Menace',
-    'Episode II - Attack of the Clones',
-    'Episode III - Revenge of the Sith',
-    'Episode IV - A New Hope',
-    'Episode V - The Empire Strikes Back',
-    'Episode VI - Return of the Jedi',
-    'Episode VII - The Force Awakens',
-    'Episode VIII - The Last Jedi',
-    'Episode IX – The Rise of Skywalker'
-  ];
-
-  drop(event: CdkDragDrop<string[]>) {
-    moveItemInArray(this.movies, event.previousIndex, event.currentIndex);
   }
 }
