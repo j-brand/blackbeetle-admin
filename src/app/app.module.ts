@@ -6,7 +6,6 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-
 import { AppRoutingModule } from './app-routing.module';
 
 import { MatButtonModule } from '@angular/material/button';
@@ -24,9 +23,9 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatDialogModule } from '@angular/material/dialog';
 import { DefaultLayoutComponent } from '@layout/default-layout/default-layout.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
-
 
 import { LoginComponent } from '@page/auth/login/login.component';
 import { RegisterComponent } from '@page/auth/register/register.component';
@@ -45,6 +44,7 @@ import { DragAndDropDirective } from './_directives/drag-and-drop.directive';
 import { FileDropzoneComponent } from './components/file-dropzone/file-dropzone.component';
 import { CreateUpdateAlbumComponent } from './components/forms/create-update-album/create-update-album.component';
 import { ImagePathPipe } from './_helpers/image-path.pipe';
+import { DeleteDialogComponent } from './components/dialogs/delete-dialog/delete-dialog.component';
 
 const materialModules = [
   MatButtonModule,
@@ -62,6 +62,7 @@ const materialModules = [
   MatProgressBarModule,
   MatExpansionModule,
   MatSnackBarModule,
+  MatDialogModule,
   DragDropModule,
 ];
 
@@ -81,6 +82,7 @@ const materialModules = [
     FileDropzoneComponent,
     CreateUpdateAlbumComponent,
     ImagePathPipe,
+    DeleteDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -99,7 +101,6 @@ const materialModules = [
     },
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-    
   ],
   bootstrap: [AppComponent],
 })

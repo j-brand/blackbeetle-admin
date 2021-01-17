@@ -11,10 +11,17 @@
 </mat-expansion-panel>
 
 <div *ngIf="uploadURL">
-  <app-file-dropzone [uploadURL]="uploadURL"></app-file-dropzone>
+  <app-file-dropzone
+    [uploadURL]="uploadURL"
+    (uploaded)="addToAlbumImages($event)"
+  ></app-file-dropzone>
 </div>
 
-<div cdkDropList *ngIf="albumImages" (cdkDropListDropped)="imagePositionChanged($event)">
+<div
+  cdkDropList
+  *ngIf="albumImages"
+  (cdkDropListDropped)="imagePositionChanged($event)"
+>
   <div
     *ngFor="let image of albumImages"
     class="flex flex-row justify-between items-center mb-2 border rounded-md border-gray-300"
@@ -24,16 +31,17 @@
       <div></div>
       <img class="h-12 w-auto" src="{{ image | imagePath: '_thn' }}" />
     </div>
-        <mat-form-field class="flex-grow mx-20" appearance="standard">
+    <mat-form-field class="flex-grow mx-20" appearance="standard">
       <mat-label>Bildbeschreibung</mat-label>
       <input matInput [value]="image.description" />
-    </mat-form-field> 
+    </mat-form-field>
 
     <button
       class="mr-5"
       mat-icon-button
       color="primary"
       aria-label="delete button"
+      (click)="deleteImage(image.id)"
     >
       <mat-icon>delete</mat-icon>
     </button>

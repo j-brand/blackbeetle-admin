@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Album } from '@model/album';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -23,20 +24,24 @@ export class AlbumService {
   }
 
   updateAlbum(id: Number, album: FormData): Observable<Album> {
-    return this.http.post<Album>(
+    return this.http.put<Album>(
       `${environment.apiUrl}/album/update/${id}`,
       album
     );
   }
 
+  deleteImage(id: Number): Observable<any> {
+    return this.http.delete(`${environment.apiUrl}/album/image/${id}`);
+  }
+
   updateImagePosition(
-    id: Number,
+    album_id: Number,
     position: Number,
-    imageID: Number
+    image_id: Number
   ): Observable<any> {
-    return this.http.post(`${environment.apiUrl}/album/${id}`, {
+    return this.http.post(`${environment.apiUrl}/album/${album_id}/position`, {
       position,
-      imageID,
+      image_id,
     });
   }
 }

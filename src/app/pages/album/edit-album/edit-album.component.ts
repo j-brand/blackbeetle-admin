@@ -8,6 +8,8 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
 import { Album } from '@model/album';
 import { Image } from '@model/image';
+import { MatDialog } from '@angular/material/dialog';
+import { DeleteDialogComponent } from '@component/dialogs/delete-dialog/delete-dialog.component';
 
 @Component({
   selector: 'app-edit-album',
@@ -22,7 +24,8 @@ export class EditAlbumComponent implements OnInit {
   constructor(
     private albumService: AlbumService,
     private router: ActivatedRoute,
-    private _snackBar: MatSnackBar
+    private _snackBar: MatSnackBar,
+    public dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -38,21 +41,37 @@ export class EditAlbumComponent implements OnInit {
     });
   }
 
+  addToAlbumImages($file: Image) {
+    console.log($file);
+    this.albumImages.push($file);
+  }
+
+  deleteImage(id: Number) {
+    const dialogRef = this.dialog.open(DeleteDialogComponent);
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.albumService.deleteImage(id).subscribe((res) => {
+          if (res) {
+            this.albumImages = this.albumImages.filter(
+              (image) => image.id != id
+            );
+          }
+        });
+      }
+    });
+  }
+
   imagePositionChanged(event: CdkDragDrop<string[]>) {
     moveItemInArray(this.albumImages, event.previousIndex, event.currentIndex);
     let img_one = this.albumImages[event.previousIndex];
     let img_two = this.albumImages[event.currentIndex];
     //console.log(this.albumImages);
-    this.albumService.updateImagePosition(
-      this.album.id,
-      img_one.id,
-      event.previousIndex
-    );
-    this.albumService.updateImagePosition(
-      this.album.id,
-      img_two.id,
-      event.currentIndex
-    ).subscribe(result=>console.log(result));
+    this.albumService
+      .updateImagePosition(this.album.id, event.previousIndex, img_one.id)
+      .subscribe((result) => console.log(result));
+    this.albumService
+      .updateImagePosition(this.album.id, event.currentIndex, img_two.id)
+      .subscribe((result) => console.log(result));
     // console.log(event);
     //moveItemInArray(this.albumImages, event.previousIndex, event.currentIndex);
   }

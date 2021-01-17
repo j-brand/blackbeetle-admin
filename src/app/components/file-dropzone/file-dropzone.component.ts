@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { FileUploadService } from '@service/file-upload.service';
 
 @Component({
@@ -9,7 +9,11 @@ import { FileUploadService } from '@service/file-upload.service';
 export class FileDropzoneComponent implements OnInit {
   files: any[] = [];
 
-  @Input() uploadURL: any;
+  @Input()
+  uploadURL: any;
+
+  @Output('uploaded')
+  fileUploaded: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(private fileUplaodService: FileUploadService) {}
 
@@ -51,7 +55,12 @@ export class FileDropzoneComponent implements OnInit {
     for (const file of files) {
       file.progress = 0;
       let index = this.files.push(file);
-      this.uploadFile(file, index -1);
+      if (file.type.startsWith('image/')) {
+        this.uploadFile(file, index - 1);
+      } else {
+        this.files[index - 1].error = true;
+        this.files[index - 1].error_message = 'Bitte nur Bilder hochladen.';
+      }
     }
   }
 
@@ -82,6 +91,10 @@ export class FileDropzoneComponent implements OnInit {
     this.fileUplaodService.upload(uploadUrl, formModel).subscribe((result) => {
       if (result.status && result.status == 'progress') {
         this.files[index].progress = result.message;
+      } else if (result.id) {
+        this.fileUploaded.emit(result);
+        this.files[index].success = true;
+
       }
     });
   }
