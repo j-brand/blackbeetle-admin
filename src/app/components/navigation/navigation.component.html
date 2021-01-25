@@ -35,10 +35,10 @@
         </div>
       </div>
       <div [class.expanded]="stories" class="nav-item-inner-wrapper">
-        <div class="nav-item-inner">
-          <a routerLink="#" class="uppercase">Übersicht</a>
-        </div>
-        <a routerLink="#" class="uppercase">
+        <a routerLink="/story" class="uppercase">
+          <div class="nav-item-inner">Übersicht</div>
+        </a>
+        <a routerLink="/story/create" class="uppercase">
           <div class="nav-item-inner">Neu</div>
         </a>
       </div>
@@ -107,7 +107,7 @@
       <ng-content> </ng-content>
     </div>
     <div class="container">
-        <router-outlet></router-outlet>
+      <router-outlet></router-outlet>
     </div>
   </mat-sidenav-content>
 </mat-sidenav-container>

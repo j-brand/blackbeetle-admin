@@ -6,6 +6,9 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { EditorModule } from '@tinymce/tinymce-angular';
+
+
 import { AppRoutingModule } from './app-routing.module';
 
 import { MatButtonModule } from '@angular/material/button';
@@ -25,6 +28,8 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatDialogModule } from '@angular/material/dialog';
 import { DefaultLayoutComponent } from '@layout/default-layout/default-layout.component';
+import {MatMenuModule} from '@angular/material/menu';
+
 import { DragDropModule } from '@angular/cdk/drag-drop';
 
 import { LoginComponent } from '@page/auth/login/login.component';
@@ -44,7 +49,17 @@ import { DragAndDropDirective } from './_directives/drag-and-drop.directive';
 import { FileDropzoneComponent } from './components/file-dropzone/file-dropzone.component';
 import { CreateUpdateAlbumComponent } from './components/forms/create-update-album/create-update-album.component';
 import { ImagePathPipe } from './_helpers/image-path.pipe';
+import { StringExcerptPipe } from './_helpers/string-excerpt.pipe';
 import { DeleteDialogComponent } from './components/dialogs/delete-dialog/delete-dialog.component';
+import { IndexStoryComponent } from './pages/story/index-story/index-story.component';
+import { CreateUpdateStoryComponent } from './components/forms/create-update-story/create-update-story.component';
+import { CreateStoryComponent } from './pages/story/create-story/create-story.component';
+import { EditStoryComponent } from './pages/story/edit-story/edit-story.component';
+import { EditPostComponent } from './pages/post/edit-post/edit-post.component';
+import { UpdateImageDialogComponent } from './components/dialogs/update-image-dialog/update-image-dialog.component';
+import { CreateUpdatePostHtmlComponent } from './components/forms/create-update-post-html/create-update-post-html.component';
+import { CreateUpdatePostImageComponent } from './components/forms/create-update-post-image/create-update-post-image.component';
+import { EditImagePostComponent } from './pages/post/edit-image-post/edit-image-post.component';
 
 const materialModules = [
   MatButtonModule,
@@ -63,6 +78,7 @@ const materialModules = [
   MatExpansionModule,
   MatSnackBarModule,
   MatDialogModule,
+  MatMenuModule,
   DragDropModule,
 ];
 
@@ -83,6 +99,16 @@ const materialModules = [
     CreateUpdateAlbumComponent,
     ImagePathPipe,
     DeleteDialogComponent,
+    IndexStoryComponent,
+    CreateUpdateStoryComponent,
+    CreateStoryComponent,
+    EditStoryComponent,
+    EditPostComponent,
+    UpdateImageDialogComponent,
+    StringExcerptPipe,
+    CreateUpdatePostHtmlComponent,
+    CreateUpdatePostImageComponent,
+    EditImagePostComponent,
   ],
   imports: [
     BrowserModule,
@@ -91,6 +117,7 @@ const materialModules = [
     FormsModule,
     BrowserAnimationsModule,
     AppRoutingModule,
+    EditorModule,
     materialModules,
   ],
   providers: [

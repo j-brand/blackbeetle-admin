@@ -4,9 +4,10 @@
 
 export const environment = {
   production: false,
-  apiUrl:'http://127.0.0.1:8000/admin',
-  publicUrl:'http://127.0.0.1:8000',
-  csrf:'http://127.0.0.1:8000/sanctum/csrf-cookie'
+  apiUrl:'http://localhost:8001/admin',
+  publicUrl:'http://localhost:8001',
+  csrf:'http://localhost:8001/sanctum/csrf-cookie',
+  tiny_mce_key:'10aghuz27qv5eo3c67f930wmdo17w0jtv714381d5v24tm1h'
 };
 
 /*

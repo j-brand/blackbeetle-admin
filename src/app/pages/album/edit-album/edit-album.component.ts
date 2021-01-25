@@ -10,6 +10,8 @@ import { Album } from '@model/album';
 import { Image } from '@model/image';
 import { MatDialog } from '@angular/material/dialog';
 import { DeleteDialogComponent } from '@component/dialogs/delete-dialog/delete-dialog.component';
+import { ImageService } from '@api/image.service';
+import { UpdateImageDialogComponent } from '@component/dialogs/update-image-dialog/update-image-dialog.component';
 
 @Component({
   selector: 'app-edit-album',
@@ -23,6 +25,7 @@ export class EditAlbumComponent implements OnInit {
 
   constructor(
     private albumService: AlbumService,
+    private imageService: ImageService,
     private router: ActivatedRoute,
     private _snackBar: MatSnackBar,
     public dialog: MatDialog
@@ -34,6 +37,10 @@ export class EditAlbumComponent implements OnInit {
     this.uploadURL = 'album/upload/' + albumID;
   }
 
+  /**
+   * Get the album with images from the API.
+   * @param id album ID
+   */
   getAlbum(id: Number): void {
     this.albumService.getAlbum(id).subscribe((album) => {
       this.album = album;
@@ -41,13 +48,24 @@ export class EditAlbumComponent implements OnInit {
     });
   }
 
+  /**
+   * Add the image file to the array of images
+   * @param $file Image
+   */
   addToAlbumImages($file: Image) {
-    console.log($file);
     this.albumImages.push($file);
   }
 
+  /**
+   * Delte the image from the album
+   * @param id image ID
+   */
   deleteImage(id: Number) {
-    const dialogRef = this.dialog.open(DeleteDialogComponent);
+    const dialogRef = this.dialog.open(DeleteDialogComponent, {
+      data: {
+        delete: 'Bild',
+      },
+    });
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         this.albumService.deleteImage(id).subscribe((res) => {
@@ -61,18 +79,46 @@ export class EditAlbumComponent implements OnInit {
     });
   }
 
+  /**
+   * Swap the positions von two images.
+   * @param event Mat Drag & Drop Event
+   */
   imagePositionChanged(event: CdkDragDrop<string[]>) {
     moveItemInArray(this.albumImages, event.previousIndex, event.currentIndex);
     let img_one = this.albumImages[event.previousIndex];
     let img_two = this.albumImages[event.currentIndex];
-    //console.log(this.albumImages);
     this.albumService
       .updateImagePosition(this.album.id, event.previousIndex, img_one.id)
       .subscribe((result) => console.log(result));
     this.albumService
       .updateImagePosition(this.album.id, event.currentIndex, img_two.id)
       .subscribe((result) => console.log(result));
-    // console.log(event);
-    //moveItemInArray(this.albumImages, event.previousIndex, event.currentIndex);
+  }
+
+  editImage(id: number) {
+    let image: Image = this.albumImages.filter((image) => image.id == id)[0];
+    const dialogRef = this.dialog.open(UpdateImageDialogComponent, {
+      data: {
+        image:image
+      },
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.updateImageDescription(image.id, result);
+      }
+    });
+  }
+
+  updateImageDescription(id: number, description: string) {
+    let formData = new FormData();
+    formData.set('description', description);
+    this.imageService
+      .updateImageDescription(id, formData)
+      .subscribe(
+        (image) =>
+          (this.albumImages[
+            this.albumImages.findIndex((el) => el.id == id)
+          ] = image)
+      );
   }
 }

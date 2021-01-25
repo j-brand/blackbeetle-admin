@@ -6,17 +6,17 @@ import {
   Validators,
 } from '@angular/forms';
 import { AlbumService } from '@api/album.service';
+
 import { DateAdapter, MAT_DATE_FORMATS } from '@angular/material/core';
-
 import { DatePipe } from '@angular/common';
-
 import { MyDateAdapter, MY_DATE_FORMATS } from '@helper/date-adapter';
-
 import * as _moment from 'moment';
+
 import { ActivatedRoute, Router } from '@angular/router';
 import { Album } from '@model/album';
 import { environment } from 'src/environments/environment';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Input } from '@angular/core';
 
 const moment = _moment;
 @Component({
@@ -33,14 +33,17 @@ export class CreateUpdateAlbumComponent implements OnInit {
   albumForm: FormGroup;
   imgPath: String;
   editMode: Boolean = false;
-  album: Album;
   message: String;
+
+  @Input()
+  album?: Album;
 
   constructor(
     private formBuilder: FormBuilder,
     private albumService: AlbumService,
     public datepipe: DatePipe,
-    private router: ActivatedRoute,
+    private activeRoute: ActivatedRoute,
+    private router: Router,
     private _snackBar: MatSnackBar
   ) {}
 
@@ -56,22 +59,18 @@ export class CreateUpdateAlbumComponent implements OnInit {
       end_date: new FormControl(moment()),
     });
 
-    let albumID = this.router.snapshot.paramMap.get('id');
-    if (albumID) {
-      this.editMode = true;
-      this.getAlbum(Number(albumID));
+    if (this.album) {
+      this.setEditMode(this.album);
     }
   }
+  private setEditMode(album: Album) {
+    this.editMode = true;
+    this.albumForm.patchValue(album);
+    //Set all formcontrols untouched
+    this.imgPath = `${environment.publicUrl}/storage/${album.title_image.path}${album.title_image.title}.${album.title_image.extension}`;
 
-  getAlbum(id: Number): void {
-    this.albumService.getAlbum(id).subscribe((album) => {
-      this.album = album;
-      this.albumForm.patchValue(album);
-      this.imgPath = `${environment.publicUrl}/storage/${album.title_image.path}${album.title_image.title}.${album.title_image.extension}`;
-      //Set all formcontrols untouched
-      Object.keys(this.albumForm.controls).forEach((controlKey) => {
-        this.albumForm.controls[controlKey].markAsUntouched();
-      });
+    Object.keys(this.albumForm.controls).forEach((controlKey) => {
+      this.albumForm.controls[controlKey].markAsUntouched();
     });
   }
 
@@ -101,7 +100,6 @@ export class CreateUpdateAlbumComponent implements OnInit {
     }
   }
 
-
   public onActiveChange(event: any) {
     if (event.checked) {
       this.albumForm.patchValue({ active: 1 });
@@ -110,33 +108,6 @@ export class CreateUpdateAlbumComponent implements OnInit {
     }
   }
 
-  /*   onSubmit() {
-    if (this.albumForm.valid) {
-      if(this.editMode){
-        let formValues = 
-
-      }else{
-
-      }
-      const formData = new FormData();
-      Object.entries(this.albumForm.value).forEach(([key, value]: any[]) => {
-        if (value instanceof Date) {
-          formData.set(key, this.datepipe.transform(value, 'Y-MM-dd'));
-        } else {
-          formData.set(key, value);
-        }
-      });
-
-      this.albumService.storeAlbum(formData).subscribe({
-        next: (data) => {
-          console.log(data);
-        },
-        error: (error) => {
-          console.log(error);
-        },
-      });
-    }
-  } */
   onSubmit() {
     var formValues = this.getUpdatedValues();
 
@@ -158,7 +129,7 @@ export class CreateUpdateAlbumComponent implements OnInit {
             });
           },
           error: (error) => {
-            this._snackBar.open('Album Details gespeichert!', '', {
+            this._snackBar.open('Error! Call the Admin.^^', '', {
               duration: 3000,
             });
           },
@@ -166,10 +137,14 @@ export class CreateUpdateAlbumComponent implements OnInit {
       } else {
         this.albumService.storeAlbum(formData).subscribe({
           next: (data) => {
-            console.log(data);
+            this.router.navigate(['/album/' + data.id]);
           },
           error: (error) => {
-            console.log(error);
+            if (error.errors) {
+              Object.entries(error.errors).forEach(([key, value]: any[]) => {
+                this.albumForm.controls[key].setErrors(value);
+              });
+            }
           },
         });
       }

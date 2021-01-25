@@ -1,0 +1,46 @@
+<form
+  [formGroup]="postForm"
+  (ngSubmit)="onSubmit()"
+  class="flex flex-col"
+  enctype="multipart/form-data"
+>
+  <div class="grid grid-cols-1 gap-0 md:grid-cols-6 md:gap-6">
+    <mat-checkbox
+      (change)="onActiveChange($event)"
+      color="primary"
+      formControlName="active"
+      class="md:col-span-1"
+      >sichtbar</mat-checkbox
+    >
+
+    <mat-form-field appearance="outline" class="md:col-span-3">
+      <mat-label>Titel</mat-label>
+      <input formControlName="title" matInput />
+      <mat-error *ngIf="postForm.controls.title.errors">
+        {{ postForm.controls.title.errors }}
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="md:col-span-2">
+      <mat-label>Datum</mat-label>
+      <input matInput formControlName="date" [matDatepicker]="picker" />
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+
+    <div class="mat-form-field-wrapper md:col-span-6 border border-gray-300">
+      <editor
+        [apiKey]="tinyApiKey"
+        formControlName="content"
+        [init]="tinyMceConfig"
+      ></editor>
+    </div>
+  </div>
+  <div class="mt-5">
+    <button mat-stroked-button type="submit" class="uppercase">
+      speichern
+    </button>
+  </div>
+</form>
+

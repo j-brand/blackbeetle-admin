@@ -11,7 +11,7 @@ import { map } from 'rxjs/operators';
 export class AlbumService {
   constructor(private http: HttpClient) {}
 
-  storeAlbum(album: FormData): Observable<Album> {
+  storeAlbum(album: Object): Observable<Album> {
     return this.http.post<Album>(`${environment.apiUrl}/album/create`, album);
   }
 
@@ -23,8 +23,8 @@ export class AlbumService {
     return this.http.get<Album>(`${environment.apiUrl}/album/${id}`);
   }
 
-  updateAlbum(id: Number, album: FormData): Observable<Album> {
-    return this.http.put<Album>(
+  updateAlbum(id: Number, album: Object): Observable<Album> {
+    return this.http.post<Album>(
       `${environment.apiUrl}/album/update/${id}`,
       album
     );
@@ -32,6 +32,10 @@ export class AlbumService {
 
   deleteImage(id: Number): Observable<any> {
     return this.http.delete(`${environment.apiUrl}/album/image/${id}`);
+  }
+
+  deleteAlbum(id: Number): Observable<any> {
+    return this.http.delete(`${environment.apiUrl}/album/${id}`);
   }
 
   updateImagePosition(

@@ -9,6 +9,7 @@ export class Album {
     start_date: Date;
     end_date: Date;
     slug: String;
+    path: String;
     active: number;
     images?: Image[];
 

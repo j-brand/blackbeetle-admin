@@ -7,10 +7,13 @@ module.exports = {
   theme: {
     extend: {
       scale: {
-        "300": "3",
+        300: "3",
       },
       minHeight: {
-        "72": "18rem",
+        72: "18rem",
+      },
+      minWidth: {
+        72: "18rem",
       },
       container: {
         center: true,
@@ -18,23 +21,7 @@ module.exports = {
     },
   },
   variants: {},
-  plugins: [
-    ({ addComponents, theme }) => {
-      addComponents({
-        ".container": {
-          marginInline: "auto",
-          paddingInline: theme("spacing.4"),
-          maxWidth: theme("screens.lg"),
-
-          // Breakpoints
-          "@screen sm": {
-            maxWidth: theme("screens.sm"),
-          },
-          "@screen md": {
-            maxWidth: theme("screens.md"),
-          },
-        },
-      });
-    },
-  ],
+  corePlugins: {
+    container: false,
+  },
 };
