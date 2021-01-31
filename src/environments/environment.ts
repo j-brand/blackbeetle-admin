@@ -7,7 +7,8 @@ export const environment = {
   apiUrl:'http://localhost:8001/admin',
   publicUrl:'http://localhost:8001',
   csrf:'http://localhost:8001/sanctum/csrf-cookie',
-  tiny_mce_key:'10aghuz27qv5eo3c67f930wmdo17w0jtv714381d5v24tm1h'
+  tiny_mce_key:'10aghuz27qv5eo3c67f930wmdo17w0jtv714381d5v24tm1h',
+  google_api_key:'AIzaSyAMCD7m7-Fyu6RZMkN76BzFdTDFQaRlg5E',
 };
 
 /*
