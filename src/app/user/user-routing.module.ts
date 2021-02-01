@@ -6,9 +6,8 @@ import { UserComponent } from './user.component';
 
 const routes: Routes = [
   {
-    path: 'user',
+    path: '',
     component: DefaultLayoutComponent,
-    canActivate: [AuthGuard],
     children: [
       {
         path: '',

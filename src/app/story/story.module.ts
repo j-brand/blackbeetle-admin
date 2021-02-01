@@ -22,7 +22,7 @@ import { StoryRoutingModule } from './story-routing.module';
     MaterialModule,
     FormsModule,
     ReactiveFormsModule,
-    StoryRoutingModule,
+    StoryRoutingModule
   ],
 })
 export class StoryModule {}

@@ -9,9 +9,13 @@ import { IndexStoryComponent } from './pages/index-story/index-story.component';
 const routes: Routes = [
   {
     path: '',
-    component: IndexStoryComponent,
-    canActivate: [AuthGuard],
+    component: DefaultLayoutComponent,
     children: [
+      {
+        path: '',
+        pathMatch: 'full',
+        component: IndexStoryComponent,
+      },
       {
         path: 'create',
         component: CreateStoryComponent,
@@ -21,23 +25,6 @@ const routes: Routes = [
     ],
   },
 ];
-/* 
-const routes: Routes = [
-  {
-    path: 'story',
-    component: DefaultLayoutComponent,
-    canActivate: [AuthGuard],
-    children: [
-      { path: '', component: IndexStoryComponent, pathMatch: 'full' },
-      {
-        path: 'create',
-        component: CreateStoryComponent,
-        pathMatch: 'full',
-      },
-      { path: ':id', component: EditStoryComponent, pathMatch: 'full' },
-    ],
-  },
-]; */
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

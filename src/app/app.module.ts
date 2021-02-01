@@ -25,12 +25,12 @@ import { MaterialModule } from './_material/material.module';
     CoreModule,
     SharedModule,
     AuthModule,
-    PostModule,
+/*     PostModule,
     StoryModule,
     AlbumModule,
-    UserModule,
-    DashboardModule,
-    MaterialModule,
+    UserModule, */
+/*     DashboardModule,
+ */    MaterialModule,
     AppRoutingModule,
   ],
   providers: [

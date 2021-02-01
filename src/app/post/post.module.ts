@@ -27,6 +27,7 @@ import { PostRoutingModule } from './post-routing.module';
     EditorModule,
     FormsModule,
     ReactiveFormsModule,
+    PostRoutingModule
   ],
 })
 export class PostModule {}

@@ -4,13 +4,11 @@ import { AuthGuard } from '@core/auth.guard';
 import { DefaultLayoutComponent } from '@shared/layout/default-layout/default-layout.component';
 import { DashboardComponent } from './dashboard.component';
 
-
-
 const routes: Routes = [
   {
     path: '',
-    component: DashboardComponent,
-    pathMatch: 'full',
+    component: DefaultLayoutComponent,
+    children: [{ path: '', pathMatch: 'full', component: DashboardComponent }],
   },
 ];
 

@@ -22,6 +22,7 @@ import { AlbumRoutingModule } from './album-routing.module';
     SharedModule,
     FormsModule,
     ReactiveFormsModule,
+    AlbumRoutingModule
   ],
 })
 export class AlbumModule {}

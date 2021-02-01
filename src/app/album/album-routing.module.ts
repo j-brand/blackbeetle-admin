@@ -9,13 +9,17 @@ import { IndexAlbumComponent } from './pages/index-album/index-album.component';
 const routes: Routes = [
   {
     path: '',
-    component: IndexAlbumComponent,
-    canActivate: [AuthGuard],
+    component: DefaultLayoutComponent,
     children: [
       {
-        path: 'create',
-        component: CreateAlbumComponent,
+        path: '',
         pathMatch: 'full',
+        component: IndexAlbumComponent,
+      },
+      {
+        path: 'create',
+        pathMatch: 'full',
+        component: CreateAlbumComponent,
       },
       { path: ':id', component: EditAlbumComponent, pathMatch: 'full' },
     ],
