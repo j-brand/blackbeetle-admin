@@ -13,6 +13,7 @@ import { StringExcerptPipe } from './pipes/string-excerpt.pipe';
 import { AppRoutingModule } from '../app-routing.module';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { RouterModule } from '@angular/router';
     NavigationComponent,
     ImagePathPipe,
     StringExcerptPipe,
+    PageNotFoundComponent,
   ],
   imports: [CommonModule, MaterialModule, FormsModule, RouterModule],
   exports: [

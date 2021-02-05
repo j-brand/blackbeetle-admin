@@ -1,13 +1,8 @@
-<mat-expansion-panel class="mat-elevation-z0 border border-gray-300">
-  <mat-expansion-panel-header>
-    <mat-panel-title> Album Details bearbeiten</mat-panel-title>
-  </mat-expansion-panel-header>
 
-  <app-create-update-post-image
-    *ngIf="post"
-    [post]="post"
-  ></app-create-update-post-image>
-</mat-expansion-panel>
+<app-create-update-post-details
+  *ngIf="post"
+  [post]="post"
+></app-create-update-post-details>
 
 <div *ngIf="uploadURL">
   <app-file-dropzone

@@ -1,9 +1,16 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { MapInfoWindow, MapMarker } from '@angular/google-maps';
 import { MatDialog } from '@angular/material/dialog';
-import { UpdateTextDialogComponent } from '@shared/components/dialogs/update-text-dialog/update-text-dialog.component';
 import { Post } from '@core/models/post';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { UpdateMarkerDialogComponent } from '@post/components/update-marker-dialog/update-marker-dialog.component';
+import { PostService } from '@core/services/post.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+
+export interface Marker {
+  info: string;
+  position: google.maps.LatLng;
+}
 
 @Component({
   selector: 'app-edit-map-post',
@@ -18,15 +25,18 @@ export class EditMapPostComponent implements OnInit {
     center: null,
     zoom: null,
   };
-  markers = [];
-  markerPositions: google.maps.LatLngLiteral[] = [];
+  markers: Marker[] = [];
   markerOptions: google.maps.MarkerOptions = { draggable: true };
   infoContent = '';
 
   @Input()
   post: Post;
 
-  constructor(public dialog: MatDialog) {}
+  constructor(
+    public dialog: MatDialog,
+    private postService: PostService,
+    private _snackBar: MatSnackBar
+  ) {}
 
   ngOnInit(): void {
     this.initMap();
@@ -34,42 +44,39 @@ export class EditMapPostComponent implements OnInit {
 
   private initMap() {
     let jsonData = JSON.parse(this.post.content);
-    console.log(jsonData);
     for (const marker of jsonData.coordinates) {
       let position: google.maps.LatLng = new google.maps.LatLng(
         marker.position
       );
-      this.markerPositions.push(position.toJSON());
       this.mapBounds.extend(position);
 
       this.markers.push({
-        position: {
-          lat: marker.position.lat,
-          lng: marker.position.lng,
-        },
-        info: marker.id,
+        position,
+        //ID rausschmeißen wenn im Frontend geändert
+        info: marker.id ? marker.id : marker.info,
       });
     }
     this.options.zoom = jsonData.zoomlevel;
     this.options.center = this.mapBounds.getCenter();
-    console.log(this.markers);
   }
 
   addMarker(event: google.maps.MapMouseEvent) {
-    let position = event.latLng.toJSON();
+    let position = event.latLng;
     this.markers.push({
       position,
       info: '',
     });
-    console.log(this.markers);
   }
 
   openInfoWindow(marker: MapMarker, info) {
     this.infoContent = info;
     this.infoWindow.open(marker);
   }
-  markerDragged(event) {
-    console.log(event);
+  markerDropped(event, id: number) {
+    this.markers[id].position = new google.maps.LatLng(
+      event.latLng.lat(),
+      event.latLng.lng()
+    );
   }
 
   /**-------*/
@@ -81,15 +88,36 @@ export class EditMapPostComponent implements OnInit {
   }
 
   editMarker(id: number) {
-    const dialogRef = this.dialog.open(UpdateTextDialogComponent, {
+    const dialogRef = this.dialog.open(UpdateMarkerDialogComponent, {
       data: {
-        text: this.markers[id].info,
+        description: this.markers[id].info,
+        lng: this.markers[id].position.lng(),
+        lat: this.markers[id].position.lat(),
       },
     });
-    dialogRef.afterClosed().subscribe((result) => {
-      if (result) {
-        this.markers[id].info = result;
+    dialogRef.afterClosed().subscribe((data) => {
+      if (data) {
+        this.markers[id].info = data.description;
+        this.markers[id].position = new google.maps.LatLng(data.lat, data.lng);
       }
     });
+  }
+
+  markerPositionChanged(event: CdkDragDrop<string[]>) {
+    moveItemInArray(this.markers, event.previousIndex, event.currentIndex);
+  }
+
+  save() {
+    let coordiantes = {
+      coordinates: this.markers,
+      zoomlevel: this.options.zoom,
+    };
+    this.postService
+      .updatePost({ content: JSON.stringify(coordiantes) }, this.post.id)
+      .subscribe((result) =>
+        this._snackBar.open('Karte gespeichert!', '', {
+          duration: 3000,
+        })
+      );
   }
 }

@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { AuthGuard } from '@core/auth.guard';
 import { DefaultLayoutComponent } from '@shared/layout/default-layout/default-layout.component';
 import { EditPostIndexComponent } from './pages/edit-post-index/edit-post-index.component';
 

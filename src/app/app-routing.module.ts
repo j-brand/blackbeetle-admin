@@ -3,12 +3,11 @@ import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from '@core/auth.guard';
 
 import { LoginComponent } from '@auth/login/login.component';
-
-
+import { PageNotFoundComponent } from '@shared/pages/page-not-found/page-not-found.component';
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'dashboard',
     loadChildren: () =>
       import('@dashboard/dashboard.module').then((m) => m.DashboardModule),
     canActivate: [AuthGuard],
@@ -35,10 +34,10 @@ const routes: Routes = [
     loadChildren: () => import('@post/post.module').then((m) => m.PostModule),
     canActivate: [AuthGuard],
   },
-
+  { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
+  { path: '**', component: PageNotFoundComponent },
 ];
-
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

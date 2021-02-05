@@ -6,27 +6,24 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { MAT_DATE_FORMATS } from '@angular/material/core';
-import { DateAdapter } from '@angular/material/core';
+import { DateAdapter, MAT_DATE_FORMATS } from '@angular/material/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Post } from '@core/models/post';
 import { PostService } from '@core/services/post.service';
 import { MyDateAdapter, MY_DATE_FORMATS } from '@shared/date-adapter';
-import { Post } from '@core/models/post';
-
 import * as _moment from 'moment';
 const moment = _moment;
-
 @Component({
-  selector: 'app-create-update-post-image',
-  templateUrl: './create-update-post-image.component.html',
-  styleUrls: ['./create-update-post-image.component.scss'],
+  selector: 'app-create-update-post-details',
+  templateUrl: './create-update-post-details.component.html',
+  styleUrls: ['./create-update-post-details.component.scss'],
   providers: [
     { provide: DateAdapter, useClass: MyDateAdapter },
     { provide: MAT_DATE_FORMATS, useValue: MY_DATE_FORMATS },
     DatePipe,
   ],
 })
-export class CreateUpdatePostImageComponent implements OnInit {
+export class CreateUpdatePostDetailsComponent implements OnInit {
   postForm: FormGroup;
 
   @Input()
@@ -36,7 +33,7 @@ export class CreateUpdatePostImageComponent implements OnInit {
     private formBuilder: FormBuilder,
     private postService: PostService,
     private datepipe: DatePipe,
-    private _snackBar: MatSnackBar,
+    private _snackBar: MatSnackBar
   ) {}
 
   ngOnInit(): void {
@@ -45,11 +42,10 @@ export class CreateUpdatePostImageComponent implements OnInit {
       title: ['', Validators.required],
       date: new FormControl(moment()),
     });
-
     this.postForm.patchValue(this.post);
   }
 
-  onActiveChange(event: any) {
+  public onActiveChange(event: any) {
     if (event.checked) {
       this.postForm.patchValue({ active: 1 });
     } else {
@@ -58,7 +54,7 @@ export class CreateUpdatePostImageComponent implements OnInit {
   }
 
   //Get all touched form values
-  private getUpdatedValues() {
+  getUpdatedValues() {
     const updatedFormValues = {};
     this.postForm['_forEachChild']((control, name) => {
       if (control.touched) {

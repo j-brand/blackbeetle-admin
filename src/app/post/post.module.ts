@@ -1,8 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { GoogleMapsModule } from '@angular/google-maps';
-import { CreateUpdatePostHtmlComponent } from './components/create-update-post-html/create-update-post-html.component';
-import { CreateUpdatePostImageComponent } from './components/create-update-post-image/create-update-post-image.component';
 import { EditImagePostComponent } from './pages/edit-image-post/edit-image-post.component';
 import { EditMapPostComponent } from './pages/edit-map-post/edit-map-post.component';
 import { EditPostIndexComponent } from './pages/edit-post-index/edit-post-index.component';
@@ -11,13 +9,21 @@ import { SharedModule } from '@shared/shared.module';
 import { EditorModule } from '@tinymce/tinymce-angular';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PostRoutingModule } from './post-routing.module';
+import { UpdateMarkerDialogComponent } from './components/update-marker-dialog/update-marker-dialog.component';
+import { CreateUpdatePostDetailsComponent } from './components/create-update-post-details/create-update-post-details.component';
+import { EditHtmlPostComponent } from './pages/edit-html-post/edit-html-post.component';
+import { EditVideoPostComponent } from './pages/edit-video-post/edit-video-post.component';
+import { UpdateVideoDialogComponent } from './components/update-video-dialog/update-video-dialog.component';
 @NgModule({
   declarations: [
-    CreateUpdatePostHtmlComponent,
-    CreateUpdatePostImageComponent,
     EditImagePostComponent,
     EditMapPostComponent,
     EditPostIndexComponent,
+    UpdateMarkerDialogComponent,
+    CreateUpdatePostDetailsComponent,
+    EditHtmlPostComponent,
+    EditVideoPostComponent,
+    UpdateVideoDialogComponent,
   ],
   imports: [
     CommonModule,
@@ -27,7 +33,7 @@ import { PostRoutingModule } from './post-routing.module';
     EditorModule,
     FormsModule,
     ReactiveFormsModule,
-    PostRoutingModule
+    PostRoutingModule,
   ],
 })
 export class PostModule {}

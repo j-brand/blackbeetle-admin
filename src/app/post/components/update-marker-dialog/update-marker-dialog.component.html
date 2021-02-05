@@ -1,0 +1,30 @@
+<h1 mat-dialog-title>Markerbeschreibung</h1>
+<div mat-dialog-content [formGroup]="form">
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+
+    <mat-form-field class="col-span-2 w-full mt-4" appearance="outline">
+      <mat-label>Beschreibung</mat-label>
+      <textarea
+      formControlName="description"
+      matInput
+      placeholder="hau rein ..."
+      ></textarea>
+    </mat-form-field>
+    
+    <mat-form-field class="col-span-1" appearance="outline">
+      <mat-label>Längengrad</mat-label>
+      <input formControlName="lng" matInput />
+    </mat-form-field>
+    
+    <mat-form-field  class="col-span-1" appearance="outline">
+      <mat-label>Breitengrad</mat-label>
+      <input formControlName="lat" matInput />
+    </mat-form-field>
+  </div>
+
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="save()" cdkFocusInitial>speichern</button>
+  <button mat-button mat-dialog-close>abbrechen</button>
+</div>

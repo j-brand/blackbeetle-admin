@@ -27,6 +27,10 @@ export class PostService {
     return this.http.delete(`${environment.apiUrl}/post/image/${id}`);
   }
 
+  deleteVideo(id: Number): Observable<any> {
+    return this.http.delete(`${environment.apiUrl}/post/video/${id}`);
+  }
+
   updatePost(post: Object, id: Number) {
     return this.http.post<Post>(
       `${environment.apiUrl}/post/update/${id}`,
@@ -45,7 +49,7 @@ export class PostService {
     position: Number,
     image_id: Number
   ): Observable<any> {
-    return this.http.post(`${environment.apiUrl}/album/${post_id}/position`, {
+    return this.http.post(`${environment.apiUrl}/post/${post_id}/position`, {
       position,
       image_id,
     });

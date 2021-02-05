@@ -74,7 +74,7 @@ export class EditImagePostComponent implements OnInit {
       .updateImagePosition(this.post.id, event.currentIndex, img_two.id)
       .subscribe((result) => console.log(result));
   }
-
+ 
   editImage(id: number) {
     let image: Image = this.post.images.filter((image) => image.id == id)[0];
     const dialogRef = this.dialog.open(UpdateImageDialogComponent, {
