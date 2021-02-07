@@ -5,14 +5,18 @@ import { SharedModule } from '@shared/shared.module';
 import { DashboardComponent } from './dashboard.component';
 import { DashboardRoutingModule } from './dashboard-routing.module';
 import { GoogleMapsModule } from '@angular/google-maps';
+import { LocationCardComponent } from './components/location-card/location-card.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
-  declarations: [DashboardComponent],
+  declarations: [DashboardComponent, LocationCardComponent],
   imports: [
     CommonModule,
     MaterialModule,
     SharedModule,
     GoogleMapsModule,
+    FormsModule,
+    ReactiveFormsModule,
     DashboardRoutingModule,
   ],
 })

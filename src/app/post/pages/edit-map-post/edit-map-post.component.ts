@@ -6,11 +6,7 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { UpdateMarkerDialogComponent } from '@post/components/update-marker-dialog/update-marker-dialog.component';
 import { PostService } from '@core/services/post.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-
-export interface Marker {
-  info: string;
-  position: google.maps.LatLng;
-}
+import { GMapMarker } from '@shared/models/g-map-marker';
 
 @Component({
   selector: 'app-edit-map-post',
@@ -25,7 +21,7 @@ export class EditMapPostComponent implements OnInit {
     center: null,
     zoom: null,
   };
-  markers: Marker[] = [];
+  markers: GMapMarker[] = [];
   markerOptions: google.maps.MarkerOptions = { draggable: true };
   infoContent = '';
 
