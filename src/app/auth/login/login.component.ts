@@ -4,14 +4,12 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { first } from 'rxjs/operators';
 import { AuthService } from '@core/services/auth.service';
 
-
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
-
   loginForm: FormGroup;
   submitted = false;
   error = '';
@@ -20,10 +18,10 @@ export class LoginComponent implements OnInit {
     private formBuilder: FormBuilder,
     private authService: AuthService,
     private router: Router,
-    private route: ActivatedRoute,
+    private route: ActivatedRoute
   ) {
     if (this.authService.currentUserValue) {
-      this.router.navigate(['/dashboard'])
+      this.router.navigate(['/dashboard']);
     }
   }
 
@@ -31,10 +29,12 @@ export class LoginComponent implements OnInit {
     this.loginForm = this.formBuilder.group({
       email: ['', Validators.required],
       password: ['', Validators.required],
-    })
+    });
   }
 
-  get f() { return this.loginForm.controls; }
+  get f() {
+    return this.loginForm.controls;
+  }
 
   onSubmit(formValue) {
     this.submitted = true;
@@ -44,7 +44,8 @@ export class LoginComponent implements OnInit {
       return;
     }
 
-    this.authService.login(formValue.email, formValue.password)
+    this.authService
+      .login(this.loginForm.value)
       .pipe(first())
       .subscribe({
         next: () => {
@@ -52,12 +53,11 @@ export class LoginComponent implements OnInit {
           const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
           this.router.navigate([returnUrl]);
         },
-        error: error => {
-          this.error = error;
+        error: (error) => {
+          this.error = error.error.message;
           console.log(error);
           //this.loading = false;
-        }
+        },
       });
   }
-
 }

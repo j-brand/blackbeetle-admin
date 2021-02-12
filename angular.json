@@ -71,6 +71,7 @@
           "builder": "@angular-builders/custom-webpack:dev-server",
           "options": {
             "browserTarget": "blackbeetle-admin:build",
+            "port": 8000,
             "customWebpackConfig": {
               "path": "webpack.config.js"
             }

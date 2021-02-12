@@ -10,7 +10,7 @@ import { environment } from 'src/environments/environment';
 export class AlbumService {
   constructor(private http: HttpClient) {}
 
-  storeAlbum(album: Object): Observable<Album> {
+  createAlbum(album: Object): Observable<Album> {
     return this.http.post<Album>(`${environment.apiUrl}/album/create`, album);
   }
 

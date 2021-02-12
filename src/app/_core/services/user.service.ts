@@ -4,15 +4,33 @@ import { User } from '@core/models/user';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
-
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class UserService {
+  constructor(private http: HttpClient) {}
 
-  constructor(private http: HttpClient) { }
-
-  getUsers(): Observable<User[]>{
+  getUsers(): Observable<User[]> {
     return this.http.get<User[]>(`${environment.apiUrl}/user`);
+  }
+
+  getUser(id: number): Observable<User> {
+    return this.http.get<User>(`${environment.apiUrl}/user/${id}`);
+  }
+
+  createUser(user: User): Observable<User> {
+    return this.http.post<User>(`${environment.apiUrl}/user`, user);
+  }
+
+  updateUser(user: User, id: number): Observable<User> {
+    return this.http.post<User>(`${environment.apiUrl}/user/${id}`, user);
+  }
+
+  deleteUser(id: number): Observable<any> {
+    return this.http.delete<User>(`${environment.apiUrl}/user/${id}`);
+  }
+
+  sendVerification(id: number): Observable<any> {
+    return this.http.get(`${environment.apiUrl}/user/${id}`);
   }
 }

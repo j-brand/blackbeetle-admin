@@ -1,8 +1,9 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { AuthGuard } from '@core/auth.guard';
 import { DefaultLayoutComponent } from '@shared/layout/default-layout/default-layout.component';
-import { UserComponent } from './user.component';
+import { CreateUserComponent } from './pages/create-user/create-user.component';
+import { EditUserComponent } from './pages/edit-user/edit-user.component';
+import { IndexUserComponent } from './pages/index-user/index-user.component';
 
 const routes: Routes = [
   {
@@ -11,8 +12,18 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        component: UserComponent,
         pathMatch: 'full',
+        component: IndexUserComponent,
+      },
+      {
+        path: 'create',
+        pathMatch: 'full',
+        component: CreateUserComponent,
+      },
+      {
+        path: ':id',
+        pathMatch: 'full',
+        component: EditUserComponent,
       },
     ],
   },

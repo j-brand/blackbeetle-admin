@@ -10,7 +10,7 @@ import { environment } from 'src/environments/environment';
 export class StoryService {
   constructor(private http: HttpClient) {}
 
-  storeStory(story: FormData) {
+  createStory(story: FormData) {
     return this.http.post<Story>(`${environment.apiUrl}/story/create`, story);
   }
   updateStory(id: number, story: FormData) {

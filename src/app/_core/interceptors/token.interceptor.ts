@@ -21,6 +21,7 @@ export class TokenInterceptor implements HttpInterceptor {
   ): Observable<HttpEvent<any>> {
     //if the request goes to the API
     if (req.url.startsWith(environment.publicUrl)) {
+
       req = req.clone({
         withCredentials: true,
       });

@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, mergeMap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { User } from '@core/models/user';
 
@@ -22,12 +22,12 @@ export class AuthService {
   public get currentUserValue(): User {
     return this.currentUserSubject.value;
   }
-
-  login(email: string, password: string) {
+  
+  login(cred: Object) {
     this.http.get(environment.csrf).subscribe();
 
     return this.http
-      .post<User>(`${environment.apiUrl}/auth/login`, { email, password })
+      .post<User>(`${environment.apiUrl}/auth/login`, cred)
       .pipe(
         map((user) => {
           // store user details and jwt token in local storage to keep user logged in between page refreshes
@@ -38,11 +38,11 @@ export class AuthService {
       );
   }
 
+
   logout() {
     // remove user from local storage to log user out
     localStorage.removeItem('currentUser');
     this.http.post(`${environment.apiUrl}/auth/logout`, {}).subscribe((res) => {
-      console.log(res);
     });
 
     this.currentUserSubject.next(null);

@@ -33,7 +33,7 @@ export class EditAlbumComponent implements OnInit {
 
   ngOnInit(): void {
     let albumID = this.router.snapshot.paramMap.get('id');
-    this.getAlbum(Number(albumID));
+    this.getAlbum(parseInt(albumID));
     this.uploadURL = 'album/upload/' + albumID;
   }
 
@@ -41,7 +41,7 @@ export class EditAlbumComponent implements OnInit {
    * Get the album with images from the API.
    * @param id album ID
    */
-  getAlbum(id: Number): void {
+  getAlbum(id: number): void {
     this.albumService.getAlbum(id).subscribe((album) => {
       this.album = album;
       this.albumImages = album.images;

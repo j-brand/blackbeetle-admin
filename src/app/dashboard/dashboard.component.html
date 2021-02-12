@@ -1,10 +1,12 @@
-<div class="grid grid-rows-4 grid-cols-4 gap-4 p-5">
+<div
+  class="grid grid-rows-1 grid-cols-1 lg:grid-rows-4 lg:grid-cols-4 gap-4 md:p-5"
+>
   <div class="row-span-2 col-span-2 bg-gray-500 rounded-md">
     <app-location-card></app-location-card>
   </div>
 
   <div class="row-span-1 col-span-2 bg-gray-500 rounded-md">
-    <mat-card class="full-h-card">
+    <mat-card *ngIf="dashboardData" class="full-h-card">
       <mat-card-header>
         <div mat-card-avatar>
           <mat-icon
@@ -15,24 +17,29 @@
           >
         </div>
         <mat-card-title>Geschichten</mat-card-title>
-        <mat-card-subtitle>Dog Breed</mat-card-subtitle>
+        <mat-card-subtitle
+          >Du hast {{ dashboardData.stories.length }} Geschichten geschrieben.
+        </mat-card-subtitle>
       </mat-card-header>
       <mat-card-content>
-        <p>
-          The Shiba Inu is the smallest of the six original and distinct spitz
-          breeds of dog from Japan. A small, agile dog that copes very well with
-          mountainous terrain, the Shiba Inu was originally bred for hunting.
-        </p>
+        <p class="font-bold">Deine letzten geschichten:</p>
+        <div *ngFor="let story of dashboardData.stories.slice(0, 3)">
+          <p>{{ story.title }} hat {{ story.posts_count }} posts.</p>
+        </div>
       </mat-card-content>
       <mat-card-actions>
-        <button mat-button>Neu</button>
-        <button mat-button>Übersicht</button>
+        <a
+          [routerLink]="['/story', dashboardData.stories.slice(-1)[0].id]"
+          mat-button
+          >Zur letzten Geschichte</a
+        >
+        <a routerLink="/story" mat-button>Übersicht</a>
       </mat-card-actions>
     </mat-card>
   </div>
 
   <div class="row-span-1 col-span-2 bg-gray-500 rounded-md">
-    <mat-card class="full-h-card">
+    <mat-card *ngIf="dashboardData" class="full-h-card">
       <mat-card-header>
         <div mat-card-avatar>
           <mat-icon
@@ -43,17 +50,19 @@
           >
         </div>
         <mat-card-title>Fotoalben</mat-card-title>
+        <mat-card-subtitle
+          >Du hast {{ dashboardData.albums.length }} Alben.</mat-card-subtitle
+        >
       </mat-card-header>
       <mat-card-content>
-        <p>
-          The Shiba Inu is the smallest of the six original and distinct spitz
-          breeds of dog from Japan. A small, agile dog that copes very well with
-          mountainous terrain, the Shiba Inu was originally bred for hunting.
-        </p>
+        <p class="font-bold">Deine neusten Alben:</p>
+        <div *ngFor="let album of dashboardData.albums.slice(0, 3)">
+          <p>{{ album.title }} hat {{ album.images_count }} Bilder.</p>
+        </div>
       </mat-card-content>
       <mat-card-actions>
-        <button mat-button>Neu</button>
-        <button mat-button>Übersicht</button>
+        <a routerLink="/album/create" mat-button>Neu</a>
+        <a routerLink="/album" mat-button>Übersicht</a>
       </mat-card-actions>
     </mat-card>
   </div>

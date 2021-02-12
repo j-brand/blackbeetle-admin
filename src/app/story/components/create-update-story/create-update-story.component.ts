@@ -118,7 +118,7 @@ export class CreateUpdateStoryComponent implements OnInit {
           },
         });
       } else {
-        this.storyService.storeStory(formData).subscribe({
+        this.storyService.createStory(formData).subscribe({
           next: (data) => {
             this.router.navigate(['/story/' + data.id]);
           },

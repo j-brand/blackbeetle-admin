@@ -32,7 +32,7 @@ const moment = _moment;
 export class CreateUpdateAlbumComponent implements OnInit {
   albumForm: FormGroup;
   imgPath: String;
-  editMode: Boolean = false;
+  editMode: boolean = false;
   message: String;
 
   @Input()
@@ -135,7 +135,7 @@ export class CreateUpdateAlbumComponent implements OnInit {
           },
         });
       } else {
-        this.albumService.storeAlbum(formData).subscribe({
+        this.albumService.createAlbum(formData).subscribe({
           next: (data) => {
             this.router.navigate(['/album/' + data.id]);
           },

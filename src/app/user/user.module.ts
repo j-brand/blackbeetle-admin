@@ -1,11 +1,26 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { UserComponent } from './user.component';
 import { MaterialModule } from '@material/material.module';
 import { UserRoutingModule } from './user-routing.module';
+import { EditUserComponent } from './pages/edit-user/edit-user.component';
+import { CreateUserComponent } from './pages/create-user/create-user.component';
+import { IndexUserComponent } from './pages/index-user/index-user.component';
+import { CreateUpdateUserComponent } from './components/create-update-user/create-update-user.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
-  declarations: [UserComponent],
-  imports: [CommonModule, MaterialModule, UserRoutingModule],
+  declarations: [
+    IndexUserComponent,
+    EditUserComponent,
+    CreateUserComponent,
+    CreateUpdateUserComponent,
+  ],
+  imports: [
+    CommonModule,
+    MaterialModule,
+    UserRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
+  ],
 })
 export class UserModule {}

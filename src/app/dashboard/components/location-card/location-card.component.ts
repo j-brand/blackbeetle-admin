@@ -1,5 +1,4 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { OptionsService } from '@core/services/options.service';
 import { GMapMarker } from '@shared/models/g-map-marker';
@@ -10,14 +9,11 @@ import { GMapMarker } from '@shared/models/g-map-marker';
   styleUrls: ['./location-card.component.scss'],
 })
 export class LocationCardComponent implements OnInit {
-  form: FormGroup;
-
   @Input()
   marker?: GMapMarker;
 
   constructor(
     private _snackBar: MatSnackBar,
-    private fb: FormBuilder,
     private optionService: OptionsService
   ) {}
 
@@ -33,10 +29,6 @@ export class LocationCardComponent implements OnInit {
     }
 
     this.getLocation();
-
-    this.form = this.fb.group({
-      description: ['', []],
-    });
   }
 
   getLocation() {

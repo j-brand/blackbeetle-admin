@@ -69,6 +69,28 @@
       routerLinkActive="bg-gray-200"
       type="button"
       class="nav-item-wrapper"
+      (click)="users = !users"
+    >
+      <div [class.bg-gray-200]="users" class="nav-item">
+        <mat-icon matListIcon>account_box</mat-icon>
+        <div class="pl-5">
+          <span class="">Benutzer</span>
+        </div>
+      </div>
+      <div [class.expanded]="users" class="nav-item-inner-wrapper">
+        <a routerLink="/user" class="uppercase">
+          <div class="nav-item-inner">Übersicht</div>
+        </a>
+        <a routerLink="/user/create" class="uppercase">
+          <div class="nav-item-inner">Neu</div>
+        </a>
+      </div>
+    </button>
+
+<!--     <button
+      routerLinkActive="bg-gray-200"
+      type="button"
+      class="nav-item-wrapper"
     >
       <a routerLink="/user" class="uppercase w-full">
         <div class="nav-item">
@@ -76,7 +98,7 @@
           <span class="pl-5"> Benutzer </span>
         </div>
       </a>
-    </button>
+    </button> -->
   </mat-sidenav>
 
   <mat-sidenav-content>
