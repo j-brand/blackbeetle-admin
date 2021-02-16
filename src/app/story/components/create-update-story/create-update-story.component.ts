@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -6,9 +6,10 @@ import {
   Validators,
 } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { StoryService } from '@core/services/story.service';
 import { Story } from '@core/models/story';
+import { HelperService } from '@shared/services/helper.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -20,54 +21,38 @@ export class CreateUpdateStoryComponent implements OnInit {
   storyForm: FormGroup;
   imgPath: String;
   editMode: Boolean = false;
-  story: Story;
   message: String;
 
+  @Input()
+  story?: Story;
+
   constructor(
+    private helperService: HelperService,
     private storyService: StoryService,
     private formBuilder: FormBuilder,
-    private activeRoute: ActivatedRoute,
     private router: Router,
     private _snackBar: MatSnackBar
   ) {}
 
   ngOnInit(): void {
     this.storyForm = this.formBuilder.group({
-      active: [0],
-      title: ['', Validators.required],
-      slug: ['', Validators.required],
-      description: ['', Validators.required],
-      image_upload: [''],
+      active: new FormControl(0),
+      title: new FormControl([''], Validators.required),
+      slug: new FormControl([''], Validators.required),
+      description: new FormControl([''], Validators.required),
+      image_upload: new FormControl(['']),
     });
 
-    let storyID = this.activeRoute.snapshot.paramMap.get('id');
-    if (storyID) {
-      this.editMode = true;
-      this.getStory(Number(storyID));
+    if (this.story) {
+      this.setEditMode(this.story);
     }
   }
 
-  getStory(id: Number): void {
-    this.storyService.getStory(id).subscribe((story) => {
-      this.story = story;
-      this.storyForm.patchValue(story);
-      this.imgPath = `${environment.publicUrl}/storage/${story.title_image.path}${story.title_image.title}.${story.title_image.extension}`;
-      //Set all formcontrols untouched
-      Object.keys(this.storyForm.controls).forEach((controlKey) => {
-        this.storyForm.controls[controlKey].markAsUntouched();
-      });
-    });
-  }
-  
-  //Get all touched form values
-  getUpdatedValues() {
-    const updatedFormValues = {};
-    this.storyForm['_forEachChild']((control, name) => {
-      if (control.touched) {
-        updatedFormValues[name] = control.value;
-      }
-    });
-    return updatedFormValues;
+  private setEditMode(story: Story) {
+    this.editMode = true;
+    this.storyForm.patchValue(story);
+    this.storyForm.markAsPristine();
+    this.imgPath = `${environment.publicUrl}/storage/${story.title_image.path}${story.title_image.title}.${story.title_image.extension}`;
   }
 
   //Add preview Image on File Input Change
@@ -85,52 +70,37 @@ export class CreateUpdateStoryComponent implements OnInit {
     }
   }
 
-  public onActiveChange(event: any) {
-    if (event.checked) {
-      this.storyForm.patchValue({ active: 1 });
-    } else {
-      this.storyForm.patchValue({ active: 0 });
-    }
-  }
-
   onSubmit() {
-    var formValues = this.getUpdatedValues();
+    var formValues = this.helperService.getUpdatedValues(this.storyForm);
 
-    if (Object.keys(formValues).length != 0) {
-      const formData = new FormData();
-      Object.entries(formValues).forEach(([key, value]: any[]) => {
-
-          formData.set(key, value);
-        
+    if (this.editMode) {
+      this.storyService
+        .updateStory(this.story.id, this.helperService.toFormData(formValues))
+        .subscribe({
+          next: (data) => {
+            this._snackBar.open('Storydetails gespeichert!', '', {
+              duration: 3000,
+            });
+          },
+          error: (err) => {
+            this._snackBar.open(err.error.message, '', {
+              duration: 3000,
+            });
+          },
+        });
+    } else {
+      this.storyService.createStory(this.helperService.toFormData(this.storyForm.value)).subscribe({
+        next: (data) => {
+          this.router.navigate(['/story/' + data.id]);
+        },
+        error: (error) => {
+          if (error.errors) {
+            Object.entries(error.errors).forEach(([key, value]: any[]) => {
+              this.storyForm.controls[key].setErrors(value);
+            });
+          }
+        },
       });
-
-      if (this.editMode) {
-        this.storyService.updateStory(this.story.id, formData).subscribe({
-          next: (data) => {
-            this._snackBar.open('Story Details gespeichert!', '', {
-              duration: 3000,
-            });
-          },
-          error: (error) => {
-            this._snackBar.open('Error! Call the Admin.^^', '', {
-              duration: 3000,
-            });
-          },
-        });
-      } else {
-        this.storyService.createStory(formData).subscribe({
-          next: (data) => {
-            this.router.navigate(['/story/' + data.id]);
-          },
-          error: (error) => {
-            if (error.errors) {
-              Object.entries(error.errors).forEach(([key, value]: any[]) => {
-                this.storyForm.controls[key].setErrors(value);
-              });
-            }
-          },
-        });
-      }
     }
   }
 }

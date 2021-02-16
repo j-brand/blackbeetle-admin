@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 export interface DialogData {
@@ -7,13 +7,8 @@ export interface DialogData {
 @Component({
   selector: 'app-update-text-dialog',
   templateUrl: './update-text-dialog.component.html',
-  styleUrls: ['./update-text-dialog.component.scss']
+  styleUrls: ['./update-text-dialog.component.scss'],
 })
-export class UpdateTextDialogComponent implements OnInit {
-
-  constructor(@Inject(MAT_DIALOG_DATA) public data: DialogData) { }
-
-  ngOnInit(): void {
-  }
-
+export class UpdateTextDialogComponent {
+  constructor(@Inject(MAT_DIALOG_DATA) public data: DialogData) {}
 }

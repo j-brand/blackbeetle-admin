@@ -5,11 +5,9 @@
   enctype="multipart/form-data"
 >
   <div class="grid grid-cols-1 gap-0 md:grid-cols-2 md:gap-6">
-    <mat-checkbox
-      (change)="onActiveChange($event)"
-      color="primary"
-      formControlName="active"
-      >sichtbar</mat-checkbox>
+    <mat-checkbox color="primary" formControlName="active" appBoolToNumber
+      >sichtbar</mat-checkbox
+    >
 
     <mat-form-field appearance="outline">
       <mat-label>gib einen Zeitraum ein</mat-label>
@@ -51,17 +49,19 @@
       <input formControlName="title_image_text" matInput />
     </mat-form-field>
 
-    <div class="form-group flex">
-      <img class="md:h-14 w-auto mr-5" [src]="imgPath" *ngIf="imgPath" />
-      <button
-        class="h-14"
-        mat-raised-button
-        color="primary"
-        type="button"
-        (click)="imageInput.click()"
-      >
-        Bild auswählen
-      </button>
+    <div class="form-group flex flex-col md:flex-row">
+      <img class="md:h-14 w-auto md:mr-5" [src]="imgPath" *ngIf="imgPath" />
+      <div class="mt-5 md:m-0">
+        <button
+          class="h-14 "
+          mat-raised-button
+          color="primary"
+          type="button"
+          (click)="imageInput.click()"
+        >
+          Bild auswählen
+        </button>
+      </div>
       <input
         hidden="true"
         type="file"

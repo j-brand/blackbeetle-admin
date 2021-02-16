@@ -1,7 +1,4 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { subscribeOn } from 'rxjs/operators';
-import { environment } from 'src/environments/environment';
 
 import { Album } from '@core/models/album';
 import { AlbumService } from '@core/services/album.service';

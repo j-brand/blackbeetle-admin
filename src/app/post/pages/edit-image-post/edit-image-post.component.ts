@@ -7,6 +7,7 @@ import { DeleteDialogComponent } from '@shared/components/dialogs/delete-dialog/
 import { UpdateImageDialogComponent } from '@shared/components/dialogs/update-image-dialog/update-image-dialog.component';
 import { Post } from '@core/models/post';
 import { Image } from '@core/models/image';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-edit-image-post',
@@ -22,7 +23,8 @@ export class EditImagePostComponent implements OnInit {
   constructor(
     private imageService: ImageService,
     public dialog: MatDialog,
-    private postService: PostService
+    private postService: PostService,
+    private _snackBar: MatSnackBar
   ) {}
 
   ngOnInit(): void {
@@ -36,6 +38,7 @@ export class EditImagePostComponent implements OnInit {
   addToPostImages($file: Image) {
     this.post.images.push($file);
   }
+
   /**
    * Delte the image from the album
    * @param id image ID
@@ -48,7 +51,7 @@ export class EditImagePostComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        this.postService.deleteImage(id).subscribe((res) => {
+        this.imageService.deleteImage(id).subscribe((res) => {
           if (res) {
             this.post.images = this.post.images.filter(
               (image) => image.id != id
@@ -69,12 +72,12 @@ export class EditImagePostComponent implements OnInit {
     let img_two = this.post.images[event.currentIndex];
     this.postService
       .updateImagePosition(this.post.id, event.previousIndex, img_one.id)
-      .subscribe((result) => console.log(result));
+      .subscribe();
     this.postService
       .updateImagePosition(this.post.id, event.currentIndex, img_two.id)
-      .subscribe((result) => console.log(result));
+      .subscribe();
   }
- 
+
   editImage(id: number) {
     let image: Image = this.post.images.filter((image) => image.id == id)[0];
     const dialogRef = this.dialog.open(UpdateImageDialogComponent, {
@@ -92,13 +95,20 @@ export class EditImagePostComponent implements OnInit {
   updateImageDescription(id: number, description: string) {
     let formData = new FormData();
     formData.set('description', description);
-    this.imageService
-      .updateImageDescription(id, formData)
-      .subscribe(
-        (image) =>
-          (this.post.images[
-            this.post.images.findIndex((el) => el.id == id)
-          ] = image)
-      );
+    this.imageService.updateImageDescription(id, formData).subscribe(
+      (image) => {
+        this.post.images[
+          this.post.images.findIndex((el) => el.id == id)
+        ] = image;
+        this._snackBar.open('Bildbeschreibung geändert.', '', {
+          duration: 3000,
+        });
+      },
+      (err) => {
+        this._snackBar.open(err.error.message, '', {
+          duration: 3000,
+        });
+      }
+    );
   }
 }

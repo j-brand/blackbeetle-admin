@@ -48,7 +48,9 @@
       >
       <div class="flex items-center flex-grow justify-between">
         <span>{{ file?.name }}</span>
-        <span *ngIf="file?.error_message" class="font-bold">{{ file?.error_message }}</span>
+        <span *ngIf="file?.error_message" class="font-bold">{{
+          file?.error_message
+        }}</span>
         <span>{{ formatBytes(file?.size) }}</span>
       </div>
 

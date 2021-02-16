@@ -3,12 +3,12 @@
     <h1 class="uppercase font-bold text-2xl">geschichte bearbeiten</h1>
   </div>
 
-  <mat-expansion-panel class="mat-elevation-z0 border border-gray-300">
+  <mat-expansion-panel *ngIf="story" class="mat-elevation-z0 border border-gray-300">
     <mat-expansion-panel-header>
       <mat-panel-title> Story Details bearbeiten</mat-panel-title>
     </mat-expansion-panel-header>
 
-    <app-create-update-story></app-create-update-story>
+    <app-create-update-story [story]="story"></app-create-update-story>
   </mat-expansion-panel>
 
   <div

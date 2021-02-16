@@ -29,9 +29,10 @@ export class TokenInterceptor implements HttpInterceptor {
       if (req.method === 'GET' || req.method === 'HEAD') {
         return next.handle(req);
       }
+      
       const token = this.tokenService.getToken();
 
-      // Be careful not to overwrite an existing header of the same name.
+      // Add CSRF token to request header
       if (token !== null && !req.headers.has(this.headerName)) {
         req = req.clone({ headers: req.headers.set(this.headerName, token) });
       }

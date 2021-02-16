@@ -7,6 +7,10 @@ import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root',
 })
+
+/**
+ * Service for all requests on the "options" route
+ */
 export class OptionsService {
   constructor(private http: HttpClient) {}
 

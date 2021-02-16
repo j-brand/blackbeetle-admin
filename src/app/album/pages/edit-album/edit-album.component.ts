@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { MatSnackBar, SimpleSnackBar } from '@angular/material/snack-bar';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { AlbumService } from '@core/services/album.service';
 
@@ -68,7 +68,7 @@ export class EditAlbumComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        this.albumService.deleteImage(id).subscribe((res) => {
+        this.imageService.deleteImage(id).subscribe((res) => {
           if (res) {
             this.albumImages = this.albumImages.filter(
               (image) => image.id != id
@@ -89,10 +89,10 @@ export class EditAlbumComponent implements OnInit {
     let img_two = this.albumImages[event.currentIndex];
     this.albumService
       .updateImagePosition(this.album.id, event.previousIndex, img_one.id)
-      .subscribe((result) => console.log(result));
+      .subscribe();
     this.albumService
       .updateImagePosition(this.album.id, event.currentIndex, img_two.id)
-      .subscribe((result) => console.log(result));
+      .subscribe();
   }
 
   editImage(id: number) {
@@ -112,13 +112,18 @@ export class EditAlbumComponent implements OnInit {
   updateImageDescription(id: number, description: string) {
     let formData = new FormData();
     formData.set('description', description);
-    this.imageService
-      .updateImageDescription(id, formData)
-      .subscribe(
-        (image) =>
-          (this.albumImages[
-            this.albumImages.findIndex((el) => el.id == id)
-          ] = image)
-      );
+    this.imageService.updateImageDescription(id, formData).subscribe(
+      (image) => {
+        this.albumImages[
+          this.albumImages.findIndex((el) => el.id == id)
+        ] = image;
+        this._snackBar.open('Bildbeschreibung geändert.', '', {
+          duration: 3000,
+        });
+      },
+      (err) => {
+        this._snackBar.open(err.error.message, '', { duration: 3000 });
+      }
+    );
   }
 }

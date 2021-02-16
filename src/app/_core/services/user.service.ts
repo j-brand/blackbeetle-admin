@@ -7,6 +7,9 @@ import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root',
 })
+/**
+ * Service for all requests on the "user" route
+ */
 export class UserService {
   constructor(private http: HttpClient) {}
 

@@ -22,9 +22,10 @@ export class ErrorInterceptor implements HttpInterceptor {
       retry(1),
       catchError((err: HttpErrorResponse) => {
         if (err.status === 401 || err.status === 419) {
-          // auto logout if 401 response returned from api
-          //this.authService.logout();
-          //location.reload();
+
+          //Logout if Unauthorized or CSRF token missmatch
+          this.authService.logout();
+          location.reload();
         } else if (err.status === 422) {
           return throwError(err.error);
         }

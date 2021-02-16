@@ -6,27 +6,29 @@ import {
   HttpInterceptor,
   HttpResponse,
 } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
+import { Observable} from 'rxjs';
 import { LoadingService } from '@core/services/loading.service';
-import { catchError, map } from 'rxjs/operators';
+import {map } from 'rxjs/operators';
 
 @Injectable()
 export class HttpRequestInterceptor implements HttpInterceptor {
   constructor(private _loading: LoadingService) {}
 
+  /**
+   * Set loading variable for progress bar
+   */
+
   intercept(
     request: HttpRequest<unknown>,
     next: HttpHandler
   ): Observable<HttpEvent<unknown>> {
-    this._loading.setLoadting(true, request.url);
+    this._loading.setLoading(true, request.url);
+
     return next.handle(request).pipe(
-      catchError((err) => {
-        this._loading.setLoadting(false, request.url);
-        return throwError(err);
-      }),
+      //deaktivate loading if response is received
       map<HttpEvent<any>, any>((evt: HttpEvent<any>) => {
         if (evt instanceof HttpResponse) {
-          this._loading.setLoadting(false, request.url);
+          this._loading.setLoading(false, request.url);
         }
         return evt;
       })

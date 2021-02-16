@@ -3,7 +3,12 @@ import { Post } from '@core/models/post';
 import { Image } from '@core/models/image';
 import { PostService } from '@core/services/post.service';
 import { environment } from 'src/environments/environment';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
@@ -27,7 +32,7 @@ export class EditHtmlPostComponent implements OnInit {
 
   ngOnInit(): void {
     this.contentForm = this.formBuilder.group({
-      content: ['', Validators.required],
+      content: new FormControl(['', Validators.required]),
     });
     this.contentForm.patchValue({ content: this.post.content });
     this.initTinyMce();
@@ -68,7 +73,6 @@ export class EditHtmlPostComponent implements OnInit {
             );
           })
           .catch((error) => {
-            console.log(error);
             failure(error);
           });
       },

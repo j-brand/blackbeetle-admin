@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { OptionsService } from './options.service';
+import { HelperService } from './helper.service';
 
-describe('OptionsService', () => {
-  let service: OptionsService;
+describe('HelperService', () => {
+  let service: HelperService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(OptionsService);
+    service = TestBed.inject(HelperService);
   });
 
   it('should be created', () => {

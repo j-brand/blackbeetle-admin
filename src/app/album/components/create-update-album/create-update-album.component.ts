@@ -6,10 +6,6 @@ import {
   Validators,
 } from '@angular/forms';
 import { AlbumService } from '@core/services/album.service';
-
-import { DateAdapter, MAT_DATE_FORMATS } from '@angular/material/core';
-import { DatePipe } from '@angular/common';
-import { MyDateAdapter, MY_DATE_FORMATS } from '@shared/date-adapter';
 import * as _moment from 'moment';
 
 import { ActivatedRoute, Router } from '@angular/router';
@@ -17,17 +13,13 @@ import { Album } from '@core/models/album';
 import { environment } from 'src/environments/environment';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Input } from '@angular/core';
+import { HelperService } from '@shared/services/helper.service';
 
 const moment = _moment;
 @Component({
   selector: 'app-create-update-album',
   templateUrl: './create-update-album.component.html',
   styleUrls: ['./create-update-album.component.scss'],
-  providers: [
-    { provide: DateAdapter, useClass: MyDateAdapter },
-    { provide: MAT_DATE_FORMATS, useValue: MY_DATE_FORMATS },
-    DatePipe,
-  ],
 })
 export class CreateUpdateAlbumComponent implements OnInit {
   albumForm: FormGroup;
@@ -41,20 +33,20 @@ export class CreateUpdateAlbumComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private albumService: AlbumService,
-    public datepipe: DatePipe,
     private activeRoute: ActivatedRoute,
     private router: Router,
-    private _snackBar: MatSnackBar
+    private _snackBar: MatSnackBar,
+    private helperService: HelperService
   ) {}
 
   ngOnInit(): void {
     this.albumForm = this.formBuilder.group({
-      active: [1],
-      title: ['', Validators.required],
-      slug: ['', Validators.required],
-      description: ['', Validators.required],
-      image_upload: [''],
-      title_image_text: [''],
+      active: new FormControl([0], Validators.required),
+      title: new FormControl([''], Validators.required),
+      slug: new FormControl([''], Validators.required),
+      description: new FormControl([''], Validators.required),
+      image_upload: new FormControl(['']),
+      title_image_text: new FormControl(['']),
       start_date: new FormControl(moment()),
       end_date: new FormControl(moment()),
     });
@@ -63,26 +55,12 @@ export class CreateUpdateAlbumComponent implements OnInit {
       this.setEditMode(this.album);
     }
   }
+
   private setEditMode(album: Album) {
     this.editMode = true;
     this.albumForm.patchValue(album);
-    //Set all formcontrols untouched
+    this.albumForm.markAsPristine();
     this.imgPath = `${environment.publicUrl}/storage/${album.title_image.path}${album.title_image.title}.${album.title_image.extension}`;
-
-    Object.keys(this.albumForm.controls).forEach((controlKey) => {
-      this.albumForm.controls[controlKey].markAsUntouched();
-    });
-  }
-
-  //Get all touched form values
-  getUpdatedValues() {
-    const updatedFormValues = {};
-    this.albumForm['_forEachChild']((control, name) => {
-      if (control.touched) {
-        updatedFormValues[name] = control.value;
-      }
-    });
-    return updatedFormValues;
   }
 
   //Add preview Image on File Input Change
@@ -95,34 +73,18 @@ export class CreateUpdateAlbumComponent implements OnInit {
       reader.onload = () => {
         this.imgPath = reader.result as string;
         this.albumForm.patchValue({ image_upload: file });
-        this.albumForm.controls['image_upload'].markAsTouched();
+        this.albumForm.controls['image_upload'].markAsDirty();
       };
     }
   }
 
-  public onActiveChange(event: any) {
-    if (event.checked) {
-      this.albumForm.patchValue({ active: 1 });
-    } else {
-      this.albumForm.patchValue({ active: 0 });
-    }
-  }
-
   onSubmit() {
-    var formValues = this.getUpdatedValues();
+    var formValues = this.helperService.getUpdatedValues(this.albumForm);
 
-    if (Object.keys(formValues).length != 0) {
-      const formData = new FormData();
-      Object.entries(formValues).forEach(([key, value]: any[]) => {
-        if (key == 'start_date' || key == 'end_date') {
-          formData.set(key, this.datepipe.transform(value, 'Y-MM-dd'));
-        } else if (!(value instanceof Date)) {
-          formData.set(key, value);
-        }
-      });
-
-      if (this.editMode) {
-        this.albumService.updateAlbum(this.album.id, formData).subscribe({
+    if (this.editMode) {
+      this.albumService
+        .updateAlbum(this.album.id, this.helperService.toFormData(formValues))
+        .subscribe({
           next: (data) => {
             this._snackBar.open('Album Details gespeichert!', '', {
               duration: 3000,
@@ -134,8 +96,10 @@ export class CreateUpdateAlbumComponent implements OnInit {
             });
           },
         });
-      } else {
-        this.albumService.createAlbum(formData).subscribe({
+    } else {
+      this.albumService
+        .createAlbum(this.helperService.toFormData(this.albumForm.value))
+        .subscribe({
           next: (data) => {
             this.router.navigate(['/album/' + data.id]);
           },
@@ -147,7 +111,6 @@ export class CreateUpdateAlbumComponent implements OnInit {
             }
           },
         });
-      }
     }
   }
 }

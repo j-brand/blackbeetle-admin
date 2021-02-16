@@ -1,2 +1,4 @@
-export interface Comment {
-}
+/**
+ * Model for type Comment
+ */
+export type Comment = {};

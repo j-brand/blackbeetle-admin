@@ -1,22 +1,21 @@
-import { HttpClient, HttpEventType, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpEventType } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { from, Observable, of } from 'rxjs';
-import { concatMap, expand, map, tap } from 'rxjs/operators';
+import { from, Observable } from 'rxjs';
+import { concatMap, map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class FileUploadService {
-  file: File;
-  chunks = [];
-  chunksCount: number;
-  chunkProgress: number = 0;
-  endpoint: string;
-  emit = (f) => of(f);
-
   constructor(private httpClient: HttpClient) {}
 
+  /**
+   * Upload a file to a given endpoint and return the upload progress
+   *
+   * @param endpoint  The API endpooint where the file should upload to
+   * @param file      File as Formdata Object
+   */
   upload(endpoint: String, file: FormData) {
     let uploadURL = `${environment.apiUrl}/${endpoint}`;
 
@@ -34,7 +33,7 @@ export class FileUploadService {
 
             case HttpEventType.Response:
               return event.body;
-            
+
             default:
               return `Unhandled event: ${event.type}`;
           }
@@ -43,24 +42,23 @@ export class FileUploadService {
   }
 
   uploadInChunks(file: File, endpoint: string): Observable<any> {
-    const headers = new HttpHeaders();
-    headers.set('Content-Type', 'application/octet-stream');
-
-    this.file = file;
     let count = 0;
-    this.createChunks();
+    let fileChunks = this.createChunks(file, 1000000);
+    let progress = 0;
 
-    return from(this.chunks).pipe(
-      concatMap((chunk) => {
+    return from(fileChunks).pipe(
+      concatMap(() => {
+        let formData = this.getFormDate(fileChunks, file.name, count);
         count++;
-        let formData = new FormData();
-        formData.set('is_last', String(this.chunks.length === count));
-        formData.set('file', chunk, `${this.file.name}.part`);
         return this.upload(endpoint, formData).pipe(
           map((res) => {
             if (res && res.status && res.status == 'progress') {
-              this.calcProgress(count, res.message);
-              return { status: 'progress', message: this.chunkProgress };
+              progress = this.calcProgress(
+                count,
+                fileChunks.length,
+                res.message
+              );
+              return { status: 'progress', message: progress };
             } else {
               return res;
             }
@@ -70,25 +68,39 @@ export class FileUploadService {
     );
   }
 
-  createChunks() {
-    let size = 1000000,
-      chunks = Math.ceil(this.file.size / size);
+  getFormDate(chunks, fileName: string, index: number): FormData {
+    let formData = new FormData();
+    formData.append('is_last', String(chunks.length - 1 === index));
+    formData.append('file', chunks[index], `${fileName}.part`);
+    return formData;
+  }
 
-    for (let i = 0; i < chunks; i++) {
-      this.chunks.push(
-        this.file.slice(
-          i * size,
-          Math.min(i * size + size, this.file.size),
-          this.file.type
+  /**
+   * Create a number of chunks of given size and return them in an array
+   *
+   * @param file The file that should be chunked
+   * @param chunkSize Single chunk size in byte
+   */
+  createChunks(file: File, chunkSize: number) {
+    let fileChunks = [];
+    let chunksCount = Math.ceil(file.size / chunkSize);
+
+    for (let i = 0; i < chunksCount; i++) {
+      fileChunks.push(
+        file.slice(
+          i * chunkSize,
+          Math.min(i * chunkSize + chunkSize, file.size),
+          file.type
         )
       );
     }
-    this.chunksCount = this.chunks.length;
+    return fileChunks;
   }
-  calcProgress(item, progress) {
-    let fullChunk = 100 / this.chunksCount;
-    let completedChunks = fullChunk * (item - 1);
-    let activeChunk = (fullChunk / 100) * progress;
-    this.chunkProgress = Math.round(completedChunks + activeChunk);
+
+  calcProgress(index, chunksTotalCount, itemProgress): number {
+    let fullChunk = 100 / chunksTotalCount;
+    let completedChunks = fullChunk * (index - 1);
+    let activeChunk = (fullChunk / 100) * itemProgress;
+    return Math.round(completedChunks + activeChunk);
   }
 }

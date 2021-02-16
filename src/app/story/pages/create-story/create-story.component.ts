@@ -5,11 +5,7 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './create-story.component.html',
   styleUrls: ['./create-story.component.scss']
 })
-export class CreateStoryComponent implements OnInit {
+export class CreateStoryComponent {
 
   constructor() { }
-
-  ngOnInit(): void {
-  }
-
 }

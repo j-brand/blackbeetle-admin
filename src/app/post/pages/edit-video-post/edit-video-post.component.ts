@@ -63,7 +63,6 @@ export class EditVideoPostComponent implements OnInit {
         if (result && result.status && result.status == 'progress') {
           this.uploadProgress = result.message;
         } else if (result.id) {
-          console.log(result);
           this.post = result;
           let content = JSON.parse(result.content);
           this.videoUrl = `${environment.publicUrl}/${content.path}/${content.filename}`;

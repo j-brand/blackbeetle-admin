@@ -1,7 +1,11 @@
 import { Comment } from '@core/models/comment';
 import { Image } from '@core/models/image';
-export interface Post {
-  id: number;
+
+/**
+ * Model for type Post (Story post)
+ */
+export type Post = {
+  readonly id: number;
   user_id: number;
   title: string;
   position: number;
@@ -11,4 +15,4 @@ export interface Post {
   active: number;
   comments: Comment;
   images?: Image[];
-}
+};

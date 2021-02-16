@@ -11,7 +11,7 @@ export class LoadingService {
 
   constructor() {}
 
-  setLoadting(loading: boolean, url: String): void {
+  setLoading(loading: boolean, url: String): void {
     if (!url) {
       throw new Error('Request URL must be provided');
     }

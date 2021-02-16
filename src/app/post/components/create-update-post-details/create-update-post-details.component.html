@@ -1,7 +1,7 @@
 <mat-expansion-panel
   *ngIf="post"
   class="mat-elevation-z0 border border-gray-300"
-  [expanded]="post.active == 0"
+  [expanded]="detailsExpanded"
 >
   <mat-expansion-panel-header>
     <mat-panel-title> Post Details bearbeiten</mat-panel-title>
@@ -15,10 +15,9 @@
   >
     <div class="grid grid-cols-1 gap-0 md:grid-cols-6 md:gap-6">
       <mat-checkbox
-        (change)="onActiveChange($event)"
         color="primary"
         formControlName="active"
-        class="md:col-span-6"
+        class="mb-5 md:col-span-6 md:m-0"
         >sichtbar</mat-checkbox
       >
 

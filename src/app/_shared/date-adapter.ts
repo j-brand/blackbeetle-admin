@@ -1,31 +1,11 @@
-import { Injectable } from '@angular/core';
-import { MatDateFormats, NativeDateAdapter } from '@angular/material/core';
-
-@Injectable()
-
-export class MyDateAdapter extends NativeDateAdapter {
-  format(date: Date, displayFormat: Object): string {
-    if (displayFormat === 'input') {
-      let day: string = date.getDate().toString();
-      day = +day < 10 ? '0' + day : day;
-      let month: string = (date.getMonth() + 1).toString();
-      month = +month < 10 ? '0' + month : month;
-      let year = date.getFullYear();
-      return `${day}-${month}-${year}`;
-    }
-    return date.toDateString();
-  }
-}
-
-//New date formats
-export const MY_DATE_FORMATS: MatDateFormats = {
+export const MY_FORMATS = {
   parse: {
-    dateInput: { month: 'short', year: 'numeric', day: 'numeric' },
+    dateInput: 'll',
   },
   display: {
-    dateInput: 'input',
-    monthYearLabel: { year: 'numeric', month: 'numeric' },
-    dateA11yLabel: { year: 'numeric', month: 'long', day: 'numeric' },
-    monthYearA11yLabel: { year: 'numeric', month: 'long' },
+    dateInput: 'll',
+    monthYearLabel: 'MMM YYYY',
+    dateA11yLabel: 'll',
+    monthYearA11yLabel: 'MMMM YYYY',
   },
 };

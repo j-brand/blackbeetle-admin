@@ -50,7 +50,7 @@ export class LocationCardComponent implements OnInit {
               duration: 3000,
             });
         },
-        (err) => console.log(err)
+        (err) => this._snackBar.open(err.error.message, '', { duration: 3000 })
       );
   }
 

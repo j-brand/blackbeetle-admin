@@ -1,4 +1,8 @@
-export interface User {
+
+/**
+ * Model for type User
+ */
+export type User = {
   id: number;
   email: string;
   name: string;

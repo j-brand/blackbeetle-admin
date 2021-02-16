@@ -80,8 +80,8 @@ export class FileDropzoneComponent implements OnInit {
     return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
   }
 
-  /** Pass file to upload Service
-   *
+  /**
+   * Pass file to upload Service
    * @param file (File)
    */
   uploadFile(file: File, index: number) {
@@ -94,7 +94,6 @@ export class FileDropzoneComponent implements OnInit {
       } else if (result.id) {
         this.fileUploaded.emit(result);
         this.files[index].success = true;
-
       }
     });
   }

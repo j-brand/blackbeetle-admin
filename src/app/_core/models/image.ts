@@ -1,4 +1,8 @@
-export interface Image {
+
+/**
+ * Model for type Image
+ */
+export type Image = {
   id: number;
   path: string;
   description: string;

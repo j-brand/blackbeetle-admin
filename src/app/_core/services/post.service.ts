@@ -8,6 +8,9 @@ import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root',
 })
+/**
+ * Service for all requests on the "post" route
+ */
 export class PostService {
   constructor(private http: HttpClient) {}
 
@@ -23,10 +26,6 @@ export class PostService {
     return this.http.delete(`${environment.apiUrl}/post/${id}`);
   }
 
-  deleteImage(id: Number): Observable<any> {
-    return this.http.delete(`${environment.apiUrl}/post/image/${id}`);
-  }
-
   deleteVideo(id: Number): Observable<any> {
     return this.http.delete(`${environment.apiUrl}/post/video/${id}`);
   }
@@ -37,6 +36,7 @@ export class PostService {
       post
     );
   }
+  
   uploadImage(image: Object, id: Number) {
     return this.http.post<Image>(
       `${environment.apiUrl}/post/upload/${id}`,

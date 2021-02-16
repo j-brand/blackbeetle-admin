@@ -25,16 +25,10 @@ import { MaterialModule } from './_material/material.module';
     CoreModule,
     SharedModule,
     AuthModule,
-/*     PostModule,
-    StoryModule,
-    AlbumModule,
-    UserModule, */
-/*     DashboardModule,
- */    MaterialModule,
+    MaterialModule,
     AppRoutingModule,
   ],
-  providers: [
-  ],
+  providers: [],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

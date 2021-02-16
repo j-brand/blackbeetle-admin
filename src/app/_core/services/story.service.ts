@@ -7,12 +7,16 @@ import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root',
 })
+/**
+ * Service for all requests on the "story" route
+ */
 export class StoryService {
   constructor(private http: HttpClient) {}
 
-  createStory(story: FormData) {
+  createStory(story: Object) {
     return this.http.post<Story>(`${environment.apiUrl}/story/create`, story);
   }
+
   updateStory(id: number, story: FormData) {
     return this.http.post<Story>(
       `${environment.apiUrl}/story/update/${id}`,

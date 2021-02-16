@@ -4,6 +4,7 @@ import { AuthGuard } from '@core/auth.guard';
 
 import { LoginComponent } from '@auth/login/login.component';
 import { PageNotFoundComponent } from '@shared/pages/page-not-found/page-not-found.component';
+import { DefaultLayoutComponent } from '@shared/layout/default-layout/default-layout.component';
 
 const routes: Routes = [
   {
@@ -36,7 +37,11 @@ const routes: Routes = [
   },
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
-  { path: '**', component: PageNotFoundComponent },
+  {
+    path: '**',
+    component: DefaultLayoutComponent,
+    children: [{ path: '**', component: PageNotFoundComponent }],
+  },
 ];
 
 @NgModule({

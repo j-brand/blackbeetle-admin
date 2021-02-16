@@ -19,12 +19,9 @@ export class EditPostIndexComponent implements OnInit {
   ngOnInit(): void {
     let id = this.activeRoute.snapshot.paramMap.get('id');
     this.getPost(parseInt(id));
-    
   }
 
   getPost(id: number) {
     this.postService.getPost(id).subscribe((post) => (this.post = post));
-
   }
-
 }

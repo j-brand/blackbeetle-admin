@@ -7,10 +7,14 @@ import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root',
 })
+
+/**
+ * Service for all requests on the "album" route
+ */
 export class AlbumService {
   constructor(private http: HttpClient) {}
 
-  createAlbum(album: Object): Observable<Album> {
+  createAlbum(album: FormData): Observable<Album> {
     return this.http.post<Album>(`${environment.apiUrl}/album/create`, album);
   }
 
@@ -27,10 +31,6 @@ export class AlbumService {
       `${environment.apiUrl}/album/update/${id}`,
       album
     );
-  }
-
-  deleteImage(id: Number): Observable<any> {
-    return this.http.delete(`${environment.apiUrl}/album/image/${id}`);
   }
 
   deleteAlbum(id: Number): Observable<any> {

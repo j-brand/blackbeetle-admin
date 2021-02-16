@@ -34,7 +34,6 @@ export class CreateUpdateUserComponent implements OnInit {
     });
 
     if (this.user) {
-      console.log('user is here');
       this.setEditMode(this.user);
     }
   }

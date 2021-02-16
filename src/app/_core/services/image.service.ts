@@ -10,10 +10,18 @@ import { environment } from 'src/environments/environment';
 export class ImageService {
   constructor(private http: HttpClient) {}
 
-  updateImageDescription(id: Number, description: FormData  ): Observable<Image> {
+  /**
+   * Service for all requests on the "image" route
+   */
+  updateImageDescription(id: Number, description: FormData): Observable<Image> {
     return this.http.post<Image>(
       `${environment.apiUrl}/image/update/${id}`,
       description
     );
   }
+
+  deleteImage(id: Number): Observable<any> {
+    return this.http.delete(`${environment.apiUrl}/image/${id}`);
+  }
+
 }

@@ -1,7 +1,10 @@
 import { Post } from '@core/models/post';
 import { Image } from '@core/models/image';
 
-export interface Story {
+/**
+ * Model for type Story
+ */
+export type Story = {
   id: number;
   title: string;
   description: string;
@@ -10,4 +13,4 @@ export interface Story {
   path: string;
   active: number;
   posts?: Post[];
-}
+};
