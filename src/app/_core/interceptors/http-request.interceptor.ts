@@ -5,10 +5,12 @@ import {
   HttpEvent,
   HttpInterceptor,
   HttpResponse,
+  HttpErrorResponse,
 } from '@angular/common/http';
-import { Observable} from 'rxjs';
+import { Observable } from 'rxjs';
 import { LoadingService } from '@core/services/loading.service';
-import {map } from 'rxjs/operators';
+import { catchError, map } from 'rxjs/operators';
+import { throwError } from 'rxjs/internal/observable/throwError';
 
 @Injectable()
 export class HttpRequestInterceptor implements HttpInterceptor {

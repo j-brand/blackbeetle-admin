@@ -1,10 +1,16 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { User } from '@core/models/user';
 import { UserService } from '@core/services/user.service';
+import { HelperService } from '@shared/services/helper.service';
 
 @Component({
   selector: 'app-create-update-user',
@@ -22,15 +28,16 @@ export class CreateUpdateUserComponent implements OnInit {
     private fb: FormBuilder,
     private userService: UserService,
     private _snackBar: MatSnackBar,
-    private router: Router
+    private router: Router,
+    private helperService: HelperService
   ) {}
 
   ngOnInit(): void {
     this.userForm = this.fb.group({
-      active: [0],
-      name: ['', Validators.required],
-      email: ['', Validators.required],
-      password: ['', Validators.required],
+      active: new FormControl([0]),
+      name: new FormControl([''], Validators.required),
+      email: new FormControl([''], Validators.required),
+      password: new FormControl([''], Validators.required),
     });
 
     if (this.user) {
@@ -47,36 +54,11 @@ export class CreateUpdateUserComponent implements OnInit {
     this.userForm.controls['password'].disable();
   }
 
-  public boolToNumber(event: MatCheckboxChange) {
-    let formControlName = event.source.name;
-    if (event.checked) {
-      this.userForm.patchValue({ [formControlName]: 1 });
-    } else {
-      this.userForm.patchValue({ [formControlName]: 0 });
-    }
-  }
-
-  //Get all touched form values
-  getUpdatedValues() {
-    const updatedFormValues = {};
-    this.userForm['_forEachChild']((control, name) => {
-      if (control.touched) {
-        updatedFormValues[name] = control.value;
-      }
-    });
-    return updatedFormValues;
-  }
-
   onSubmit() {
-    /*     var formValues = this.getUpdatedValues();
+    let formData = this.helperService.toFormData(this.userForm.value);
 
-    if (Object.keys(formValues).length != 0) {
-      const formData = new FormData();
-      Object.entries(formValues).forEach(([key, value]: any[]) => {
-        formData.set(key, value);
-      }); */
     if (this.editMode) {
-      this.userService.updateUser(this.userForm.value, this.user.id).subscribe({
+      this.userService.updateUser(formData, this.user.id).subscribe({
         next: (data) => {
           this._snackBar.open('Album Details gespeichert!', '', {
             duration: 3000,
@@ -89,7 +71,7 @@ export class CreateUpdateUserComponent implements OnInit {
         },
       });
     } else {
-      this.userService.createUser(this.userForm.value).subscribe({
+      this.userService.createUser(formData).subscribe({
         next: (data) => {
           console.log(data);
           this.router.navigate(['/user/' + data.id]);
@@ -103,6 +85,5 @@ export class CreateUpdateUserComponent implements OnInit {
         },
       });
     }
-    /*     } */
   }
 }

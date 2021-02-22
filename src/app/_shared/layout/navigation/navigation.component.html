@@ -6,7 +6,14 @@
     [mode]="mobileQuery.matches ? 'over' : 'side'"
     [opened]="!mobileQuery.matches"
   >
-    <mat-toolbar color="primary"> Business</mat-toolbar>
+    <mat-toolbar color="primary" class="h-auto p-4">
+      <div class="p-4 m-8 border border-white border-t-4 border-b-4 rounded-full">
+        <img
+          alt="Blackbeetle backend logo"
+          src="/assets/images/Keafer_4__500x500_white.png "
+        />
+      </div>
+    </mat-toolbar>
 
     <button
       routerLinkActive="bg-gray-200"

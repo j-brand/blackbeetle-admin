@@ -6,6 +6,9 @@ module.exports = {
   purge: [],
   theme: {
     extend: {
+      screens: {
+        "sm-only": { max: "639px" },
+      },
       scale: {
         300: "3",
       },

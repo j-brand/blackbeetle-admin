@@ -21,11 +21,11 @@ export class UserService {
     return this.http.get<User>(`${environment.apiUrl}/user/${id}`);
   }
 
-  createUser(user: User): Observable<User> {
+  createUser(user: FormData): Observable<User> {
     return this.http.post<User>(`${environment.apiUrl}/user`, user);
   }
 
-  updateUser(user: User, id: number): Observable<User> {
+  updateUser(user: FormData, id: number): Observable<User> {
     return this.http.post<User>(`${environment.apiUrl}/user/${id}`, user);
   }
 

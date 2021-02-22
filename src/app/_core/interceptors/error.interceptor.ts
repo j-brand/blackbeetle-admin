@@ -9,10 +9,16 @@ import {
 import { Observable, throwError } from 'rxjs';
 import { AuthService } from '@core/services/auth.service';
 import { catchError, retry } from 'rxjs/operators';
+import { LoadingService } from '@core/services/loading.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
-  constructor(private authService: AuthService) {}
+  constructor(
+    private authService: AuthService,
+    private loadingService: LoadingService,
+    private _snackBar: MatSnackBar
+  ) {}
 
   intercept(
     request: HttpRequest<unknown>,
@@ -21,8 +27,10 @@ export class ErrorInterceptor implements HttpInterceptor {
     return next.handle(request).pipe(
       retry(1),
       catchError((err: HttpErrorResponse) => {
-        if (err.status === 401 || err.status === 419) {
+        this.loadingService.setLoading(false, request.url);
+        this.showError(err.error);
 
+        if (err.status === 401 || err.status === 419) {
           //Logout if Unauthorized or CSRF token missmatch
           this.authService.logout();
           location.reload();
@@ -34,5 +42,11 @@ export class ErrorInterceptor implements HttpInterceptor {
         return throwError(err);
       })
     );
+  }
+
+  showError(error) {
+    this._snackBar.open(error.message, '', {
+      duration: 3000,
+    });
   }
 }

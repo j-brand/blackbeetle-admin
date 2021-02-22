@@ -10,11 +10,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { CoreModule } from '@core/core.module';
 import { SharedModule } from '@shared/shared.module';
 import { AuthModule } from '@auth/auth.module';
-import { PostModule } from '@post/post.module';
-import { StoryModule } from '@story/story.module';
-import { AlbumModule } from '@album/album.module';
-import { UserModule } from '@user/user.module';
-import { DashboardModule } from '@dashboard/dashboard.module';
 import { MaterialModule } from './_material/material.module';
 
 @NgModule({
