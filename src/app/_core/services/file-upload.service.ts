@@ -70,7 +70,8 @@ export class FileUploadService {
 
   getFormDate(chunks, fileName: string, index: number): FormData {
     let formData = new FormData();
-    formData.append('is_last', String(chunks.length - 1 === index));
+
+    formData.append('is_last', chunks.length - 1 === index ? '1' : '0');
     formData.append('file', chunks[index], `${fileName}.part`);
     return formData;
   }

@@ -6,8 +6,14 @@
 <div
   class="flex bg-white border border-gray-300 rounded-t-md md:py-5 mt-5 flex justify-center"
 >
-  <video #video   *ngIf="videoUrl"
-  layout-fill preload="auto" class="max-h-96" controls>
+  <video
+    #video
+    *ngIf="videoUrl"
+    layout-fill
+    preload="auto"
+    class="max-h-96"
+    controls
+  >
     <source [src]="videoUrl" type="video/mp4" />
   </video>
 </div>
@@ -16,7 +22,6 @@
   mode="determinate"
   [value]="uploadProgress"
 ></mat-progress-bar>
-
 
 <div class="mt-5">
   <button

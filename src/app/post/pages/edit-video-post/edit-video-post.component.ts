@@ -45,8 +45,6 @@ export class EditVideoPostComponent implements OnInit {
           this.postService.deleteVideo(this.post.id).subscribe((res) => {
             if (res === true) {
               this.uploadVideo($event.target.files.item(0));
-            } else {
-              console.log(res);
             }
           });
         }

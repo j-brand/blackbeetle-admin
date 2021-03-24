@@ -73,7 +73,7 @@ export class CreateUpdateAlbumComponent implements OnInit {
       reader.onload = () => {
         this.imgPath = reader.result as string;
         this.albumForm.patchValue({ image_upload: file });
-        this.albumForm.controls['image_upload'].markAsDirty();
+        this.albumForm.controls['image_upload'].markAsTouched();
       };
     }
   }

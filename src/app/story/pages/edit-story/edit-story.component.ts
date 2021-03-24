@@ -85,11 +85,11 @@ export class EditStoryComponent implements OnInit {
 
     this.postService
       .updatePost({ position: event.previousIndex }, post_one.id)
-      .subscribe((result) => console.log(result));
+      .subscribe();
 
     this.postService
       .updatePost({ position: event.currentIndex }, post_two.id)
-      .subscribe((result) => console.log(result));
+      .subscribe();
   }
 
   createPost(type: string) {

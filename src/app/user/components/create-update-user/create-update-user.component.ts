@@ -73,7 +73,6 @@ export class CreateUpdateUserComponent implements OnInit {
     } else {
       this.userService.createUser(formData).subscribe({
         next: (data) => {
-          console.log(data);
           this.router.navigate(['/user/' + data.id]);
         },
         error: (error) => {
