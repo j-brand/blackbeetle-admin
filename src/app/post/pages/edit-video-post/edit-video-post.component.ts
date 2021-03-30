@@ -56,7 +56,7 @@ export class EditVideoPostComponent implements OnInit {
 
   uploadVideo(file: File) {
     this.uploadService
-      .uploadInChunks(file, `post/uploadvideo/${this.post.id}`)
+      .uploadInChunks(file, `post/upload-video/${this.post.id}`)
       .subscribe((result) => {
         if (result && result.status && result.status == 'progress') {
           this.uploadProgress = result.message;

@@ -1,5 +1,5 @@
 <div
-  class="grid grid-rows-1 grid-cols-1 lg:grid-rows-4 lg:grid-cols-4 gap-4 md:p-5"
+  class="grid grid-rows-1 grid-cols-1 mt-5 lg:grid-rows-4 lg:grid-cols-4 gap-4 md:p-5 md:mt-0"
 >
   <div class="row-span-2 col-span-2 bg-gray-500 rounded-md">
     <app-location-card></app-location-card>
@@ -30,10 +30,10 @@
       <mat-card-actions>
         <a
           [routerLink]="['/story', dashboardData.stories.slice(-1)[0].id]"
-          mat-button
-          >Zur letzten Geschichte</a
+          mat-button color="primary"
+          >ZUR LETZTEN GESCHICHTE</a
         >
-        <a routerLink="/story" mat-button>Übersicht</a>
+        <a routerLink="/story" mat-button color="primary">ÜBERSICHT</a>
       </mat-card-actions>
     </mat-card>
   </div>
@@ -61,8 +61,8 @@
         </div>
       </mat-card-content>
       <mat-card-actions>
-        <a routerLink="/album/create" mat-button>Neu</a>
-        <a routerLink="/album" mat-button>Übersicht</a>
+        <a routerLink="/album/create" mat-button color="primary">NEU</a>
+        <a routerLink="/album" mat-button color="primary">ÜBERSICHT</a>
       </mat-card-actions>
     </mat-card>
   </div>

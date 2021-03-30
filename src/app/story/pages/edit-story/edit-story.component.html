@@ -3,16 +3,10 @@
     <h1 class="font-bold text-2xl">Geschichte bearbeiten</h1>
   </div>
 
-  <mat-expansion-panel
+  <app-create-update-story
     *ngIf="story"
-    class="mat-elevation-z0 border border-gray-300"
-  >
-    <mat-expansion-panel-header>
-      <mat-panel-title> Story Details bearbeiten</mat-panel-title>
-    </mat-expansion-panel-header>
-
-    <app-create-update-story [story]="story"></app-create-update-story>
-  </mat-expansion-panel>
+    [story]="story"
+  ></app-create-update-story>
 
   <div
     cdkDropList
@@ -62,8 +56,8 @@
 </div>
 <div class="fixed bottom-10 right-12">
   <div
-    [class.max-h-52]="expand"
     class="h-auto max-h-0 flex flex-col items-center overflow-hidden transition-all duration-150 ease-in-out"
+    [class.max-h-52]="expand"
   >
     <div class="mb-3">
       <button

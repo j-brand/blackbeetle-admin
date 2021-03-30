@@ -17,6 +17,11 @@ module.exports = {
       },
       minWidth: {
         72: "18rem",
+        32: "8rem",
+      },
+      borderWidth: {
+        6: "6px",
+        10: "10px",
       },
       container: {
         center: true,

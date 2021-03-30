@@ -27,6 +27,7 @@ export class ErrorInterceptor implements HttpInterceptor {
     return next.handle(request).pipe(
       retry(1),
       catchError((err: HttpErrorResponse) => {
+        
         this.loadingService.setLoading(false, request.url);
         this.showError(err.error);
 

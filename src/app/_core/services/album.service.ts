@@ -37,6 +37,14 @@ export class AlbumService {
     return this.http.delete(`${environment.apiUrl}/album/${id}`);
   }
 
+  generateImages() {
+    return this.http.get(`${environment.apiUrl}/album/generate-images`);
+  }
+
+  generateTitleImages() {
+    return this.http.get(`${environment.apiUrl}/album/generate-title-images`);
+  }
+
   updateImagePosition(
     album_id: Number,
     position: Number,

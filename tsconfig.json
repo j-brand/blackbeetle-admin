@@ -12,6 +12,7 @@
       "@story/*":["src/app/story/*"],
       "@album/*":["src/app/album/*"],
       "@post/*":["src/app/post/*"],
+      "@settings/*":["src/app/settings/*"],
       "@auth/*":["src/app/auth/*"],
     },
     "outDir": "./dist/out-tsc",

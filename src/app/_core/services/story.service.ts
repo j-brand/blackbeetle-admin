@@ -36,5 +36,9 @@ export class StoryService {
     return this.http.delete(`${environment.apiUrl}/story/${id}`);
   }
 
-
+  generateTitleImages(){
+    return this.http.get<Story[]>(
+      `${environment.apiUrl}/story/generate-title-images`
+    );
+  }
 }

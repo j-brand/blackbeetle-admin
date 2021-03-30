@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { AuthGuard } from '@core/auth.guard';
 import { DefaultLayoutComponent } from '@shared/layout/default-layout/default-layout.component';
 import { CreateStoryComponent } from './pages/create-story/create-story.component';
 import { EditStoryComponent } from './pages/edit-story/edit-story.component';

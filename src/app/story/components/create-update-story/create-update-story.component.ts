@@ -22,6 +22,7 @@ export class CreateUpdateStoryComponent implements OnInit {
   imgPath: String;
   editMode: Boolean = false;
   message: String;
+  detailsExpanded:boolean = false;
 
   @Input()
   story?: Story;
@@ -45,6 +46,9 @@ export class CreateUpdateStoryComponent implements OnInit {
 
     if (this.story) {
       this.setEditMode(this.story);
+    }
+    if (this.story.active == 0) {
+      this.detailsExpanded = true;
     }
   }
 
@@ -81,6 +85,7 @@ export class CreateUpdateStoryComponent implements OnInit {
             this._snackBar.open('Storydetails gespeichert!', '', {
               duration: 3000,
             });
+            this.detailsExpanded = false;
           },
           error: (err) => {
             this._snackBar.open(err.error.message, '', {

@@ -1,60 +1,71 @@
-<form
-  [formGroup]="storyForm"
-  (ngSubmit)="onSubmit()"
-  class="flex flex-col"
-  enctype="multipart/form-data"
+<mat-expansion-panel
+  *ngIf="story"
+  class="mat-elevation-z0 border border-gray-300"
+  [expanded]="detailsExpanded"
 >
-  <div class="grid grid-cols-1 gap-0 md:grid-cols-2 md:gap-6">
-    <mat-checkbox
-    class="md:col-span-2"
-      color="primary"
-      formControlName="active"
-      >sichtbar</mat-checkbox>
+  <mat-expansion-panel-header>
+    <mat-panel-title> Story Details bearbeiten</mat-panel-title>
+  </mat-expansion-panel-header>
 
-    <mat-form-field appearance="outline">
-      <mat-label>Titel</mat-label>
-      <input formControlName="title" matInput />
-      <mat-error *ngIf="storyForm.controls.title.errors">
-        {{ storyForm.controls.title.errors }}
-      </mat-error>
-    </mat-form-field>
-
-    <mat-form-field appearance="outline">
-      <mat-label>Slug</mat-label>
-      <input formControlName="slug" matInput />
-      <mat-error *ngIf="storyForm.controls.slug.errors">
-        {{ storyForm.controls.slug.errors }}
-      </mat-error>
-    </mat-form-field>
-
-    <mat-form-field class="md:col-span-2" appearance="outline">
-      <mat-label>Beschreibung</mat-label>
-      <textarea formControlName="description" matInput></textarea>
-    </mat-form-field>
-
-    <div class="form-group flex">
-      <img class="md:h-14 w-auto mr-5" [src]="imgPath" *ngIf="imgPath" />
-      <button
-        class="h-14"
-        mat-raised-button
+  <form
+    [formGroup]="storyForm"
+    (ngSubmit)="onSubmit()"
+    class="flex flex-col"
+    enctype="multipart/form-data"
+  >
+    <div class="grid grid-cols-1 gap-0 md:grid-cols-2 md:gap-6">
+      <mat-checkbox
+        class="md:col-span-2"
         color="primary"
-        type="button"
-        (click)="imageInput.click()"
+        formControlName="active"
+        >sichtbar</mat-checkbox
       >
-        Bild auswählen
-      </button>
-      <input
-        hidden="true"
-        type="file"
-        #imageInput
-        (change)="onFileChanged($event)"
-      />
-    </div>
-  </div>
 
-  <div class="mt-5">
-    <button mat-stroked-button type="submit" class="uppercase">
-      {{ editMode ? "speichern" : "erstellen" }}
-    </button>
-  </div>
-</form>
+      <mat-form-field appearance="outline">
+        <mat-label>Titel</mat-label>
+        <input formControlName="title" matInput />
+        <mat-error *ngIf="storyForm.controls.title.errors">
+          {{ storyForm.controls.title.errors }}
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Slug</mat-label>
+        <input formControlName="slug" matInput />
+        <mat-error *ngIf="storyForm.controls.slug.errors">
+          {{ storyForm.controls.slug.errors }}
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="md:col-span-2" appearance="outline">
+        <mat-label>Beschreibung</mat-label>
+        <textarea formControlName="description" matInput></textarea>
+      </mat-form-field>
+
+      <div class="form-group flex">
+        <img class="md:h-14 w-auto mr-5" [src]="imgPath" *ngIf="imgPath" />
+        <button
+          class="h-14"
+          mat-raised-button
+          color="primary"
+          type="button"
+          (click)="imageInput.click()"
+        >
+          Bild auswählen
+        </button>
+        <input
+          hidden="true"
+          type="file"
+          #imageInput
+          (change)="onFileChanged($event)"
+        />
+      </div>
+    </div>
+
+    <div class="mt-5">
+      <button mat-stroked-button type="submit" class="uppercase">
+        {{ editMode ? "speichern" : "erstellen" }}
+      </button>
+    </div>
+  </form>
+</mat-expansion-panel>

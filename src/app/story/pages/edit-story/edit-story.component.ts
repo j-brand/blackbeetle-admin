@@ -16,7 +16,6 @@ import { Story } from '@core/models/story';
 export class EditStoryComponent implements OnInit {
   story: Story;
   posts: Post[] = null;
-
   expand: boolean = false;
 
   displayedColumns: string[] = [

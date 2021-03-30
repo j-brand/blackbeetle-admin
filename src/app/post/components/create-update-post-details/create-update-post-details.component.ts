@@ -18,7 +18,7 @@ const moment = _moment;
 })
 export class CreateUpdatePostDetailsComponent implements OnInit {
   postForm: FormGroup;
-  detailsExpanded = false;
+  detailsExpanded: boolean = false;
 
   @Input()
   post: Post;

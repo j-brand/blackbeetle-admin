@@ -35,6 +35,11 @@ const routes: Routes = [
     loadChildren: () => import('@post/post.module').then((m) => m.PostModule),
     canActivate: [AuthGuard],
   },
+  {
+    path: 'settings',
+    loadChildren: () => import('@settings/settings.module').then((m) => m.SettingsModule),
+    canActivate: [AuthGuard],
+  },
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   {
