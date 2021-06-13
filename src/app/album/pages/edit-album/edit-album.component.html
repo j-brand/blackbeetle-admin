@@ -3,16 +3,7 @@
     <h1 class="font-bold text-2xl">Album bearbeiten</h1>
   </div>
 
-  <mat-expansion-panel
-    *ngIf="album"
-    class="mat-elevation-z0 border border-gray-300"
-  >
-    <mat-expansion-panel-header>
-      <mat-panel-title> Album Details bearbeiten</mat-panel-title>
-    </mat-expansion-panel-header>
-
-    <app-create-update-album [album]="album"></app-create-update-album>
-  </mat-expansion-panel>
+  <app-create-update-album *ngIf="album" [album]="album"></app-create-update-album>
 
   <div *ngIf="uploadURL">
     <app-file-dropzone

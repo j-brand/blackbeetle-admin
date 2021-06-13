@@ -26,6 +26,7 @@ export class CreateUpdateAlbumComponent implements OnInit {
   imgPath: String;
   editMode: boolean = false;
   message: String;
+  detailsExpanded: boolean = false;
 
   @Input()
   album?: Album;
@@ -53,6 +54,8 @@ export class CreateUpdateAlbumComponent implements OnInit {
 
     if (this.album) {
       this.setEditMode(this.album);
+    } else {
+      this.detailsExpanded = true;
     }
   }
 
@@ -86,6 +89,7 @@ export class CreateUpdateAlbumComponent implements OnInit {
         .updateAlbum(this.album.id, this.helperService.toFormData(formValues))
         .subscribe({
           next: (data) => {
+            this.detailsExpanded = false;
             this._snackBar.open('Album Details gespeichert!', '', {
               duration: 3000,
             });

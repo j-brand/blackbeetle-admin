@@ -73,6 +73,9 @@ export class EditAlbumComponent implements OnInit {
             this.albumImages = this.albumImages.filter(
               (image) => image.id != id
             );
+            this._snackBar.open('Bild wurde gelöscht.', '', {
+              duration: 3000,
+            });
           }
         });
       }

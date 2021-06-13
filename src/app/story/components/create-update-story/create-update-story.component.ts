@@ -82,10 +82,10 @@ export class CreateUpdateStoryComponent implements OnInit {
         .updateStory(this.story.id, this.helperService.toFormData(formValues))
         .subscribe({
           next: (data) => {
+            this.detailsExpanded = false;
             this._snackBar.open('Storydetails gespeichert!', '', {
               duration: 3000,
             });
-            this.detailsExpanded = false;
           },
           error: (err) => {
             this._snackBar.open(err.error.message, '', {

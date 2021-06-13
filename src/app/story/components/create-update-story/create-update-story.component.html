@@ -2,6 +2,8 @@
   *ngIf="story"
   class="mat-elevation-z0 border border-gray-300"
   [expanded]="detailsExpanded"
+  (opened)="detailsExpanded = true"
+  (closed)="detailsExpanded = false"
 >
   <mat-expansion-panel-header>
     <mat-panel-title> Story Details bearbeiten</mat-panel-title>
