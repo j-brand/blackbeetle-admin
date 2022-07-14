@@ -1,0 +1,68 @@
+<div
+  appDragAndDrop
+  class="w-full my-6 min-h-72 bg-white border border-gray-300 rounded-md flex flex-col justify-between"
+  (fileDropped)="onFilesDropped($event)"
+>
+  <div
+    *ngIf="files?.length == 0"
+    class="flex flex-col justify-center items-center h-full relative py-10"
+  >
+    <mat-icon
+      class="transform scale-300 mb-8"
+      aria-hidden="false"
+      aria-label="cloud upload icon"
+      >cloud_upload</mat-icon
+    >
+    <span class="text-center mb-5">Bilder hier fallen lassen <br />oder</span>
+  </div>
+
+  <div class="w-full hidden">
+    <input
+      type="file"
+      accept="image/*"
+      #fileDropRef
+      multiple
+      (change)="fileBrowseHandler($event.target.files)"
+    />
+  </div>
+  <div>
+    <div
+      class="flex flex-row justify-between items-center m-2 py-3 pr-3 bg-gray-200 border border-gray-300 rounded-md relative overflow-hidden"
+      *ngFor="let file of files; let i = index"
+      [class.bg-red-500]="file?.error == true"
+      [class.bg-green-500]="file?.success == true"
+      [style.background]="
+        'linear-gradient(to right,black' +
+        file?.process +
+        ',white' +
+        100 -
+        file?.process +
+        ')'
+      "
+    >
+      <mat-icon
+        class="ml-2 mr-4"
+        aria-hidden="false"
+        aria-label="attachment icon"
+        >attachment</mat-icon
+      >
+      <div class="flex items-center flex-grow justify-between">
+        <span>{{ file?.name }}</span>
+        <span *ngIf="file?.error_message" class="font-bold">{{
+          file?.error_message
+        }}</span>
+        <span>{{ formatBytes(file?.size) }}</span>
+      </div>
+
+      <div
+        [style.width]="file?.progress + '%'"
+        class="absolute opacity-30 h-full bg-gray-600"
+      ></div>
+    </div>
+  </div>
+  <div class="flex justify-center w-full py-5">
+    <button (click)="fileDropRef.click()" mat-flat-button color="primary">
+      Bilder auswählen
+    </button>
+  </div>
+</div>

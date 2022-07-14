@@ -1,0 +1,69 @@
+<div
+  class="grid grid-rows-1 grid-cols-1 mt-5 lg:grid-rows-4 lg:grid-cols-4 gap-4 md:p-5 md:mt-0"
+>
+  <div class="row-span-2 col-span-2 bg-gray-500 rounded-md">
+    <app-location-card></app-location-card>
+  </div>
+
+  <div class="row-span-1 col-span-2 bg-gray-500 rounded-md">
+    <mat-card *ngIf="dashboardData" class="full-h-card">
+      <mat-card-header>
+        <div mat-card-avatar>
+          <mat-icon
+            class="text-4xl"
+            aria-hidden="false"
+            aria-label="Geschichten Karte"
+            >book</mat-icon
+          >
+        </div>
+        <mat-card-title>Geschichten</mat-card-title>
+        <mat-card-subtitle
+          >Du hast {{ dashboardData.stories.length }} Geschichten geschrieben.
+        </mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <p class="font-bold">Deine letzten geschichten:</p>
+        <div *ngFor="let story of dashboardData.stories.slice(0, 3)">
+          <p>{{ story.title }} hat {{ story.posts_count }} posts.</p>
+        </div>
+      </mat-card-content>
+      <mat-card-actions>
+        <a
+          [routerLink]="['/story', dashboardData.stories.slice(-1)[0].id]"
+          mat-button color="primary"
+          >ZUR LETZTEN GESCHICHTE</a
+        >
+        <a routerLink="/story" mat-button color="primary">ÜBERSICHT</a>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+
+  <div class="row-span-1 col-span-2 bg-gray-500 rounded-md">
+    <mat-card *ngIf="dashboardData" class="full-h-card">
+      <mat-card-header>
+        <div mat-card-avatar>
+          <mat-icon
+            class="text-4xl"
+            aria-hidden="false"
+            aria-label="Fotoalben Karte"
+            >photo_library</mat-icon
+          >
+        </div>
+        <mat-card-title>Fotoalben</mat-card-title>
+        <mat-card-subtitle
+          >Du hast {{ dashboardData.albums.length }} Alben.</mat-card-subtitle
+        >
+      </mat-card-header>
+      <mat-card-content>
+        <p class="font-bold">Deine neusten Alben:</p>
+        <div *ngFor="let album of dashboardData.albums.slice(0, 3)">
+          <p>{{ album.title }} hat {{ album.images_count }} Bilder.</p>
+        </div>
+      </mat-card-content>
+      <mat-card-actions>
+        <a routerLink="/album/create" mat-button color="primary">NEU</a>
+        <a routerLink="/album" mat-button color="primary">ÜBERSICHT</a>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>

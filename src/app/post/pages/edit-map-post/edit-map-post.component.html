@@ -1,0 +1,61 @@
+<app-create-update-post-details
+  *ngIf="post"
+  [post]="post"
+></app-create-update-post-details>
+
+<div class="my-5">
+  <google-map
+    width="100%"
+    (mapClick)="addMarker($event)"
+    [options]="options"
+    class="rounded-md"
+  >
+    <map-marker
+      #markerEle="mapMarker"
+      *ngFor="let marker of markers; index as i"
+      [position]="marker.position"
+      [options]="markerOptions"
+      (mapClick)="openInfoWindow(markerEle, marker.info)"
+      (mapDragend)="markerDropped($event, i)"
+    ></map-marker>
+
+    <map-info-window>
+      {{ infoContent }}
+    </map-info-window>
+  </google-map>
+  <div class="my-5">
+    <button mat-flat-button (click)="save()" color="primary">speichern</button>
+  </div>
+</div>
+<div
+  cdkDropList
+  *ngIf="markers"
+  (cdkDropListDropped)="markerPositionChanged($event)"
+>
+  <div cdkDrag *ngFor="let marker of markers; index as i" class="bb-list-item">
+    <span>{{ marker.info }}</span>
+    <div>
+      <button mat-icon-button [matMenuTriggerFor]="menu">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <button
+          mat-menu-item
+          aria-label="edit marker info"
+          (click)="editMarker(i)"
+        >
+          <mat-icon>edit</mat-icon>
+          <span>bearbeiten</span>
+        </button>
+        <button
+          mat-menu-item
+          aria-label="delete marker"
+          (click)="deleteMarker(i)"
+        >
+          <mat-icon>delete</mat-icon>
+          <span>löschen</span>
+        </button>
+      </mat-menu>
+    </div>
+  </div>
+</div>

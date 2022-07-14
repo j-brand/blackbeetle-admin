@@ -1,0 +1,21 @@
+# blackbeetle.de admin frontend
+
+## blackbeetle.de
+
+Blackbeetle is a small private website project that I started before my trip to Australia. In order to keep my family and friends up to date without sending everyone the same messages over and over again, I set up this little travel blog. The project has changed a lot over time. Whenever I try out a new technology, Blackbeetle is my test object. Initially, the entire page was implemented with Laravel framework. Later I redesigned the front end in VueJs. At the moment the project is pretty messy, but I hope it gets better. I am currently in the process of setting up the administration interface with Angular.
+
+## The admin frontend
+
+The admin frontend is there to create new content. Contents that can be created are photo galleries, stories and story posts.
+It is possible to choose between four different types of story posts:
+
+- image post (upload images)
+- text post (write a text insie a WYSISYG editor)
+- video post (upload a video)
+- map post (place markers on a google map and write a description)
+
+## Technologies & Frameworks
+
+- Angular 11
+- [Angular Material Design Components](https://material.angular.io/) 11.0.3
+- [Tailwind CSS](https://tailwindcss.com/) 2.0.1

@@ -1,0 +1,111 @@
+<div class="md:px-4">
+  <div class="my-10">
+    <h1 class="font-bold text-2xl">Geschichte bearbeiten</h1>
+  </div>
+
+  <app-create-update-story
+    *ngIf="story"
+    [story]="story"
+  ></app-create-update-story>
+
+  <div
+    cdkDropList
+    *ngIf="posts"
+    (cdkDropListDropped)="postPositionChanged($event)"
+    class="mb-32"
+  >
+    <div
+      cdkDrag
+      class="bb-list-item"
+      *ngFor="let post of posts"
+      [class.text-gray-400]="post?.active == '0'"
+    >
+      <mat-icon *ngIf="post.type == 'html'" aria-hidden="false"
+        >article</mat-icon
+      >
+      <mat-icon *ngIf="post.type == 'image'" aria-hidden="false"
+        >image</mat-icon
+      >
+      <mat-icon *ngIf="post.type == 'map'" aria-hidden="false">map</mat-icon>
+      <mat-icon *ngIf="post.type == 'video'" aria-hidden="false"
+        >movie</mat-icon
+      >
+
+      <div class="ml-5 lg:ml-20 flex flex-col flex-1">
+        <span>{{ post.title }}</span>
+        <small>{{ post.date | date: "d.MM.Y" }}</small>
+      </div>
+
+      <div>
+        <button mat-icon-button [matMenuTriggerFor]="menu">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item routerLink="/post/{{ post.id }}">
+            <mat-icon>edit</mat-icon>
+            <span>bearbeiten</span>
+          </button>
+          <button mat-menu-item (click)="deletePost(post.id)">
+            <mat-icon>delete</mat-icon>
+            <span>löschen</span>
+          </button>
+        </mat-menu>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="fixed bottom-10 right-12">
+  <div
+    class="h-auto max-h-0 flex flex-col items-center overflow-hidden transition-all duration-150 ease-in-out"
+    [class.max-h-52]="expand"
+  >
+    <div class="mb-3">
+      <button
+        mat-mini-fab
+        (click)="createPost('html')"
+        color="primary"
+        aria-label="new text post"
+      >
+        <mat-icon>article</mat-icon>
+      </button>
+    </div>
+    <div class="mb-3">
+      <button
+        mat-mini-fab
+        (click)="createPost('image')"
+        color="primary"
+        aria-label="new image post"
+      >
+        <mat-icon>image</mat-icon>
+      </button>
+    </div>
+    <div class="mb-3">
+      <button
+        mat-mini-fab
+        (click)="createPost('map')"
+        color="primary"
+        aria-label="new map post"
+      >
+        <mat-icon>map</mat-icon>
+      </button>
+    </div>
+    <div class="mb-3">
+      <button
+        mat-mini-fab
+        (click)="createPost('video')"
+        color="primary"
+        aria-label="new video post"
+      >
+        <mat-icon>movie</mat-icon>
+      </button>
+    </div>
+  </div>
+  <button
+    mat-fab
+    color="primary"
+    (click)="expand = !expand"
+    aria-label="add a new post"
+  >
+    <mat-icon>add</mat-icon>
+  </button>
+</div>

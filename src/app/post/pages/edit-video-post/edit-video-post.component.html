@@ -1,0 +1,42 @@
+<app-create-update-post-details
+  *ngIf="post"
+  [post]="post"
+></app-create-update-post-details>
+
+<div
+  class="flex bg-white border border-gray-300 rounded-t-md md:py-5 mt-5 flex justify-center"
+>
+  <video
+    #video
+    *ngIf="videoUrl"
+    layout-fill
+    preload="auto"
+    class="max-h-96"
+    controls
+  >
+    <source [src]="videoUrl" type="video/mp4" />
+  </video>
+</div>
+
+<mat-progress-bar
+  mode="determinate"
+  [value]="uploadProgress"
+></mat-progress-bar>
+
+<div class="mt-5">
+  <button
+    mat-flat-button
+    color="primary"
+    type="button"
+    (click)="imageInput.click()"
+  >
+    Video hochladen
+  </button>
+  <input
+    hidden="true"
+    type="file"
+    accept="video/mp4,video/x-m4v,video/*"
+    #imageInput
+    (change)="onFileChanged($event)"
+  />
+</div>

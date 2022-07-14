@@ -1,0 +1,10 @@
+.mat-icon {
+  width: 5rem;
+  height: 5rem;
+}
+
+.login-card {
+  @screen sm-only {
+    @apply shadow-none;
+  }
+}

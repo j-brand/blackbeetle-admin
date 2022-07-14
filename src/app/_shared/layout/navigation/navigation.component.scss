@@ -1,0 +1,40 @@
+mat-sidenav {
+  width: 250px;
+}
+
+::ng-deep .mat-drawer-inner-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.expanded {
+  max-height: 5000px !important;
+}
+
+.nav-item {
+  @apply w-full py-4 px-5 flex items-center text-base;
+  &:hover {
+    @apply bg-gray-200;
+  }
+}
+
+.nav-item-wrapper {
+  @apply uppercase w-full text-left flex flex-col border-gray-200;
+
+  &:focus {
+    @apply outline-none;
+  }
+}
+
+.nav-item-inner-wrapper {
+  transition: max-height 0.5s ease-in-out;
+  @apply w-full overflow-hidden max-h-0;
+}
+
+.nav-item-inner {
+  @apply py-3 pl-16 pr-5;
+  &:hover {
+    @apply bg-gray-300;
+  }
+}

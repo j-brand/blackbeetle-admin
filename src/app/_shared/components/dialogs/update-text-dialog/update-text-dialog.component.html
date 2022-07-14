@@ -1,0 +1,15 @@
+<h1 mat-dialog-title>Bildbeschreibung</h1>
+<div mat-dialog-content>
+  <mat-form-field class="w-full mt-4" appearance="outline">
+    <mat-label>Beschreibung</mat-label>
+    <textarea
+      matInput
+      [(ngModel)]="data.text"
+      placeholder="hau rein ..."
+    ></textarea>
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button mat-dialog-close>abbrechen</button>
+  <button mat-button [mat-dialog-close]="data.text" cdkFocusInitial>Ok</button>
+</div>

@@ -1,0 +1,45 @@
+<mat-expansion-panel
+  *ngIf="post"
+  class="mat-elevation-z0 border border-gray-300"
+  [expanded]="detailsExpanded"
+>
+  <mat-expansion-panel-header>
+    <mat-panel-title> Post Details bearbeiten</mat-panel-title>
+  </mat-expansion-panel-header>
+
+  <form
+    [formGroup]="postForm"
+    (ngSubmit)="onSubmit()"
+    class="flex flex-col"
+    enctype="multipart/form-data"
+  >
+    <div class="grid grid-cols-1 gap-0 md:grid-cols-6 md:gap-6">
+      <mat-checkbox
+        color="primary"
+        formControlName="active"
+        class="mb-5 md:col-span-6 md:m-0"
+        >sichtbar</mat-checkbox
+      >
+
+      <mat-form-field appearance="outline" class="md:col-span-4">
+        <mat-label>Titel</mat-label>
+        <input formControlName="title" matInput />
+        <mat-error *ngIf="postForm.controls.title.errors">
+          {{ postForm.controls.title.errors }}
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="md:col-span-2">
+        <mat-label>Datum</mat-label>
+        <input matInput formControlName="date" [matDatepicker]="picker" />
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+    </div>
+    <div>
+      <button mat-stroked-button type="submit" class="uppercase">
+        speichern
+      </button>
+    </div>
+  </form>
+</mat-expansion-panel>

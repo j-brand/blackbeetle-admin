@@ -1,0 +1,57 @@
+<app-create-update-post-details
+  *ngIf="post"
+  [post]="post"
+></app-create-update-post-details>
+
+<div *ngIf="uploadURL">
+  <app-file-dropzone
+    [uploadURL]="uploadURL"
+    (uploaded)="addToPostImages($event)"
+  ></app-file-dropzone>
+</div>
+
+<div
+  cdkDropList
+  *ngIf="post.images"
+  (cdkDropListDropped)="imagePositionChanged($event)"
+>
+  <div
+    *ngFor="let image of post.images"
+    class="bb-list-item dragDropItem"
+    cdkDrag
+  >
+    <div>
+      <div></div>
+      <img
+        class="h-12 w-12 rounded-full object-cover"
+        src="{{ image | imagePath: '_thn' }}"
+      />
+    </div>
+
+    <span>{{ image.description | stringExcerpt: 90 }}</span>
+
+    <div class="">
+      <button mat-icon-button [matMenuTriggerFor]="menu">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <button
+          mat-menu-item
+          aria-label="edit image"
+          (click)="editImage(image.id)"
+        >
+          <mat-icon>edit</mat-icon>
+          <span>bearbeiten</span>
+        </button>
+        <button
+          mat-menu-item
+          aria-label="delete image"
+          (click)="deleteImage(image.id)"
+        >
+          <mat-icon>delete</mat-icon>
+          <span>löschen</span>
+        </button>
+      </mat-menu>
+    </div>
+  </div>
+</div>

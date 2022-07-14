@@ -1,0 +1,139 @@
+<mat-sidenav-container class="sidenav-container h-full">
+  <mat-sidenav
+    #snav
+    fixedInViewport="true"
+    [attr.role]="mobileQuery.matches ? 'dialog' : 'navigation'"
+    [mode]="mobileQuery.matches ? 'over' : 'side'"
+    [opened]="!mobileQuery.matches"
+  >
+    <div class="a">
+      <mat-toolbar color="primary" class="h-auto p-4 overflow-hidden">
+        <div class="h-16">
+
+        </div>
+      </mat-toolbar>
+
+      <button
+        routerLinkActive="bg-gray-200"
+        type="button"
+        class="nav-item-wrapper"
+      >
+        <a routerLink="/dashboard" class="uppercase w-full">
+          <div class="nav-item">
+            <mat-icon matListIcon>dashboard</mat-icon>
+            <span class="pl-5"> Dashboard </span>
+          </div>
+        </a>
+      </button>
+
+      <button
+        routerLinkActive="bg-gray-200"
+        type="button"
+        class="nav-item-wrapper"
+        (click)="stories = !stories"
+      >
+        <div [class.bg-gray-200]="stories" class="nav-item">
+          <mat-icon matListIcon>book</mat-icon>
+          <div class="pl-5">
+            <span>Geschichten</span>
+          </div>
+        </div>
+        <div [class.expanded]="stories" class="nav-item-inner-wrapper">
+          <a routerLink="/story" class="uppercase">
+            <div class="nav-item-inner">Übersicht</div>
+          </a>
+          <a routerLink="/story/create" class="uppercase">
+            <div class="nav-item-inner">Neu</div>
+          </a>
+        </div>
+      </button>
+
+      <button
+        routerLinkActive="bg-gray-200"
+        type="button"
+        class="nav-item-wrapper"
+        (click)="albums = !albums"
+      >
+        <div [class.bg-gray-200]="albums" class="nav-item">
+          <mat-icon matListIcon>photo_library</mat-icon>
+          <div class="pl-5">
+            <span class="">Alben</span>
+          </div>
+        </div>
+        <div [class.expanded]="albums" class="nav-item-inner-wrapper">
+          <a routerLink="/album" class="uppercase">
+            <div class="nav-item-inner">Übersicht</div>
+          </a>
+          <a routerLink="/album/create" class="uppercase">
+            <div class="nav-item-inner">Neu</div>
+          </a>
+        </div>
+      </button>
+
+      <button
+        routerLinkActive="bg-gray-200"
+        type="button"
+        class="nav-item-wrapper"
+        (click)="users = !users"
+      >
+        <div [class.bg-gray-200]="users" class="nav-item">
+          <mat-icon matListIcon>account_box</mat-icon>
+          <div class="pl-5">
+            <span class="">Benutzer</span>
+          </div>
+        </div>
+        <div [class.expanded]="users" class="nav-item-inner-wrapper">
+          <a routerLink="/user" class="uppercase">
+            <div class="nav-item-inner">Übersicht</div>
+          </a>
+          <a routerLink="/user/create" class="uppercase">
+            <div class="nav-item-inner">Neu</div>
+          </a>
+        </div>
+      </button>
+    </div>
+    <button
+      routerLinkActive="bg-gray-200"
+      type="button"
+      class="nav-item-wrapper"
+    >
+      <a routerLink="/settings" class="uppercase w-full">
+        <div class="nav-item">
+          <mat-icon matListIcon>settings</mat-icon>
+          <span class="pl-5"> Einstellungen </span>
+        </div>
+      </a>
+    </button>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <mat-toolbar color="primary">
+      <button
+        type="button"
+        aria-label="Toggle sidenav"
+        mat-icon-button
+        (click)="snav.toggle()"
+        *ngIf="mobileQuery.matches"
+      >
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+      </button>
+      <span class="flex-auto"></span>
+      <button
+        mat-icon-button
+        class="text-gray-100"
+        aria-label="Example icon-button with share icon"
+        (click)="logout()"
+      >
+        <mat-icon>exit_to_app</mat-icon>
+      </button>
+    </mat-toolbar>
+    <mat-progress-bar mode="indeterminate" *ngIf="loading"></mat-progress-bar>
+
+    <div class="ylb-app-content" (click)="snav.toggle()">
+      <ng-content> </ng-content>
+    </div>
+    <div class="container">
+      <router-outlet></router-outlet>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

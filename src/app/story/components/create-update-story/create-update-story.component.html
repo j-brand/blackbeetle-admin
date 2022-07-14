@@ -1,0 +1,73 @@
+<mat-expansion-panel
+  *ngIf="story"
+  class="mat-elevation-z0 border border-gray-300"
+  [expanded]="detailsExpanded"
+  (opened)="detailsExpanded = true"
+  (closed)="detailsExpanded = false"
+>
+  <mat-expansion-panel-header>
+    <mat-panel-title> Story Details bearbeiten</mat-panel-title>
+  </mat-expansion-panel-header>
+
+  <form
+    [formGroup]="storyForm"
+    (ngSubmit)="onSubmit()"
+    class="flex flex-col"
+    enctype="multipart/form-data"
+  >
+    <div class="grid grid-cols-1 gap-0 md:grid-cols-2 md:gap-6">
+      <mat-checkbox
+        class="md:col-span-2"
+        color="primary"
+        formControlName="active"
+        >sichtbar</mat-checkbox
+      >
+
+      <mat-form-field appearance="outline">
+        <mat-label>Titel</mat-label>
+        <input formControlName="title" matInput />
+        <mat-error *ngIf="storyForm.controls.title.errors">
+          {{ storyForm.controls.title.errors }}
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Slug</mat-label>
+        <input formControlName="slug" matInput />
+        <mat-error *ngIf="storyForm.controls.slug.errors">
+          {{ storyForm.controls.slug.errors }}
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="md:col-span-2" appearance="outline">
+        <mat-label>Beschreibung</mat-label>
+        <textarea formControlName="description" matInput></textarea>
+      </mat-form-field>
+
+      <div class="form-group flex flex-col lg:flex-row col-span-2 lg:col-span-1">
+        <img class="w-auto lg:mr-5 mb-5 rounded-md" [src]="imgPath" *ngIf="imgPath" />
+
+        <button
+          class="max-w-[50%]"
+          mat-raised-button
+          color="primary"
+          (click)="imageInput.click()"
+        >
+          Bild auswählen
+        </button>
+        <input
+          hidden="true"
+          type="file"
+          #imageInput
+          (change)="onFileChanged($event)"
+        />
+      </div>
+    </div>
+
+    <div class="mt-5">
+      <button mat-stroked-button type="submit" class="uppercase">
+        {{ editMode ? "speichern" : "erstellen" }}
+      </button>
+    </div>
+  </form>
+</mat-expansion-panel>

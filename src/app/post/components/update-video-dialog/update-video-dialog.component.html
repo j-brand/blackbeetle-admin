@@ -1,0 +1,8 @@
+<h2 mat-dialog-title>Video hochladen</h2>
+<mat-dialog-content class="mat-typography">
+  <p>Wenn du ein neues Video hochlädst, wird das bisherige Video gelöscht.</p>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close (click)="onNoClick()">abbrechen</button>
+  <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Ok</button>
+</mat-dialog-actions>

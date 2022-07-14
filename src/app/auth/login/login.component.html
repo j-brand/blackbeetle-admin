@@ -1,0 +1,31 @@
+<div class="h-full w-full flex flex-col justify-center items-center">
+
+  <mat-card class="max-w-sm login-card">
+    <mat-card-header class="flex flex-col justify-center">
+      <mat-icon class="text-6xl w-16">admin_panel_settings</mat-icon>
+    </mat-card-header>
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <mat-card-content class="flex flex-col justify-center px-4">
+
+        <mat-form-field class="w-full" appearance="outline">
+          <mat-label>E-Mail-Adresse</mat-label>
+          <input formControlName="email" type="text" autocomplete="email" matInput email>
+        </mat-form-field>
+        
+        <mat-form-field class="w-full" appearance="outline">
+            <mat-label>Passwort</mat-label>
+            <input formControlName="password" type="password" autocomplete="current-password" matInput>
+        </mat-form-field>
+
+        <mat-error *ngIf="error">{{error}}</mat-error>
+
+      </mat-card-content>
+      <mat-card-actions>
+        <div class="ml-6">
+          <button type="submit" mat-stroked-button class="uppercase">Anmelden</button>
+          <button mat-stroked-button type="button" class="uppercase">Registrieren</button>
+        </div>
+      </mat-card-actions>
+    </form>
+  </mat-card>
+</div>

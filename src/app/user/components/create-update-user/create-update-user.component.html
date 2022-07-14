@@ -1,0 +1,59 @@
+<form
+  [formGroup]="userForm"
+  (ngSubmit)="onSubmit()"
+  class="flex flex-col"
+  enctype="multipart/form-data"
+  autocomplete="off"
+>
+  <div class="grid grid-cols-1 gap-0 md:grid-cols-2 md:gap-6">
+    <mat-checkbox
+      color="primary"
+      formControlName="active"
+      name="active"
+      >active</mat-checkbox
+    >
+<!-- 
+    <mat-checkbox
+      color="primary"
+      formControlName="verified"
+      name="verified"
+      (change)="boolToNumber($event)"
+      >E-Mail bestätigt</mat-checkbox
+    >
+ -->
+    <mat-form-field appearance="outline">
+      <mat-label>Name</mat-label>
+      <input autocomplete="off" formControlName="name" matInput />
+      <mat-error *ngIf="userForm.controls.name.errors">
+        {{ userForm.controls.name.errors }}
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>E-Mail-Adresse</mat-label>
+      <input autocomplete="off" formControlName="email" type="email" matInput />
+      <mat-error *ngIf="userForm.controls.email.errors">
+        {{ userForm.controls.email.errors }}
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Password</mat-label>
+      <input
+        autocomplete="off"
+        formControlName="password"
+        type="password"
+        matInput
+      />
+      <mat-error *ngIf="userForm.controls.password.errors">
+        {{ userForm.controls.password.errors }}
+      </mat-error>
+    </mat-form-field>
+  </div>
+
+  <div class="mt-5">
+    <button mat-stroked-button type="submit" class="uppercase">
+      {{ editMode ? "speichern" : "erstellen" }}
+    </button>
+  </div>
+</form>

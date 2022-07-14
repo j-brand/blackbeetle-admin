@@ -1,0 +1,91 @@
+<mat-expansion-panel
+  class="mat-elevation-z0 border border-gray-300"
+  [expanded]="detailsExpanded"
+  (opened)="detailsExpanded = true"
+  (closed)="detailsExpanded = false"
+>
+  <mat-expansion-panel-header>
+    <mat-panel-title> Album Details bearbeiten</mat-panel-title>
+  </mat-expansion-panel-header>
+
+  <form
+    [formGroup]="albumForm"
+    (ngSubmit)="onSubmit()"
+    class="flex flex-col"
+    enctype="multipart/form-data"
+  >
+    <div class="grid grid-cols-1 gap-0 md:grid-cols-2 md:gap-6">
+      <mat-checkbox color="primary" formControlName="active" appBoolToNumber
+        >sichtbar</mat-checkbox
+      >
+
+      <mat-form-field appearance="outline">
+        <mat-label>gib einen Zeitraum ein</mat-label>
+        <mat-date-range-input [rangePicker]="picker">
+          <input
+            matStartDate
+            formControlName="start_date"
+            placeholder="Start date"
+          />
+          <input matEndDate formControlName="end_date" placeholder="End date" />
+        </mat-date-range-input>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-date-range-picker #picker></mat-date-range-picker>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Titel</mat-label>
+        <input formControlName="title" matInput />
+        <mat-error *ngIf="albumForm.controls.title.errors">
+          {{ albumForm.controls.title.errors }}
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Slug</mat-label>
+        <input formControlName="slug" matInput />
+        <mat-error *ngIf="albumForm.controls.slug.errors">
+          {{ albumForm.controls.slug.errors }}
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="md:col-span-2" appearance="outline">
+        <mat-label>Beschreibung</mat-label>
+        <textarea formControlName="description" matInput></textarea>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Titelbild Text</mat-label>
+        <input formControlName="title_image_text" matInput />
+      </mat-form-field>
+
+      <div class="form-group flex flex-col md:flex-row">
+        <img class="md:h-14 w-auto md:mr-5" [src]="imgPath" *ngIf="imgPath" />
+        <div class="mt-5 md:m-0">
+          <button
+            class="h-14"
+            mat-raised-button
+            color="primary"
+            type="button"
+            (click)="imageInput.click()"
+          >
+            Bild auswählen
+          </button>
+        </div>
+        <input
+          hidden="true"
+          type="file"
+          #imageInput
+          (change)="onFileChanged($event)"
+        />
+      </div>
+    </div>
+
+    <div class="mt-5">
+      <button mat-stroked-button type="submit" class="uppercase">
+        {{ editMode ? "speichern" : "erstellen" }}
+      </button>
+    </div>
+  </form>
+
+</mat-expansion-panel>

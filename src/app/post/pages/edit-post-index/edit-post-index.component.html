@@ -1,0 +1,20 @@
+<div class="md:px-4">
+  <div class="my-10">
+    <h1 class="font-bold text-2xl">Beitrag bearbeiten</h1>
+  </div>
+  <div *ngIf="post" [ngSwitch]="post.type">
+    <app-edit-html-post
+      *ngSwitchCase="'html'"
+      [post]="post"
+    ></app-edit-html-post>
+    <app-edit-image-post
+      *ngSwitchCase="'image'"
+      [post]="post"
+    ></app-edit-image-post>
+    <app-edit-map-post *ngSwitchCase="'map'" [post]="post"></app-edit-map-post>
+    <app-edit-video-post
+      *ngSwitchCase="'video'"
+      [post]="post"
+    ></app-edit-video-post>
+  </div>
+</div>

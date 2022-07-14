@@ -1,0 +1,11 @@
+<h2 mat-dialog-title>{{ data.delete }} löschen</h2>
+<mat-dialog-content class="mat-typography">
+  <p>
+    Möchtest du {{ data.article ? data.article : "das" }}
+    {{ data.delete }} wirklich löschen?
+  </p>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Nein</button>
+  <button mat-button [mat-dialog-close]="true" cdkFocusInitial>JA</button>
+</mat-dialog-actions>
