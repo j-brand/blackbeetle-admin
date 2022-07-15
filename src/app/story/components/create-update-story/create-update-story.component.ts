@@ -22,7 +22,8 @@ export class CreateUpdateStoryComponent implements OnInit {
   imgPath: String;
   editMode: Boolean = false;
   message: String;
-  detailsExpanded:boolean = false;
+  detailsExpanded: boolean = false;
+  uploading = false;
 
   @Input()
   story?: Story;
@@ -78,10 +79,12 @@ export class CreateUpdateStoryComponent implements OnInit {
     var formValues = this.helperService.getUpdatedValues(this.storyForm);
 
     if (this.editMode) {
+      this.uploading = true;
       this.storyService
         .updateStory(this.story.id, this.helperService.toFormData(formValues))
         .subscribe({
           next: (data) => {
+            this.uploading = false;
             this.detailsExpanded = false;
             this._snackBar.open('Storydetails gespeichert!', '', {
               duration: 3000,
@@ -94,18 +97,20 @@ export class CreateUpdateStoryComponent implements OnInit {
           },
         });
     } else {
-      this.storyService.createStory(this.helperService.toFormData(this.storyForm.value)).subscribe({
-        next: (data) => {
-          this.router.navigate(['/story/' + data.id]);
-        },
-        error: (error) => {
-          if (error.errors) {
-            Object.entries(error.errors).forEach(([key, value]: any[]) => {
-              this.storyForm.controls[key].setErrors(value);
-            });
-          }
-        },
-      });
+      this.storyService
+        .createStory(this.helperService.toFormData(this.storyForm.value))
+        .subscribe({
+          next: (data) => {
+            this.router.navigate(['/story/' + data.id]);
+          },
+          error: (error) => {
+            if (error.errors) {
+              Object.entries(error.errors).forEach(([key, value]: any[]) => {
+                this.storyForm.controls[key].setErrors(value);
+              });
+            }
+          },
+        });
     }
   }
 }

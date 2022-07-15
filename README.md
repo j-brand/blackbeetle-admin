@@ -16,6 +16,6 @@ It is possible to choose between four different types of story posts:
 
 ## Technologies & Frameworks
 
-- Angular 11
-- [Angular Material Design Components](https://material.angular.io/) 11.0.3
-- [Tailwind CSS](https://tailwindcss.com/) 2.0.1
+- Angular 14
+- [Angular Material Design Components](https://material.angular.io/) 14.0.4
+- [Tailwind CSS](https://tailwindcss.com/) 3.1.4

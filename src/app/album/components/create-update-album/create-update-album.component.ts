@@ -27,6 +27,7 @@ export class CreateUpdateAlbumComponent implements OnInit {
   editMode: boolean = false;
   message: String;
   detailsExpanded: boolean = false;
+  uploading = false;
 
   @Input()
   album?: Album;
@@ -85,10 +86,12 @@ export class CreateUpdateAlbumComponent implements OnInit {
     var formValues = this.helperService.getUpdatedValues(this.albumForm);
 
     if (this.editMode) {
+      this.uploading = true;
       this.albumService
         .updateAlbum(this.album.id, this.helperService.toFormData(formValues))
         .subscribe({
           next: (data) => {
+            this.uploading = false;
             this.detailsExpanded = false;
             this._snackBar.open('Album Details gespeichert!', '', {
               duration: 3000,

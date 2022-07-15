@@ -59,19 +59,18 @@
         <input formControlName="title_image_text" matInput />
       </mat-form-field>
 
-      <div class="form-group flex flex-col md:flex-row">
-        <img class="md:h-14 w-auto md:mr-5" [src]="imgPath" *ngIf="imgPath" />
-        <div class="mt-5 md:m-0">
-          <button
-            class="h-14"
-            mat-raised-button
-            color="primary"
-            type="button"
-            (click)="imageInput.click()"
-          >
-            Bild auswählen
-          </button>
-        </div>
+      <div class="form-group flex flex-col">
+        <img class="w-auto rounded-t-md" [src]="imgPath" *ngIf="imgPath" />
+
+        <button
+          class="img-button"
+          mat-stroked-button
+          type="button"
+          (click)="imageInput.click()"
+        >
+          Bild auswählen
+        </button>
+
         <input
           hidden="true"
           type="file"
@@ -82,10 +81,15 @@
     </div>
 
     <div class="mt-5">
-      <button mat-stroked-button type="submit" class="uppercase">
+      <button
+        mat-stroked-button
+        [class.spinner]="uploading"
+        [disabled]="uploading"
+        type="submit"
+        class="uppercase"
+      >
         {{ editMode ? "speichern" : "erstellen" }}
       </button>
     </div>
   </form>
-
 </mat-expansion-panel>

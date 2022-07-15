@@ -39,19 +39,22 @@
         </mat-error>
       </mat-form-field>
 
-      <mat-form-field class="md:col-span-2" appearance="outline">
+      <mat-form-field
+        class="col-span-2 md:col-span-1 h-full"
+        appearance="outline"
+      >
         <mat-label>Beschreibung</mat-label>
-        <textarea formControlName="description" matInput></textarea>
+        <textarea formControlName="description" rows="5" matInput></textarea>
       </mat-form-field>
 
-      <div class="form-group flex flex-col lg:flex-row col-span-2 lg:col-span-1">
-        <img class="w-auto lg:mr-5 mb-5 rounded-md" [src]="imgPath" *ngIf="imgPath" />
+      <div class="form-group flex flex-col col-span-1">
+        <img class="w-auto rounded-t-md" [src]="imgPath" *ngIf="imgPath" />
 
         <button
-          class="max-w-[50%]"
-          mat-raised-button
-          color="primary"
+          class="img-button"
+          mat-stroked-button
           (click)="imageInput.click()"
+          type="button"
         >
           Bild auswählen
         </button>
@@ -65,7 +68,13 @@
     </div>
 
     <div class="mt-5">
-      <button mat-stroked-button type="submit" class="uppercase">
+      <button
+        mat-stroked-button
+        [class.spinner]="uploading"
+        [disabled]="uploading"
+        type="submit"
+        class="uppercase"
+      >
         {{ editMode ? "speichern" : "erstellen" }}
       </button>
     </div>
