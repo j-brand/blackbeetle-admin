@@ -41,6 +41,10 @@
           <mat-icon>more_vert</mat-icon>
         </button>
         <mat-menu #menu="matMenu">
+          <button mat-menu-item routerLink="/comment/{{ post.id }}">
+            <mat-icon>comment</mat-icon>
+            <span>Kommentare</span>
+          </button>
           <button mat-menu-item routerLink="/post/{{ post.id }}">
             <mat-icon>edit</mat-icon>
             <span>bearbeiten</span>

@@ -1,0 +1,49 @@
+<div class="my-10">
+  <h1 class="font-bold text-2xl">Kommentar bearbeiten</h1>
+</div>
+
+<form
+  [formGroup]="commentForm"
+  (ngSubmit)="onSubmit()"
+  class="flex flex-col"
+  enctype="multipart/form-data"
+>
+  <div class="grid grid-cols-1 gap-0 md:grid-cols-6 md:gap-6">
+
+    <mat-form-field appearance="outline" class="md:col-span-2">
+      <mat-label>Datum</mat-label>
+      <input formControlName="created_at" matInput readonly/>
+      <mat-error *ngIf="commentForm.controls.created_at.errors">
+        {{ commentForm.controls.created_at.errors }}
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="md:col-span-4">
+      <mat-label>Titel</mat-label>
+      <input formControlName="name" matInput />
+      <mat-error *ngIf="commentForm.controls.name.errors">
+        {{ commentForm.controls.name.errors }}
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="md:col-span-6" appearance="outline">
+      <mat-label>Nachricht</mat-label>
+      <textarea
+        formControlName="content"
+        matInput
+        placeholder="Ex. It makes me feel..."
+      ></textarea>
+      <mat-error *ngIf="commentForm.controls.content.errors">
+        {{ commentForm.controls.content.errors }}
+      </mat-error>
+    </mat-form-field>
+
+  </div>
+
+
+  <div>
+    <button mat-stroked-button type="submit" class="uppercase">
+      speichern
+    </button>
+  </div>
+</form>
