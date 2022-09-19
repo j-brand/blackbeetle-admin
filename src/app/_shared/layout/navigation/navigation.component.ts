@@ -16,6 +16,7 @@ export class NavigationComponent implements OnDestroy, OnInit {
   stories: boolean = false;
   albums: boolean = false;
   users: boolean = false;
+  subscribers: boolean = false;
   loading: boolean = false;
 
   private _mobileQueryListener: () => void;

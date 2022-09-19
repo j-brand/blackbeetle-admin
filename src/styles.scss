@@ -37,8 +37,13 @@ h1 {
     @apply max-w-screen-lg;
   }
 }
-
-.mat-column-options {
+.options-column {
+  text-align: right !important;
+}
+.mat-column-position.mat-header-cell {
+  @apply text-right justify-end /* !important */;
+}
+.cdk-column-options {
   @apply text-right justify-end /* !important */;
 }
 
