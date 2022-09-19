@@ -36,6 +36,16 @@ const routes: Routes = [
     canActivate: [AuthGuard],
   },
   {
+    path: 'comment',
+    loadChildren: () => import('@comment/comment.module').then((m) => m.CommentModule),
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'subscriber',
+    loadChildren: () => import('@subscriber/subscriber.module').then((m) => m.SubscriberModule),
+    canActivate: [AuthGuard],
+  },
+  {
     path: 'settings',
     loadChildren: () => import('@settings/settings.module').then((m) => m.SettingsModule),
     canActivate: [AuthGuard],

@@ -12,6 +12,8 @@
       "@story/*":["src/app/story/*"],
       "@album/*":["src/app/album/*"],
       "@post/*":["src/app/post/*"],
+      "@comment/*":["src/app/comment/*"],
+      "@subscriber/*":["src/app/subscriber/*"],
       "@settings/*":["src/app/settings/*"],
       "@auth/*":["src/app/auth/*"],
     },

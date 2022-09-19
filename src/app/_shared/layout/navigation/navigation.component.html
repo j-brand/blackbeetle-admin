@@ -70,6 +70,26 @@
         </div>
       </button>
 
+
+      <button
+        routerLinkActive="bg-gray-200"
+        type="button"
+        class="nav-item-wrapper"
+        (click)="subscribers = !subscribers"
+      >
+        <div [class.bg-gray-200]="subscribers" class="nav-item">
+          <mat-icon matListIcon>loyalty</mat-icon>
+          <div class="pl-5">
+            <span class="">Abonnenten</span>
+          </div>
+        </div>
+        <div [class.expanded]="subscribers" class="nav-item-inner-wrapper">
+          <a routerLink="/subscriber" class="uppercase">
+            <div class="nav-item-inner">Übersicht</div>
+          </a>
+        </div>
+      </button>
+
       <button
         routerLinkActive="bg-gray-200"
         type="button"

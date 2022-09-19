@@ -13,6 +13,6 @@ export type Post = {
   content: string;
   date: string;
   active: number;
-  comments: Comment;
+  comments?: Comment;
   images?: Image[];
 };
