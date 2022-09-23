@@ -1,0 +1,30 @@
+name: Build Development Branch
+on:
+  push:
+    branches:
+      - 'development'
+jobs:
+  build:
+    name: Build BB Admin
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+
+      - name: Use Node 15.x
+        uses: actions/setup-node@v1
+        width:
+          node-version: '15.x'
+      - name: Install dependencies
+        run: npm ci
+      - name: Build
+        run: npm run build
+
+      - name: Install SSH Key
+      - uses: webfactory/ssh-agent@v0.5.4
+          with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: Deploy with rsync
+        run: rsync -avz -e "ssh ./dist/ ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/htdocs/dev/test_deploy/
+      
