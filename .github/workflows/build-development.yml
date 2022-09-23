@@ -27,9 +27,10 @@ jobs:
           GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
 
       - name: Install SSH Key
-        uses: webfactory/ssh-agent@v0.5.4
+        uses: shimataro/ssh-key-action@v2
         with:
-          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          known_hosts: ${{ secrets.KNOWN_HOSTS }}
 
       - name: Deploy with rsync
         run: rsync -avz -e ssh ./dist/ ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/htdocs/dev/test_deploy/
