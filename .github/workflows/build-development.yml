@@ -21,6 +21,10 @@ jobs:
 
       - name: Build
         run: npm run build
+        env:
+          BACKEND_URL: ${{ secrets.BACKEND_URL }}
+          TINY_MCE_KEY: ${{ secrets.TINY_MCE_KEY }}
+          GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
 
       - name: Install SSH Key
         uses: webfactory/ssh-agent@v0.5.4
