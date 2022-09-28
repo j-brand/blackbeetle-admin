@@ -17,6 +17,9 @@ jobs:
         with:
           node-version: '16.x'
 
+      - name: replace Evironment
+        run: echo ${{ secrets.ENVIRONMENT }} > ./environments/environment.ts
+
       - name: Install dependencies
         run: npm ci
 
@@ -24,7 +27,6 @@ jobs:
         run: | 
           npm run build
           echo "${{ secrets.BACKEND_URL }}"
-          
         env:
           BACKEND_URL: ${{ secrets.BACKEND_URL }}
           TINY_MCE_KEY: ${{ secrets.TINY_MCE_KEY }}
