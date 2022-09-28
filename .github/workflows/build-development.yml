@@ -36,5 +36,5 @@ jobs:
           ssh-host: ${{ secrets.SSH_HOST }}
 
       - name: Deploy with rsync
-        run: rsync -avz -e ssh ./dist/ ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/htdocs/dev/test_deploy/
+        run: rsync -avz -e ssh ./dist/ ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:~/htdocs/dev/test_deploy/
       
