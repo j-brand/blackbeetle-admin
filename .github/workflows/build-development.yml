@@ -20,7 +20,7 @@ jobs:
       - name: replace Evironment
         uses: "finnp/create-file-action@master"
         env:
-          FILE_NAME: "./src/environments/environment.ts"
+          FILE_NAME: "./src/environments/environment.prod.ts"
           FILE_DATA: "${{ secrets.ENVIRONMENT }}"
 
       - name: Install dependencies
