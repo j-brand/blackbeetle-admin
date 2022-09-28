@@ -27,9 +27,7 @@ jobs:
         run: npm ci
 
       - name: Build
-        run: | 
-          npm run build
-          echo "${{ secrets.BACKEND_URL }}"
+        run: npm run build
 
       - uses: webfactory/ssh-agent@v0.5.4
         with:
