@@ -32,10 +32,10 @@ jobs:
 
       - name: Add the host key
         run: |
-          line='blackbeetle.de ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDJePnGWywV45+yJy/bpT4pT4C/9Ki/sXPXJifA5iOGA7V8UqS0GeldXNB3kMnsE+ah2T4hBmUnL8b+v/ZHfb4NIRBwF6JfhtSEUwCEuZV/3fPAXb2/1zbcSVzWciuA+/K3AwXeGTEXKhyqiHZkjEjuBfyDaGskAFKUL9/GsXtexsF0ZPkDk2/WVk1YQYOoK0rPFAvZNOKsexMVqVGuFpseFyVlr8qOxv0FgdCTHG/VRmQa0bSSjfS9TfUzyyt3gd5tfxDQPDLFn254fTiCzAdiau61Nrqgoa6m93vI4BMx0+ZtYB4bcQcbd0DQghkKMp2dyPBhhK5yM7JuzJS9lkS1'
+          line='${{ secrets.KNOWN_HOSTS }}'
           echo "$line" >> ~/.ssh/known_hosts
 
       - name: Deploy with rsync
-        run: rsync -avz -e ssh ./dist/ ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:~/htdocs/dev/test_deploy/
+        run: rsync -avz -e ssh ./dist/ ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:~/htdocs/dev/blackbeetle-admin/
       
 
