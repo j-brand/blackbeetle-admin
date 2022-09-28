@@ -32,7 +32,7 @@ jobs:
 
       - name: Add the host key
         run: |
-          line='github.com ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAq2A7hRGmdnm9tUDbO9IDSwBK6TbQa+PXYPCPy6rbTrTtw7PHkccKrpp0yVhp5HdEIcKr6pLlVDBfOLX9QUsyCOV0wzfjIJNlGEYsdlLJizHhbn2mUjvSAHQqZETYP81eFzLQNnPHt4EVVUh7VfDESU84KezmD5QlWpXLmvU31/yMf+Se8xhHTvKSCZIFImWwoG6mbUoWf9nzpIoaSjB+weqqUUmpaaasXVal72J+UX2B+2RPW3RcT0eOzQgqlJL3RKrTJvdsjE3JEAvGq3lGHSZXy28G3skua2SmVi/w4yCE6gbODqnTWlg7+wC604ydGXA8VJiS5ap43JXiUFFAaQ=='
+          line='blackbeetle.de ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDJePnGWywV45+yJy/bpT4pT4C/9Ki/sXPXJifA5iOGA7V8UqS0GeldXNB3kMnsE+ah2T4hBmUnL8b+v/ZHfb4NIRBwF6JfhtSEUwCEuZV/3fPAXb2/1zbcSVzWciuA+/K3AwXeGTEXKhyqiHZkjEjuBfyDaGskAFKUL9/GsXtexsF0ZPkDk2/WVk1YQYOoK0rPFAvZNOKsexMVqVGuFpseFyVlr8qOxv0FgdCTHG/VRmQa0bSSjfS9TfUzyyt3gd5tfxDQPDLFn254fTiCzAdiau61Nrqgoa6m93vI4BMx0+ZtYB4bcQcbd0DQghkKMp2dyPBhhK5yM7JuzJS9lkS1'
           echo "$line" >> ~/.ssh/known_hosts
 
       - name: Deploy with rsync
