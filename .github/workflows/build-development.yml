@@ -30,6 +30,11 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
+      - uses: kielabokkie/ssh-key-and-known-hosts-action@v1
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+          ssh-host: ${{ secrets.SSH_HOST }}
+
       - name: Deploy with rsync
         run: rsync -avz -e ssh ./dist/ ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/htdocs/dev/test_deploy/
       
