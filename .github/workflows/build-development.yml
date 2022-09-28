@@ -19,9 +19,9 @@ jobs:
 
       - name: replace Evironment
         uses: "finnp/create-file-action@master"
-          env:
-            FILE_NAME: "environments/environment.ts"
-            FILE_DATA: "${{ secrets.ENVIRONMENT }}"
+        env:
+          FILE_NAME: "environments/environment.ts"
+          FILE_DATA: "${{ secrets.ENVIRONMENT }}"
 
       - name: Install dependencies
         run: npm ci
