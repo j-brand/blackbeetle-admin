@@ -1,0 +1,42 @@
+name: Build Development Branch
+on:
+  push:
+    branches:
+      - 'master'
+jobs:
+  build:
+    name: Build BB Admin
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+
+      - name: Use Node 16.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: '16.x'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+        env:
+          BACKEND_URL: ${{ secrets.BACKEND_URL }}
+          TINY_MCE_KEY: ${{ secrets.TINY_MCE_KEY }}
+          GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
+
+      - uses: webfactory/ssh-agent@v0.5.4
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: Add the host key
+        run: |
+          line='${{ secrets.KNOWN_HOSTS }}'
+          echo "$line" >> ~/.ssh/known_hosts
+
+      - name: Deploy with rsync
+        run: rsync -avz -e ssh ./dist/ ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:~/htdocs/blackbeetle-admin/
+      
+
