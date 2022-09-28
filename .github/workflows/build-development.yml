@@ -48,3 +48,4 @@ jobs:
         run: rsync -avz -e ssh ./dist/ ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:~/htdocs/dev/blackbeetle-admin/
       
 
+ 
