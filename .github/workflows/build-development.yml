@@ -21,8 +21,10 @@ jobs:
         run: npm ci
 
       - name: Build
-        run: npm run build
-        run: echo '${{ secrets.BACKEND_URL }}'
+        run: | 
+          npm run build
+          echo "${{ secrets.BACKEND_URL }}"
+          
         env:
           BACKEND_URL: ${{ secrets.BACKEND_URL }}
           TINY_MCE_KEY: ${{ secrets.TINY_MCE_KEY }}
