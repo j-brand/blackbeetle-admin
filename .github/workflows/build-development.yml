@@ -9,7 +9,7 @@ on:
 
 jobs:
   build:
-    name: Build BB Admin
+    name: Build BB Dev Admin
     runs-on: ubuntu-latest
     environment: development
     steps:
