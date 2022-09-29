@@ -2,7 +2,11 @@ name: Build Development Branch
 on:
   push:
     branches:
-      - 'development'
+      - development
+  pull_request:
+    branches:
+      - development
+
 jobs:
   build:
     name: Build BB Admin
