@@ -3,9 +3,10 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
-    "build:dev": "ng build --configuration dev",
+    "start": "ng serve --configuration local",
     "build": "ng build",
+    "build:local": "ng build --configuration local",
+    "build:dev": "ng build --configuration dev",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
@@ -35,7 +36,7 @@
     "@angular/cli": "~14.0.4",
     "@angular/compiler-cli": "~14.0.4",
     "@types/jasmine": "~3.10.0",
-    "@types/node": "^12.11.1",
+    "@types/node": "^12.20.55",
     "autoprefixer": "^10.4.7",
     "jasmine-core": "~4.0.0",
     "jasmine-spec-reporter": "~5.0.0",
