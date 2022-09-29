@@ -44,7 +44,7 @@ h1 {
   @apply text-right justify-end /* !important */;
 }
 .cdk-column-options {
-  @apply text-right justify-end /* !important */;
+  @apply text-right justify-end #{!important};
 }
 
 .mat-row:hover {
