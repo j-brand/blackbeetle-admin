@@ -5,13 +5,13 @@ import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root',
 })
-export class NothificationService {
+export class NotificationService {
   constructor(private http: HttpClient) {}
 
-  nothify(nothification: FormData) {
+  notify(notification: FormData) {
     return this.http.post<string>(
-      `${environment.apiUrl}/nothify`,
-      nothification
+      `${environment.apiUrl}/notify`,
+      notification
     );
   }
 }

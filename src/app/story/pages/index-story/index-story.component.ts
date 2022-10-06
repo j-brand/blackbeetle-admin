@@ -4,7 +4,7 @@ import { StoryService } from '@core/services/story.service';
 import { Story } from '@core/models/story';
 import { DeleteDialogComponent } from '@shared/components/dialogs/delete-dialog/delete-dialog.component';
 import { NotifySubscibersDialogComponent } from '@story/components/notify-subscibers-dialog/notify-subscibers-dialog.component';
-import { NothificationService } from '@core/services/nothification.service';
+import { NotificationService } from '@core/services/notification.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
@@ -18,7 +18,7 @@ export class IndexStoryComponent implements OnInit {
 
   constructor(
     private storyService: StoryService,
-    private nothificationService: NothificationService,
+    private notificationService: NotificationService,
     public dialog: MatDialog,
     private _snackBar: MatSnackBar
   ) {}
@@ -58,24 +58,25 @@ export class IndexStoryComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       result['option'] = 'S' + id;
-      result['slug'] = this.stories[id].slug;
-      this.nothificationService.nothify(result).subscribe(
-        (result) => {
+      result['slug'] = this.stories.filter((story) => story.id == id)[0].slug;
+      this.notificationService.notify(result).subscribe({
+        next: (result) => {
           this._snackBar.open('Benachrichtigungen werden verschickt!', '', {
             duration: 3000,
           });
         },
-        (error) => {
+        error: (er) => {
           this.sendNotification(id, {
             subject: result['subject'],
             content: result['content'],
             image: result['image'],
           });
-          this._snackBar.open(error.error.message, '', {
+
+          this._snackBar.open(er.message, '', {
             duration: 3000,
           });
-        }
-      );
+        },
+      });
     });
   }
 }
