@@ -57,26 +57,28 @@ export class IndexStoryComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      result['option'] = 'S' + id;
-      result['slug'] = this.stories.filter((story) => story.id == id)[0].slug;
-      this.notificationService.notify(result).subscribe({
-        next: (result) => {
-          this._snackBar.open('Benachrichtigungen werden verschickt!', '', {
-            duration: 3000,
-          });
-        },
-        error: (er) => {
-          this.sendNotification(id, {
-            subject: result['subject'],
-            content: result['content'],
-            image: result['image'],
-          });
+      if (result) {
+        result['option'] = `S${id}`;
+        result['slug'] = this.stories.filter((story) => story.id == id)[0].slug;
+        this.notificationService.notify(result).subscribe({
+          next: (result) => {
+            this._snackBar.open('Benachrichtigungen werden verschickt!', '', {
+              duration: 3000,
+            });
+          },
+          error: (er) => {
+            this.sendNotification(id, {
+              subject: result['subject'],
+              content: result['content'],
+              image: result['image'],
+            });
 
-          this._snackBar.open(er.message, '', {
-            duration: 3000,
-          });
-        },
-      });
+            this._snackBar.open(er.message, '', {
+              duration: 3000,
+            });
+          },
+        });
+      }
     });
   }
 }
