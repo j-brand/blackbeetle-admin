@@ -1,7 +1,6 @@
 <h1 mat-dialog-title>Benachrichtigung senden</h1>
 <div mat-dialog-content class="w-screen-90 md:max-w-screen-md">
   <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
-
     <mat-form-field class="col-span-2" appearance="outline">
       <mat-label>Betreff</mat-label>
       <input type="text" [(ngModel)]="data.subject" matInput />
@@ -10,7 +9,7 @@
     <mat-form-field class="col-span-2 w-full mt-4" appearance="outline">
       <mat-label>Nachricht</mat-label>
       <textarea
-      [(ngModel)]="data.content"
+        [(ngModel)]="data.content"
         matInput
         placeholder="hau rein ..."
       ></textarea>
@@ -18,12 +17,17 @@
 
     <div class="col-span-2">
       <img class="max-w-full w-auto mr-5" [src]="imgPath" *ngIf="imgPath" />
-      <app-image-upload [(ngModel)]="data.image" (imageChangeEvent)="imageChange($event)" ngDefaultControl></app-image-upload>
+      <app-image-upload
+        [(ngModel)]="data.image"
+        (imageChangeEvent)="imageChange($event)"
+        ngDefaultControl
+      ></app-image-upload>
     </div>
-
   </div>
 </div>
 <div mat-dialog-actions>
-  <button mat-button [mat-dialog-close]="data" cdkFocusInitial>Mail the Crowd!</button>
-  <button mat-button mat-dialog-close>abbrechen</button>
+  <button mat-button [mat-dialog-close]="data" cdkFocusInitial>
+    Mail the Crowd!
+  </button>
+  <button mat-button [mat-dialog-close]>abbrechen</button>
 </div>
