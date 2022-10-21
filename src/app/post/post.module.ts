@@ -28,6 +28,7 @@ import { EditPostIndexComponent } from './pages/edit-post-index/edit-post-index.
 import { EditHtmlPostComponent } from './pages/edit-html-post/edit-html-post.component';
 import { EditVideoPostComponent } from './pages/edit-video-post/edit-video-post.component';
 import { EditImagePostComponent } from './pages/edit-image-post/edit-image-post.component';
+import { SafePipe } from '@shared/pipes/safe.pipe';
 
 @NgModule({
   declarations: [
@@ -58,6 +59,7 @@ import { EditImagePostComponent } from './pages/edit-image-post/edit-image-post.
     },
     { provide: MAT_DATE_LOCALE, useValue: 'de-DE' },
     { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
+    SafePipe,
   ],
 })
 export class PostModule {}
