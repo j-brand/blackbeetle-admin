@@ -19,6 +19,7 @@ import { DefaultLayoutComponent } from './layout/default-layout/default-layout.c
 import { NavigationComponent } from './layout/navigation/navigation.component';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 import { ImageUploadComponent } from './components/image-upload/image-upload.component';
+import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { ImageUploadComponent } from './components/image-upload/image-upload.com
     NavigationComponent,
     PageNotFoundComponent,
     ImageUploadComponent,
+    BreadcrumbComponent,
   ],
   imports: [CommonModule, MaterialModule, FormsModule, RouterModule],
   exports: [
@@ -48,7 +50,7 @@ import { ImageUploadComponent } from './components/image-upload/image-upload.com
     DefaultLayoutComponent,
     NavigationComponent,
     ImageUploadComponent,
-
+    BreadcrumbComponent,
   ],
 })
 export class SharedModule {}

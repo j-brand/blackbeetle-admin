@@ -8,9 +8,7 @@
   >
     <div class="a">
       <mat-toolbar color="primary" class="h-auto p-4 overflow-hidden">
-        <div class="h-16">
-
-        </div>
+        <div class="h-16"></div>
       </mat-toolbar>
 
       <button
@@ -69,7 +67,6 @@
           </a>
         </div>
       </button>
-
 
       <button
         routerLinkActive="bg-gray-200"
@@ -153,6 +150,7 @@
       <ng-content> </ng-content>
     </div>
     <div class="container">
+      <app-breadcrumb></app-breadcrumb>
       <router-outlet></router-outlet>
     </div>
   </mat-sidenav-content>
