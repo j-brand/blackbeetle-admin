@@ -20,6 +20,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatMenuModule } from '@angular/material/menu';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatSelectModule } from '@angular/material/select';
+import { MatTabsModule } from '@angular/material/tabs';
 
 @NgModule({
   declarations: [],
@@ -34,6 +35,7 @@ import { MatSelectModule } from '@angular/material/select';
     MatFormFieldModule,
     MatInputModule,
     MatTableModule,
+    MatTabsModule,
     MatDatepickerModule,
     MatNativeDateModule,
     MatCheckboxModule,
@@ -55,6 +57,7 @@ import { MatSelectModule } from '@angular/material/select';
     MatFormFieldModule,
     MatInputModule,
     MatTableModule,
+    MatTabsModule,
     MatDatepickerModule,
     MatNativeDateModule,
     MatCheckboxModule,
