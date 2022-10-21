@@ -3,40 +3,86 @@
   [post]="post"
 ></app-create-update-post-details>
 
-<div
-  class="flex bg-white border border-gray-300 rounded-t-md md:py-5 mt-5 flex justify-center"
+<mat-tab-group
+  animationDuration="0ms"
+  class="mt-10"
+  [selectedIndex]="selectedIndex"
 >
-  <video
-    #video
-    *ngIf="videoUrl"
-    layout-fill
-    preload="auto"
-    class="max-h-96"
-    controls
-  >
-    <source [src]="videoUrl" type="video/mp4" />
-  </video>
-</div>
+  <mat-tab label="YouTube Video">
+    <div
+      class="w-full p-10 bg-white border border-t-0 rounded-sm border-b-gray-300"
+    >
+      <div *ngIf="youtubeURL" class="mb-10">
+        <iframe
+          width="560"
+          height="315"
+          [src]="youtubeURL"
+          frameborder="0"
+          anonymous
+        ></iframe>
+      </div>
 
-<mat-progress-bar
-  mode="determinate"
-  [value]="uploadProgress"
-></mat-progress-bar>
+      <form
+        class="flex flex-col"
+        [formGroup]="youtubeForm"
+        (ngSubmit)="onYoutubeSave()"
+        class="flex flex-col"
+        enctype="multipart/form-data"
+      >
+        <mat-form-field class="max-w-xs" appearance="outline">
+          <mat-label>Youtube ID</mat-label>
+          <input
+            matInput
+            placeholder="z. B.: QwjzjksfLMo"
+            formControlName="youtubeCode"
+          />
+        </mat-form-field>
+        <button mat-flat-button color="primary" type="submit" class="mt-5 inline max-w-[150px]">
+          speichern
+        </button>
+      </form>
+    </div>
+  </mat-tab>
+  <mat-tab label="Video hochladen">
+    <div
+      class="w-full p-10 bg-white border border-t-0 rounded-sm border-b-gray-300"
+    >
+      <div
+        class="flex bg-white border border-x-gray-300 rounded-t-md md:py-5 mt-5 flex justify-center"
+      >
+        <video
+          #video
+          *ngIf="videoUrl"
+          layout-fill
+          preload="auto"
+          class="max-h-96"
+          controls
+        >
+          <source [src]="videoUrl" type="video/mp4" />
+        </video>
+      </div>
 
-<div class="mt-5">
-  <button
-    mat-flat-button
-    color="primary"
-    type="button"
-    (click)="imageInput.click()"
-  >
-    Video hochladen
-  </button>
-  <input
-    hidden="true"
-    type="file"
-    accept="video/mp4,video/x-m4v,video/*"
-    #imageInput
-    (change)="onFileChanged($event)"
-  />
-</div>
+      <mat-progress-bar
+        mode="determinate"
+        [value]="uploadProgress"
+      ></mat-progress-bar>
+
+      <div class="mt-5">
+        <button
+          mat-flat-button
+          color="primary"
+          type="button"
+          (click)="videoInput.click()"
+        >
+          Video hochladen
+        </button>
+        <input
+          hidden="true"
+          type="file"
+          accept="video/mp4,video/x-m4v,video/*"
+          #videoInput
+          (change)="onFileChanged($event)"
+        />
+      </div></div
+  ></mat-tab>
+</mat-tab-group>

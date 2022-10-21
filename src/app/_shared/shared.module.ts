@@ -9,6 +9,7 @@ import { DragAndDropDirective } from './directives/drag-and-drop.directive';
 
 import { ImagePathPipe } from './pipes/image-path.pipe';
 import { StringExcerptPipe } from './pipes/string-excerpt.pipe';
+import { SafePipe } from './pipes/safe.pipe';
 
 import { UpdateTextDialogComponent } from './components/dialogs/update-text-dialog/update-text-dialog.component';
 import { DeleteDialogComponent } from './components/dialogs/delete-dialog/delete-dialog.component';
@@ -24,6 +25,7 @@ import { ImageUploadComponent } from './components/image-upload/image-upload.com
     DragAndDropDirective,
     ImagePathPipe,
     StringExcerptPipe,
+    SafePipe,
     UpdateTextDialogComponent,
     UpdateImageDialogComponent,
     DeleteDialogComponent,
@@ -38,6 +40,7 @@ import { ImageUploadComponent } from './components/image-upload/image-upload.com
     DragAndDropDirective,
     ImagePathPipe,
     StringExcerptPipe,
+    SafePipe,
     UpdateTextDialogComponent,
     UpdateImageDialogComponent,
     DeleteDialogComponent,
