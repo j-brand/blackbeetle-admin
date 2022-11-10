@@ -33,7 +33,12 @@
   *ngIf="markers"
   (cdkDropListDropped)="markerPositionChanged($event)"
 >
-  <div cdkDrag *ngFor="let marker of markers; index as i" class="bb-list-item">
+  <div
+    cdkDrag
+    [cdkDragStartDelay]="1000"
+    *ngFor="let marker of markers; index as i"
+    class="bb-list-item"
+  >
     <span>{{ marker.info }}</span>
     <div>
       <button mat-icon-button [matMenuTriggerFor]="menu">
