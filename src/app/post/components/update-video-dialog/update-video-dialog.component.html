@@ -1,6 +1,6 @@
-<h2 mat-dialog-title>Video hochladen</h2>
+<h2 mat-dialog-title>{{ data.headline }}</h2>
 <mat-dialog-content class="mat-typography">
-  <p>Wenn du ein neues Video hochlädst, wird das bisherige Video gelöscht.</p>
+  <p>{{ data.text }}</p>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
   <button mat-button mat-dialog-close (click)="onNoClick()">abbrechen</button>

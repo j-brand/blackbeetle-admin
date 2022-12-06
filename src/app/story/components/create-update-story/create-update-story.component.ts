@@ -47,8 +47,11 @@ export class CreateUpdateStoryComponent implements OnInit {
 
     if (this.story) {
       this.setEditMode(this.story);
-    }
-    if (this.story.active == 0) {
+
+      if (this.story.active == 0) {
+        this.detailsExpanded = true;
+      }
+    } else {
       this.detailsExpanded = true;
     }
   }

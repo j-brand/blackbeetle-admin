@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
-import { MapInfoWindow, MapMarker } from '@angular/google-maps';
+import { GoogleMap, MapInfoWindow, MapMarker } from '@angular/google-maps';
 import { MatDialog } from '@angular/material/dialog';
 import { Post } from '@core/models/post';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
@@ -15,11 +15,12 @@ import { GMapMarker } from '@shared/models/g-map-marker';
 })
 export class EditMapPostComponent implements OnInit {
   @ViewChild(MapInfoWindow) infoWindow: MapInfoWindow;
+  @ViewChild(GoogleMap) map: GoogleMap;
 
   mapBounds: google.maps.LatLngBounds = new google.maps.LatLngBounds();
   options: google.maps.MapOptions = {
     center: null,
-    zoom: null,
+    zoom: 12,
   };
   markers: GMapMarker[] = [];
   markerOptions: google.maps.MarkerOptions = { draggable: true };
@@ -40,20 +41,22 @@ export class EditMapPostComponent implements OnInit {
 
   private initMap() {
     let jsonData = JSON.parse(this.post.content);
-    for (const marker of jsonData.coordinates) {
-      let position: google.maps.LatLng = new google.maps.LatLng(
-        marker.position
-      );
-      this.mapBounds.extend(position);
+    if (jsonData) {
+      for (const marker of jsonData.coordinates) {
+        let position: google.maps.LatLng = new google.maps.LatLng(
+          marker.position
+        );
+        this.mapBounds.extend(position);
 
-      this.markers.push({
-        position,
-        //ID rausschmeißen wenn im Frontend geändert
-        info: marker.id ? marker.id : marker.info,
-      });
+        this.markers.push({
+          position,
+          //ID rausschmeißen wenn im Frontend geändert
+          info: marker.id ? marker.id : marker.info,
+        });
+      }
+      this.options.zoom = jsonData.zoomlevel;
+      this.options.center = this.mapBounds.getCenter();
     }
-    this.options.zoom = jsonData.zoomlevel;
-    this.options.center = this.mapBounds.getCenter();
   }
 
   addMarker(event: google.maps.MapMouseEvent) {
@@ -74,7 +77,9 @@ export class EditMapPostComponent implements OnInit {
       event.latLng.lng()
     );
   }
-
+  changeMapZoom() {
+    this.options.zoom = this.map.getZoom();
+  }
   /**-------*/
 
   deleteMarker(id: number) {

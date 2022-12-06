@@ -44,12 +44,13 @@ h1 {
   @apply text-right justify-end /* !important */;
 }
 .cdk-column-options {
-  @apply text-right justify-end /* !important */;
+  @apply text-right justify-end #{!important};
 }
 
 .mat-row:hover {
   @apply bg-gray-100 transform transition-all /* !important */;
 }
+
 
 /* DRAG & DROP LIST & LIST ITEMS */
 

@@ -1,5 +1,4 @@
 <mat-expansion-panel
-  *ngIf="story"
   class="mat-elevation-z0 border border-gray-300"
   [expanded]="detailsExpanded"
   (opened)="detailsExpanded = true"
@@ -33,7 +32,7 @@
 
       <mat-form-field appearance="outline">
         <mat-label>Slug</mat-label>
-        <input formControlName="slug" matInput />
+        <input formControlName="slug" type="text" matInput />
         <mat-error *ngIf="storyForm.controls.slug.errors">
           {{ storyForm.controls.slug.errors }}
         </mat-error>
