@@ -32,7 +32,7 @@
 
       <mat-form-field appearance="outline">
         <mat-label>Slug</mat-label>
-        <input formControlName="slug" matInput />
+        <input formControlName="slug" type="text" matInput />
         <mat-error *ngIf="storyForm.controls.slug.errors">
           {{ storyForm.controls.slug.errors }}
         </mat-error>

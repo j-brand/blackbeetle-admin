@@ -1,0 +1,10 @@
+:host ::ng-deep {
+  th.mat-header-cell,
+  td.mat-cell,
+  td.mat-footer-cell {
+    @screen sm-only {
+      padding: 10px;
+    }
+  }
+}
+
