@@ -66,7 +66,7 @@ export class EditImagePostComponent implements OnInit {
    * Swap the positions von two images.
    * @param event Mat Drag & Drop Event
    */
-  imagePositionChanged(event: CdkDragDrop<string[]>) {
+  /*   imagePositionChanged(event: CdkDragDrop<string[]>) {
     moveItemInArray(this.post.images, event.previousIndex, event.currentIndex);
     let img_one = this.post.images[event.previousIndex];
     let img_two = this.post.images[event.currentIndex];
@@ -75,6 +75,19 @@ export class EditImagePostComponent implements OnInit {
       .subscribe();
     this.postService
       .updateImagePosition(this.post.id, event.currentIndex, img_two.id)
+      .subscribe();
+  } */
+  imagePositionChanged(event: CdkDragDrop<string[]>) {
+    moveItemInArray(this.post.images, event.previousIndex, event.currentIndex);
+    let img_one = this.post.images[event.previousIndex];
+    let img_two = this.post.images[event.currentIndex];
+    this.postService
+      .swapImagePosition(
+        this.post.id,
+        event.currentIndex + 1,
+        event.previousIndex + 1,
+        img_two.id
+      )
       .subscribe();
   }
 
@@ -97,9 +110,8 @@ export class EditImagePostComponent implements OnInit {
     formData.set('description', description);
     this.imageService.updateImageDescription(id, formData).subscribe(
       (image) => {
-        this.post.images[
-          this.post.images.findIndex((el) => el.id == id)
-        ] = image;
+        this.post.images[this.post.images.findIndex((el) => el.id == id)] =
+          image;
         this._snackBar.open('Bildbeschreibung geändert.', '', {
           duration: 3000,
         });
