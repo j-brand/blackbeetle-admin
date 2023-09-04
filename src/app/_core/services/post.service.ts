@@ -54,4 +54,18 @@ export class PostService {
       image_id,
     });
   }
+  swapImagePosition(
+    post_id: Number,
+    currentIndex: Number,
+    previousIndex: Number,
+    image_id: Number
+  ): Observable<any> {
+    return this.http.post(`${environment.apiUrl}/post/${post_id}/swap`, {
+      currentIndex,
+      previousIndex,
+      image_id,
+    });
+  }
+
+
 }

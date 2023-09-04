@@ -63,7 +63,10 @@ export class EditHtmlPostComponent implements OnInit {
         alignleft aligncenter alignright alignjustify | \
         bullist numlist outdent indent | removeformat | image | fullscreen',
       menubar: false,
-      autosave_interval: '20s',
+      mobile: {
+        theme: 'mobile',
+      },
+      autosave_interval: '10s',
       min_height: 400,
       images_upload_handler: (blobInfo, success, failure) => {
         this.uploadImage(blobInfo.blob())
