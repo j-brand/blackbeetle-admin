@@ -22,14 +22,14 @@
     [cdkDragStartDelay]="1000"
   >
     <div>
-      <div></div>
+      <div>{{ image.pivot.position }}</div>
       <img
         class="h-12 w-12 rounded-full object-cover"
-        src="{{ image | imagePath: '_thn' }}"
+        src="{{ image | imagePath : '_thn' }}"
       />
     </div>
 
-    <span>{{ image.description | stringExcerpt: 90 }}</span>
+    <span>{{ image.description | stringExcerpt : 90 }}</span>
 
     <div class="">
       <button mat-icon-button [matMenuTriggerFor]="menu">
