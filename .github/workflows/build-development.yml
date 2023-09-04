@@ -45,7 +45,7 @@ jobs:
       - name: Deploy with rsync
         run: |
           pwd
-          rsync -avz -e ssh ./dist/ ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:~/htdocs/dev/blackbeetle-admin/
+          rsync -avz -e ssh ./dist/ ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:dev/blackbeetle-admin/
       
 
  
