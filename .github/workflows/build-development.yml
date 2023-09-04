@@ -43,9 +43,7 @@ jobs:
           echo "$line" >> ~/.ssh/known_hosts
 
       - name: Deploy with rsync
-        run: |
-          ls -la ~/htdocs/dev
-          rsync -avz -e ssh ./dist/ ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:~/htdocs/dev/test/
+        run: rsync -avz -e ssh ./dist/ ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:~/test
       
 
  
